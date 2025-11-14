@@ -1,0 +1,92 @@
+{
+    "window.zoomLevel": 3,
+    "latex-workshop.intellisense.package.enabled": true,
+    //補助配流を自動的に削除
+    "latex-workshop.latex.autoClean.run": "onBuilt",
+    //削除する補助ファイルを追加（outディレクトリも含む）
+    "latex-workshop.latex.clean.fileTypes": [
+        "*.aux",
+        "*.bbl",
+        "*.blg",
+        "*.idx",
+        "*.ind",
+        "*.lof",
+        "*.lot",
+        "*.out",
+        "*.toc",
+        "*.acn",
+        "*.acr",
+        "*.alg",
+        "*.glg",
+        "*.glo",
+        "*.gls",
+        "*.ist",
+        "*.fls",
+        "*.log",
+        "*.fdb_latexmk",
+        "*.snm",
+        "*.nav",
+        "*.dvi",
+        "*.synctex.gz"
+    ],
+    // 生成ファイルを "out" ディレクトリに吐き出す
+    "latex-workshop.latex.outDir": "out",
+
+    // 日本語uplatex用のlatexmk設定【確定版】
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-pdf",
+                "-outdir=out",
+                "-e",
+                "$pdflatex = 'uplatex -interaction=nonstopmode -synctex=1 -output-directory=out %O %S'",
+                "-e",
+                "$dvipdf = 'dvipdfmx %O -o %D %S'",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "uplatex",
+            "command": "uplatex",
+            "args": [
+                "-interaction=nonstopmode",
+                "-synctex=1",
+                "-output-directory=out",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "dvipdfmx",
+            "command": "dvipdfmx",
+            "args": [
+                "-o",
+                "out/%DOCFILE%.pdf",
+                "out/%DOCFILE%"
+            ]
+        }
+    ],
+
+    // 上で定義した"latexmk"を標準のビルド方法（レシピ）にする
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk",
+            "tools": [
+                "latexmk"
+            ]
+        },
+        {
+            "name": "uplatex -> dvipdfmx",
+            "tools": [
+                "uplatex",
+                "dvipdfmx"
+            ]
+        }
+    ],
+
+    // 推奨設定：PDFをVS Code内の別タブで開く
+    "latex-workshop.view.pdf.viewer": "tab",
+    // 推奨設定：ファイルを保存した時に自動でビルドする
+    "latex-workshop.latex.autoBuild.run": "onFileChange"
+}
