@@ -21,16 +21,21 @@ jobs:
         uses: actions/checkout@v4
 
       # ステップ2: LaTeX ドキュメントをコンパイル
-      # xu-cheng/latex-action は、リポジトリ内の `latexmkrc` を
-      # 自動的に検出して使用します。
-      # あなたの `latexmkrc` は lualatex と biber を使い、
-      # 'build' ディレクトリに出力する設定になっているため、
-      # このアクションがすべてを正しく処理します。
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
-          latexmk_use_lualatex: true
+          # latexmk をコンパイラとして指定
+          compiler: latexmk
+          # latexmk に渡す引数をすべてここで指定
+          args: >
+            -e "$out_dir='build'"
+            -e "$latex=q(uplatex)"
+            -e "$bibtex=q(biber)"
+            -e "$pdf_mode=4"
+            -file-line-error
+            -halt-on-error
+            -interaction=nonstopmode
 
       # ステップ3: 公開用のディレクトリを準備
       # 'build' にはログなども含まれるため、PDFとindex.htmlだけを
