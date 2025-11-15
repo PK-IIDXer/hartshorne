@@ -1,0 +1,54 @@
+# .github/workflows/latex.yml
+
+name: Build and Deploy LaTeX PDF
+
+# どのタイミングで実行するか: main ブランチへの push
+on:
+  push:
+    branches:
+      - master
+
+# ワークフローがgh-pagesブランチに書き込むための権限
+permissions:
+  contents: write
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # ステップ1: リポジトリのソースコードをチェックアウト
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # ステップ2: LaTeX ドキュメントをコンパイル
+      # xu-cheng/latex-action は、リポジトリ内の `latexmkrc` を
+      # 自動的に検出して使用します。
+      # あなたの `latexmkrc` は lualatex と biber を使い、
+      # 'build' ディレクトリに出力する設定になっているため、
+      # このアクションがすべてを正しく処理します。
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+
+      # ステップ3: 公開用のディレクトリを準備
+      # 'build' にはログなども含まれるため、PDFとindex.htmlだけを
+      # 'public' ディレクトリに移動し、クリーンな状態にします。
+      - name: Prepare publish directory
+        run: |
+          mkdir -p public
+          mv build/main.pdf public/main.pdf
+          
+          # PDFへ自動リダイレクトする index.html を作成
+          echo '<!DOCTYPE html><html><head><title>Hartshorne Notes</title><meta http-equiv="refresh" content="0; url=main.pdf"><link rel="canonical" href="main.pdf"/></head><body>Redirecting to <a href="main.pdf">main.pdf</a>...</body></html>' > public/index.html
+
+      # ステップ4: GitHub Pages にデプロイ
+      # 'public' ディレクトリの中身を `gh-pages` ブランチにプッシュします
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: public    # 'public' ディレクトリを公開
+          publish_branch: gh-pages # 'gh-pages' ブランチにデプロイ
+          # 'keep_files: false' (デフォルト) のため、
+          # 毎回ブランチがクリーンアップされ、最新のPDFのみが残ります
