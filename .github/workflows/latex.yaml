@@ -23,15 +23,25 @@ jobs:
         run: docker build -t local-tex-builder .
 
       # ステップ3: 【★ここを修正★】
-      # .latexmkrc に依存せず、引数で全てを強制指定
+      # シェルの変数展開($)を ' ' で防ぎ、
+      # latexmk に完全なPerlコードを渡す
       - name: Compile LaTeX document
         run: |
           docker run --rm \
             -v "${{ github.workspace }}:/work" \
             -w /work \
             local-tex-builder \
-            latexmk -e "$out_dir='build'" -e "$latex=q(uplatex)" -e "$bibtex=q(biber)" -e "$pdf_mode=4" -file-line-error -halt-on-error -interaction=nonstopmode main.tex
-      
+            latexmk \
+              -e '$out_dir = "build"' \
+              -e '$latex = "uplatex -interaction=nonstopmode -file-line-error %O %S"' \
+              -e '$bibtex = "biber %B"' \
+              -e '$dvipdf = "dvipdfmx %O -o %D %S"' \
+              -e '$pdf_mode = 4' \
+              -file-line-error \
+              -halt-on-error \
+              -interaction=nonstopmode \
+              main.tex
+
       # ステップ4: タグの更新 (変更なし)
       - name: Update 'test' tag
         run: |
