@@ -2,13 +2,13 @@
 
 name: Build and Deploy LaTeX PDF
 
-# どのタイミングで実行するか: main ブランチへの push
+# あなたのリポジトリのブランチ (master) で実行
 on:
   push:
     branches:
       - master
 
-# ワークフローがgh-pagesブランチに書き込むための権限
+# gh-pages ブランチに書き込むための権限
 permissions:
   contents: write
 
@@ -16,30 +16,30 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      # ステップ1: リポジトリのソースコードをチェックアウト
+      # ステップ1: リポジトリのソースコードをチェックアウト (変更なし)
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # ステップ2: LaTeX ドキュメントをコンパイル
-      - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v3
+      # ステップ2: TeX Live のセットアップ (【新規】)
+      # xu-cheng/latex-action の代わりに、手動で TeX Live 環境を構築
+      - name: Set up TeX Live
+        uses: tektito/setup-texlive@v1
         with:
-          root_file: main.tex
-          # latexmk をコンパイラとして指定
-          compiler: latexmk
-          # latexmk に渡す引数をすべてここで指定
-          args: >
-            -e "$out_dir='build'"
-            -e "$latex=q(uplatex)"
-            -e "$bibtex=q(biber)"
-            -e "$pdf_mode=4"
-            -file-line-error
-            -halt-on-error
-            -interaction=nonstopmode
+          # 必要な最小限のパッケージをインストール
+          # jsclasses (jsbook), uplatex (日本語エンジン), biber (参考文献)
+          tl-pkgs: |
+            jsclasses
+            uplatex
+            biber
 
-      # ステップ3: 公開用のディレクトリを準備
-      # 'build' にはログなども含まれるため、PDFとindex.htmlだけを
-      # 'public' ディレクトリに移動し、クリーンな状態にします。
+      # ステップ3: LaTeX ドキュメントのコンパイル (【変更】)
+      # アクションを使わず、run コマンドで latexmk を直接実行
+      - name: Compile LaTeX document
+        run: |
+          # latexmkrc ファイルに依存せず、すべての設定をここで明示
+          latexmk -e "$out_dir='build'" -e "$latex=q(uplatex)" -e "$bibtex=q(biber)" -e "$pdf_mode=4" -file-line-error -halt-on-error -interaction=nonstopmode main.tex
+      
+      # ステップ4: 公開用のディレクトリを準備 (変更なし)
       - name: Prepare publish directory
         run: |
           mkdir -p public
@@ -48,13 +48,10 @@ jobs:
           # PDFへ自動リダイレクトする index.html を作成
           echo '<!DOCTYPE html><html><head><title>Hartshorne Notes</title><meta http-equiv="refresh" content="0; url=main.pdf"><link rel="canonical" href="main.pdf"/></head><body>Redirecting to <a href="main.pdf">main.pdf</a>...</body></html>' > public/index.html
 
-      # ステップ4: GitHub Pages にデプロイ
-      # 'public' ディレクトリの中身を `gh-pages` ブランチにプッシュします
+      # ステップ5: GitHub Pages にデプロイ (変更なし)
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: public    # 'public' ディレクトリを公開
-          publish_branch: gh-pages # 'gh-pages' ブランチにデプロイ
-          # 'keep_files: false' (デフォルト) のため、
-          # 毎回ブランチがクリーンアップされ、最新のPDFのみが残ります
+          publish_dir: public
+          publish_branch: gh-pages
