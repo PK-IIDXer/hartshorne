@@ -30,7 +30,7 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
-          compiler: lualatex
+          latexmk_use_lualatex: true
 
       # ステップ3: 公開用のディレクトリを準備
       # 'build' にはログなども含まれるため、PDFとindex.htmlだけを
