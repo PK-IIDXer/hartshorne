@@ -23,7 +23,7 @@ jobs:
       # ステップ2: TeX Live のセットアップ (【新規】)
       # xu-cheng/latex-action の代わりに、手動で TeX Live 環境を構築
       - name: Set up TeX Live
-        uses: tektito/setup-texlive@v1
+        uses: texlive-actions/setup-texlive@v1
         with:
           # 必要な最小限のパッケージをインストール
           # jsclasses (jsbook), uplatex (日本語エンジン), biber (参考文献)
