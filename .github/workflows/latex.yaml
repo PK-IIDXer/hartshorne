@@ -14,30 +14,25 @@ jobs:
   build_and_release:
     runs-on: ubuntu-latest
     steps:
-      # ステップ1: .tex や .latexmkrc, Dockerfile をチェックアウト
+      # ステップ1: チェックアウト
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # ステップ2: Dockerfile からビルドイメージを構築
+      # ステップ2: Dockerイメージのビルド
       - name: Build local Docker image
         run: docker build -t local-tex-builder .
 
-      # ステップ3: ビルドした Docker イメージを使ってコンパイル
+      # ステップ3: 【★ここを修正★】
+      # .latexmkrc に依存せず、引数で全てを強制指定
       - name: Compile LaTeX document
         run: |
           docker run --rm \
             -v "${{ github.workspace }}:/work" \
             -w /work \
             local-tex-builder \
-            latexmk main.tex
-            
-          # (補足)
-          # 1. コンテナを /work で起動
-          # 2. .tex ファイル群をホストから /work にマウント
-          # 3. latexmk が /work にある .latexmkrc (ステップ2でコピー済) を読み込む
-          # 4. .latexmkrc の設定通り、/work/build/main.pdf が生成される
+            latexmk -e "$out_dir='build'" -e "$latex=q(uplatex)" -e "$bibtex=q(biber)" -e "$pdf_mode=4" -file-line-error -halt-on-error -interaction=nonstopmode main.tex
       
-      # ステップ4: 'test' タグを現在のコミットに強制更新
+      # ステップ4: タグの更新 (変更なし)
       - name: Update 'test' tag
         run: |
           git config user.name "github-actions"
@@ -45,7 +40,7 @@ jobs:
           git tag -f test
           git push -f origin refs/tags/test
 
-      # ステップ5: 'test' リリースを更新
+      # ステップ5: リリースの更新 (変更なし)
       - name: Update 'test' Release with PDF
         uses: softprops/action-gh-release@v2
         with:
@@ -53,5 +48,4 @@ jobs:
           name: "Latest Development Build (test)"
           body: "masterブランチから自動ビルドされた最新のPDFです。"
           prerelease: true
-          # .latexmkrc の $out_dir = 'build' に基づくパス
           files: build/main.pdf

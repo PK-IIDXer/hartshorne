@@ -2,6 +2,5 @@
 
 FROM aruneko/texlive:latest
 
-# 修正した .latexmkrc を、latexmk が見つけやすい
-# /work ディレクトリ (作業場所) にコピーする
-COPY .latexmkrc /work/
+# 以下の COPY 行を削除（またはコメントアウト）してください
+# COPY .latexmkrc /work/
