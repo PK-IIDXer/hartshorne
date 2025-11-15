@@ -22,8 +22,7 @@ jobs:
       - name: Build local Docker image
         run: docker build -t local-tex-builder .
 
-      # ステップ3: 【★ここを修正★】
-      # -e '$latex=...' の代わりに、エンジンを直接指定する -uplatex を使用
+      # ステップ3: LaTeX ドキュメントをコンパイル（ローカルの保存時コマンドに合わせて修正）
       - name: Compile LaTeX document
         run: |
           docker run --rm \
@@ -32,11 +31,10 @@ jobs:
             local-tex-builder \
             latexmk \
               -norc \
-              -uplatex \
-              -e '$out_dir = "build"' \
-              -e '$bibtex = "biber %B"' \
+              -pdf \
+              -outdir=build \
+              -e '$pdflatex = "uplatex -interaction=nonstopmode -synctex=1 -output-directory=build %O %S"' \
               -e '$dvipdf = "dvipdfmx %O -o %D %S"' \
-              -e '$pdf_mode = 4' \
               -file-line-error \
               -halt-on-error \
               -interaction=nonstopmode \
