@@ -23,8 +23,8 @@ jobs:
         run: docker build -t local-tex-builder .
 
       # ステップ3: 【★ここを修正★】
-      # シェルの変数展開($)を ' ' で防ぎ、
-      # latexmk に完全なPerlコードを渡す
+      # -norc を追加し、.latexmkrc を完全に無視させる
+      # これにより、-e で渡した uplatex 設定が確実に使われる
       - name: Compile LaTeX document
         run: |
           docker run --rm \
@@ -32,6 +32,7 @@ jobs:
             -w /work \
             local-tex-builder \
             latexmk \
+              -norc \
               -e '$out_dir = "build"' \
               -e '$latex = "uplatex -interaction=nonstopmode -file-line-error %O %S"' \
               -e '$bibtex = "biber %B"' \
