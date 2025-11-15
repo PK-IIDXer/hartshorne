@@ -2,55 +2,56 @@
 
 name: Build and Release PDF
 
-# master ブランチへの push で実行
 on:
   push:
     branches:
       - master
 
-# リリースの作成・タグの更新に必要な権限
 permissions:
-  contents: write # タグのpush と リリースアセットのアップロードに必要
+  contents: write 
 
 jobs:
   build_and_release:
     runs-on: ubuntu-latest
     steps:
-      # ステップ1: リポジトリのソースコードをチェックアウト
+      # ステップ1: .tex や .latexmkrc, Dockerfile をチェックアウト
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # ステップ2: TeX Live のセットアップ
-      - name: Set up TeX Live
-        uses: madnani/setup-texlive@v1
-        with:
-          texlive_packages: |
-            jsclasses
-            uplatex
-            biber
+      # ステップ2: Dockerfile からビルドイメージを構築
+      - name: Build local Docker image
+        run: docker build -t local-tex-builder .
 
-      # ステップ3: LaTeX ドキュメントのコンパイル
+      # ステップ3: ビルドした Docker イメージを使ってコンパイル
       - name: Compile LaTeX document
         run: |
-          latexmk -e "$out_dir='build'" -e "$latex=q(uplatex)" -e "$bibtex=q(biber)" -e "$pdf_mode=4" -file-line-error -halt-on-error -interaction=nonstopmode main.tex
+          docker run --rm \
+            -v "${{ github.workspace }}:/work" \
+            -w /work \
+            local-tex-builder \
+            latexmk main.tex
+            
+          # (補足)
+          # 1. コンテナを /work で起動
+          # 2. .tex ファイル群をホストから /work にマウント
+          # 3. latexmk が /work にある .latexmkrc (ステップ2でコピー済) を読み込む
+          # 4. .latexmkrc の設定通り、/work/build/main.pdf が生成される
       
-      # ステップ4: 【新規】'test' タグを現在のコミットに強制更新
-      # 毎回 'test' タグを最新の master コミットに付け替えます
+      # ステップ4: 'test' タグを現在のコミットに強制更新
       - name: Update 'test' tag
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git tag -f test  # 'test' タグを強制的に現在のコミットに作成
-          git push -f origin refs/tags/test # 強制的に 'test' タグをプッシュ
+          git tag -f test
+          git push -f origin refs/tags/test
 
-      # ステップ5: 【新規】'test' リリースを更新
-      # 'test' タグのリリースに、コンパイルした PDF をアップロードします
-      # 既にリリースが存在する場合は、アセットが上書き更新されます
+      # ステップ5: 'test' リリースを更新
       - name: Update 'test' Release with PDF
         uses: softprops/action-gh-release@v2
         with:
           tag_name: test
           name: "Latest Development Build (test)"
           body: "masterブランチから自動ビルドされた最新のPDFです。"
-          prerelease: true # これを「プレリリース」としてマーク
-          files: build/main.pdf # ステップ3でビルドしたPDF
+          prerelease: true
+          # .latexmkrc の $out_dir = 'build' に基づくパス
+          files: build/main.pdf
