@@ -1,54 +1,43 @@
-# .github/workflows/latex.yml
-
-name: Build and Deploy LaTeX PDF
-
-# master ブランチへの push で実行
 on:
   push:
-    branches:
-      - master
-
-# gh-pages ブランチに書き込むための権限
-permissions:
-  contents: write
+    tags:
+      - "v*"
 
 jobs:
-  build_and_deploy:
+  test_job:
     runs-on: ubuntu-latest
+    name: Example of compiling pdf
     steps:
-      # ステップ1: リポジトリのソースコードをチェックアウト
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      # ステップ2: TeX Live のセットアップ (【修正】)
-      - name: Set up TeX Live
-        uses: madnani/setup-texlive@v1  # <-- ★正しいアクション名
+      # make pdf
+      # LATEX_FILE_NAME -> main.pdf generated
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Compile Tex File
+        id: compile_tex_file
+        uses: tsukuba-mas/platex-action@main
         with:
-          # ★正しいパラメータ名
-          texlive_packages: |
-            jsclasses
-            uplatex
-            biber
-
-      # ステップ3: LaTeX ドキュメントのコンパイル (変更なし)
-      # latexmk を直接実行
-      - name: Compile LaTeX document
-        run: |
-          latexmk -e "$out_dir='build'" -e "$latex=q(uplatex)" -e "$bibtex=q(biber)" -e "$pdf_mode=4" -file-line-error -halt-on-error -interaction=nonstopmode main.tex
-      
-      # ステップ4: 公開用のディレクトリを準備 (変更なし)
-      - name: Prepare publish directory
-        run: |
-          mkdir -p public
-          mv build/main.pdf public/main.pdf
-          
-          # PDFへ自動リダイレクトする index.html を作成
-          echo '<!DOCTYPE html><html><head><title>Hartshorne Notes</title><meta http-equiv="refresh" content="0; url=main.pdf"><link rel="canonical" href="main.pdf"/></head><body>Redirecting to <a href="main.pdf">main.pdf</a>...</body></html>' > public/index.html
-
-      # ステップ5: GitHub Pages にデプロイ (変更なし)
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+          LATEX_FILE_NAME: "main.tex"
+      # Create Release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: public
-          publish_branch: gh-pages
+          tag_name: ${{github.ref}}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Compiled PDF ${{github.ref}}
+          draft: false
+          prerelease: false
+      # Upload Asset main.pdf
+      - name: Upload Release Asset
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./main.pdf
+          asset_name: main.pdf
+          asset_content_type: application/pdf
