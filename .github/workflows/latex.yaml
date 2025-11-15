@@ -2,7 +2,7 @@
 
 name: Build and Deploy LaTeX PDF
 
-# あなたのリポジトリのブランチ (master) で実行
+# master ブランチへの push で実行
 on:
   push:
     branches:
@@ -16,27 +16,24 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      # ステップ1: リポジトリのソースコードをチェックアウト (変更なし)
+      # ステップ1: リポジトリのソースコードをチェックアウト
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # ステップ2: TeX Live のセットアップ (【新規】)
-      # xu-cheng/latex-action の代わりに、手動で TeX Live 環境を構築
+      # ステップ2: TeX Live のセットアップ (【修正】)
       - name: Set up TeX Live
-        uses: texlive-actions/setup-texlive@v1
+        uses: madnani/setup-texlive@v1  # <-- ★正しいアクション名
         with:
-          # 必要な最小限のパッケージをインストール
-          # jsclasses (jsbook), uplatex (日本語エンジン), biber (参考文献)
-          tl-pkgs: |
+          # ★正しいパラメータ名
+          texlive_packages: |
             jsclasses
             uplatex
             biber
 
-      # ステップ3: LaTeX ドキュメントのコンパイル (【変更】)
-      # アクションを使わず、run コマンドで latexmk を直接実行
+      # ステップ3: LaTeX ドキュメントのコンパイル (変更なし)
+      # latexmk を直接実行
       - name: Compile LaTeX document
         run: |
-          # latexmkrc ファイルに依存せず、すべての設定をここで明示
           latexmk -e "$out_dir='build'" -e "$latex=q(uplatex)" -e "$bibtex=q(biber)" -e "$pdf_mode=4" -file-line-error -halt-on-error -interaction=nonstopmode main.tex
       
       # ステップ4: 公開用のディレクトリを準備 (変更なし)
