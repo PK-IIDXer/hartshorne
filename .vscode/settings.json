@@ -1,5 +1,5 @@
 {
-    "window.zoomLevel": 3,
+    "window.zoomLevel": 2,
     "latex-workshop.intellisense.package.enabled": true,
     //補助配流を自動的に削除
     "latex-workshop.latex.autoClean.run": "onBuilt",

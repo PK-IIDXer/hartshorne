@@ -1,0 +1,144 @@
+\chapter{可換環論 基礎編}
+
+Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基礎的と思われるものを頑張って解説する章です。
+
+\section{可換環の定義など}
+
+ざっくり説明すると、「足し算」「引き算」「掛け算」までできることを保証して、「割り算」ができるとは限らないような代数系です。
+厳密には次の通りです。
+\begin{definition}[可換環]
+  $A$を空でない集合、$+:A\times A\to A$、$\cdot:A\times A\to A$をそれぞれ写像、$0,1\in A$とする。
+  このとき、$(A,+,\cdot,0,1)$が\textbf{可換環}(単に$A$と表記する)であるとは、任意の$a,b,c\in A$に対して次を満たす時を言う。
+  \begin{itemize}
+    \item \textbf{演算$+$に関して可換群} 
+    \begin{itemize}
+      \item \textbf{結合法則} $a+(b+c)=(a+b)+c$
+      \item \textbf{単位元} $a+0=0+a=a$
+      \item \textbf{逆元} $a+(-a)=(-a)+a=0$ (${}^\exists -a\in A$)
+      \item \textbf{可換性} $a+b=b+a$
+    \end{itemize}
+    \item \textbf{演算$\cdot$に関して可換モノイド}
+    \begin{itemize}
+      \item \textbf{結合法則} $a\cdot (b\cdot c)=(a\cdot b)\cdot c$
+      \item \textbf{単位元} $a\cdot 1=1\cdot a=a$
+      \item \textbf{可換性} $a\cdot b=b\cdot a$
+    \end{itemize}
+    \item \textbf{分配法則} $a\cdot(b+c)=a\cdot b+a\cdot c$
+  \end{itemize}
+\end{definition}
+省略記法として、
+\begin{align*}
+  ab&=a\cdot b\\
+  a-b&=a+(-b)
+\end{align*}
+を用いることがほとんどです。
+
+また、基本的に$1=0$の可能性を排除しません。
+もし$1=0$ならば、次のことが成り立ちます。
+\begin{theorem}
+  $A$を可換環とする。もし$1=0$ならば、$A=\{0\}$。
+\end{theorem}
+\begin{proof}
+  任意の$a\in A$に対して、
+  \[
+    a=1\cdot a=0\cdot a=0
+  \]
+\end{proof}
+
+\begin{example}
+  整数全体$\mathbb{Z}$、有理数全体$\mathbb{Q}$、実数全体$\mathbb{R}$、複素数全体$\mathbb{C}$は可換環。
+  自然数全体$\mathbb{N}$は可換環ではない。
+\end{example}
+
+\begin{example}
+  可換環$A$に対して、$n$個の未知変数$x_1,\dots,x_n$の有限項からなる多項式がなす全体の集合
+  \[
+    A[x_1,\dots,x_n]=\left\{\sum_{\text{有限和}} a_{i_1\cdots i_n}x_1^{j_1}\cdots x_n^{j_n}\mid a_{i_1\cdots i_n}\in A\right\}
+  \]
+  は、通常の和と積に関して可換環となる。
+\end{example}
+
+可換環の構造を保つ写像を環準同型写像といいます。
+\begin{definition}[環準同型写像]
+  $A,B$を環とする。写像$f:A\to B$が\textbf{環準同型写像}であるとは、次を満たす時を言う。
+  \begin{itemize}
+    \item $f(a+b)=f(a)+f(b)$
+    \item $f(ab)=f(a)f(b)$
+    \item $f(1)=1$
+  \end{itemize}
+\end{definition}
+
+次の同型写像が存在するとき、代数的にはそれらの環の構造を区別できないほど同じです。
+\begin{definition}
+  $A,B$を環とする。写像$f:A\to B$が\textbf{同型写像}であるとは、$f$が全単射な環準同型であって、逆写像も環準同型になっているときをいう。
+  可換環$A,B$の間に同型写像が存在するとき、$A$と$B$は互いに\textbf{同型}であるという。
+\end{definition}
+
+
+
+\section{イデアル}
+
+イデアルは、整数環$\mathbb{Z}$における「$n$倍数」を抽象化した概念と言えます。
+\begin{definition}[イデアル]
+  $A$を可換環とする。部分集合$\mathfrak{a}\subset A$が$A$の\textbf{イデアル}であるとは、次を満たす時を言う。
+  \begin{itemize}
+    \item $0\in\mathfrak{a}$
+    \item $x,y\in \mathfrak{a}\implies x+y\in \mathfrak{a}$
+    \item $a\in A, x\in \mathfrak{a}\implies ax\in\mathfrak{a}$
+  \end{itemize}
+\end{definition}
+
+\begin{example}
+  $n$を整数とするとき、$n$の倍数全体の集合
+  \[
+    (n):=\{an\mid a\in\mathbb{Z}\}
+  \]
+  は、可換環$\mathbb{Z}$のイデアルである。
+\end{example}
+
+上記の例で既に用いてしまいましたが、可換環のいくつかの元が生成するイデアルというものを考えることができます。
+\begin{theorem}
+  $A$を可換環、$T\subset A$を$A$の部分集合とする。
+  このとき、
+  \[
+    (T):=\left\{\sum_{\text{有限和}}a_ix_i\mid a_i\in A, x_i\in T\right\}
+  \]
+  は$A$のイデアルである。
+\end{theorem}
+\begin{proof}
+  まず、有限和の係数をすべて0にすれば$0\in(T)$がわかる。
+  次に$\sum a_ix_i, \sum b_jy_y\in (T)$ならば$\sum a_ix_i+\sum b_jy_y\in (T)$であることは、有限和ふたつの和が有限和になることからわかる。
+  最後に$a\in A$、$\sum b_jy_y\in (T)$ならば、
+  \[
+    a\sum b_jy_y=\sum (ab_j)y_j\in(T)
+  \]
+\end{proof}
+\begin{definition}
+  $A$を可換環、$T\subset A$を$A$の部分集合とする。
+  このとき、イデアル
+  \[
+    (T):=\left\{\sum_{\text{有限和}}a_ix_i\mid a_i\in A, x_i\in T\right\}
+  \]
+  を、\textbf{$T$が生成するイデアル}と呼ぶ。
+  $T$が一つの元$a$からなるとき、単に
+  \[
+    (a):=(\{a\})
+  \]
+  と書く。
+\end{definition}
+
+\begin{example}
+  可換環$\mathbb{Q}$には、イデアルが
+  \[(0)=\{0\},\quad (1)=\mathbb{Q}\]
+  の二つしか存在しない。
+  実際、$\mathfrak{a}$を$(0)$でないイデアルとすると、ある$x\in\mathfrak{a}$が存在して、$x\neq0$。
+  従って、$x^{-1}\in\mathbb{Q}$であるから、
+  \[
+    1=x^{-1}x\in\mathfrak{a}
+  \]
+  ゆえに、任意の有理数$q$に対して、
+  \[
+    q=1\cdot q\in\mathfrak{a}
+  \]
+  ゆえに$\mathfrak{a}=\mathbb{Q}$
+\end{example}
