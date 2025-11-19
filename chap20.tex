@@ -4,6 +4,8 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
 
 \section{可換環の定義など}
 
+\subsection{可換環の定義}
+
 ざっくり説明すると、「足し算」「引き算」「掛け算」までできることを保証して、「割り算」ができるとは限らないような代数系です。
 厳密には次の通りです。
 \begin{definition}[可換環]
@@ -58,6 +60,8 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
   は、通常の和と積に関して可換環となる。
 \end{example}
 
+\subsection{準同型}
+
 可換環の構造を保つ写像を環準同型写像といいます。
 \begin{definition}[環準同型写像]
   $A,B$を環とする。写像$f:A\to B$が\textbf{環準同型写像}であるとは、次を満たす時を言う。
@@ -78,6 +82,8 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
 
 \section{イデアル}
 
+\subsection{イデアルの定義}
+
 イデアルは、整数環$\mathbb{Z}$における「$n$倍数」を抽象化した概念と言えます。
 \begin{definition}[イデアル]
   $A$を可換環とする。部分集合$\mathfrak{a}\subset A$が$A$の\textbf{イデアル}であるとは、次を満たす時を言う。
@@ -87,6 +93,8 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
     \item $a\in A, x\in \mathfrak{a}\implies ax\in\mathfrak{a}$
   \end{itemize}
 \end{definition}
+
+\subsubsection{イデアルの例}
 
 \begin{example}
   $n$を整数とするとき、$n$の倍数全体の集合
@@ -120,11 +128,12 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
     (T):=\left\{\sum_{\text{有限和}}a_ix_i\mid a_i\in A, x_i\in T\right\}
   \]
   を、\textbf{$T$が生成するイデアル}と呼ぶ。
-  $T$が一つの元$a$からなるとき、単に
+  $T$が有限個の元$a_1,\dots,a_n$からなるとき、単に
   \[
-    (a):=(\{a\})
+    (a_1,\dots,a_n):=(\{a_1,\dots,a_n\})
   \]
   と書く。
+  特に一つの元のみから生成されるイデアルを\textbf{単項イデアル}と呼ぶ。
 \end{definition}
 
 \begin{example}
@@ -142,3 +151,302 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
   \]
   ゆえに$\mathfrak{a}=\mathbb{Q}$
 \end{example}
+
+\subsection{素イデアルと極大イデアル}
+
+素数は整数の中でも特別な存在でした。
+整数環における素数に対応するイデアルが次の概念です。
+\begin{definition}
+  $A$を可換環、$A$のイデアル$\mathfrak{p}\neq A$が\textbf{素イデアル}であるとは、任意の$x,y\in A$に対して、次を満たす時を言う。
+  \[
+    xy\in\mathfrak{p} \implies x\in\mathfrak{p} \text{ or } y\in\mathfrak{p}
+  \]
+\end{definition}
+
+\subsubsection{素イデアルの例}
+
+\begin{example}
+  素数$p$に対して、$(p)\subset\mathbb{Z}$は素イデアルである。
+\end{example}
+\begin{proof}
+  $xy\in(p)$、すなわち、ある$a\in A$が存在して、$xy=ap$が成り立つとする。
+  このとき、素因数分解の一意性から、$x$または$y$は$p$で割り切れなければならない。
+  すなわち、もし$x$が$p$で割り切れるならば、$x=x'p$ (${}^\exists x'\in\mathbb{Z}$)。
+  これはすなわち$x\in(p)$を意味する。
+  $y$が$p$で割り切れるとしても同様である。
+\end{proof}
+
+\begin{example}
+  $(6)\subset\mathbb{Z}$は素イデアルではない。
+\end{example}
+\begin{proof}
+  実際、$2\times3=6\in(6)$であるが、$2$と$3$は$6$で割り切れないから$2\notin(6)$かつ$3\notin(6)$。
+\end{proof}
+
+\begin{example}
+  $\mathbb{C}[X,Y]$を$\mathbb{C}$上の2変数多項式環とする。
+  このとき、$(X)\subset\mathbb{C}[X,Y]$は素イデアルである。
+\end{example}
+\begin{proof}
+  $fg\in(X)$、すなわち、$fg=hX$ (${}^\exists h\in\mathbb{C}[X,Y]$)とする。
+  このとき、$X$に関するそれぞれの定数項$f(0,Y)$、$g(0,Y)$を考えると、
+  \[
+    f(0,Y)g(0,Y)=h(0,Y)\cdot0=0
+  \]
+  であるから、$f,g$の$X$に関する定数項の積は0となる。
+  ゆえにどちらかの$X$に関する定数項は0であるから、$f$か$g$どちらかは$X$で括れる形になっている。
+  すなわち$f\in(X)$または$g\in(X)$
+\end{proof}
+
+\subsection{極大イデアル}
+
+包含関係に関して極大なイデアルを極大イデアルといいます。
+\begin{definition}
+  $A$を可換環とする。イデアル$\mathfrak{m}\subset A$が\textbf{極大イデアル}であるとは、次を満たす時を言う。
+  もし$\mathfrak{m}\subset\mathfrak{a}\subset A$となるイデアル$\mathfrak{a}$が存在するならば、$\mathfrak{a}=\mathfrak{m}$または$\mathfrak{a}=A$。
+\end{definition}
+
+\subsubsection{極大イデアルの例}
+
+\begin{example}
+  素数$p$に対して、$(p)\subset\mathbb{Z}$は極大イデアルである。
+\end{example}
+\begin{proof}
+  もし$(p)\subsetneq\mathfrak{a}\subset\mathbb{Z}$となるイデアル$\mathfrak{a}$が存在したとすると、$\mathfrak{a}$には$p$の倍数でない整数$x$が存在する。
+  $p$は素数ゆえ、$x$と$p$は互いに素となる。
+  ここでユークリッドの互除法より$pn+xy=1$をみたす$n,y\in\mathbb{Z}$が存在し、$p,x\in\mathfrak{a}$であるから、$1=pn+xy\in\mathfrak{a}$となる。
+  従って、任意の$m\in\mathbb{Z}$に対して、$m=1\cdot m\in\mathfrak{a}$となり、$\mathfrak{a}=\mathbb{Z}$
+\end{proof}
+
+この証明の中でイデアルに1が含まれると必ず全体になるというふうに読める部分がありますが、実際これは一般に成り立ちます。
+\begin{theorem}
+  $A$を可換環、$\mathfrak{m}\subset A$をイデアルとする。もし$1\in\mathfrak{a}$ならば、$\mathfrak{a}=A$
+\end{theorem}
+\begin{proof}
+  任意の$a\in A$に対して$a=1\cdot a\in\mathfrak{a}$ゆえ$A\subset\mathfrak{a}$。
+  当然$\mathfrak{a}\subset A$でもあるから、$\mathfrak{a}=A$が従う。
+\end{proof}
+
+\begin{example}
+  $\mathbb{C}[X,Y]$を$\mathbb{C}$上の2変数多項式環とする。
+  このとき、$(X,Y)\subset\mathbb{C}[X,Y]$は極大イデアルである。
+\end{example}
+\begin{proof}
+  定義から
+  \[
+    (X,Y)=\left\{\sum_{i_1=1}^{r_1}\sum_{i_2=1}^{r_2}a_{i_1i_2}X^{i_1}Y^{i_2}\mid a_{i_1i_2}\in\mathbb{C}\right\}
+  \]
+  であったことから、イデアル$(X,Y)$は定数項が0の多項式全体の集合であることに注意する。
+  $(X,Y)\subsetneq\mathfrak{a}\subset\mathbb{C}[X,Y]$とする。
+  このとき、ある$f\in\mathfrak{a}$が存在して、$f\notin(X,Y)$。
+  つまり$f$は定数項$f(0,0)$が0ではない多項式である。
+  \[
+    f(X,Y)-f(0,0)\in(X,Y)\subset\mathfrak{a}
+  \]
+  であるから、
+  \[
+    1=\frac{f(X,Y)-(f(X,Y)-f(0,0))}{f(0,0)}=\frac{1}{f(0,0)}f(X,Y)-\frac{1}{f(0,0)}(f(X,Y)-f(0,0))\in\mathfrak{a}
+  \]
+  となり、$\mathfrak{a}=\mathbb{C}[X,Y]$が従う。
+\end{proof}
+
+\subsubsection{極大イデアルは素イデアル}
+一般に、極大イデアルは素イデアルです。
+\begin{theorem}
+  $A$を可換環とする。イデアル$\mathfrak{m}\subset A$が極大イデアルならば、$\mathfrak{m}$は素イデアルである。
+\end{theorem}
+\begin{proof}
+  背理法によって証明する。
+  $ab\in\mathfrak{m}$かつ、$a\notin\mathfrak{m}$かつ$b\notin\mathfrak{m}$を満たす$a,b\in A$が存在するとする。
+  このとき
+  \[
+    \mathfrak{a}:=\{ax+y\mid x\in A, y\in\mathfrak{m}\}
+  \]
+  とおくと、これはイデアルである。
+  実際、あきらかに$0\in\mathfrak{a}$。
+  また、$ax+y,ax'+y'\in\mathfrak{a}$とすると、$x+x'\in A$、$y+y'\in\mathfrak{m}$であるから、
+  \[
+    (ax+y)+(ax'+y)=a(x+x')+(y+y')\in\mathfrak{a}
+  \]
+  最後に、$c\in A$、$ax+y\in\mathfrak{a}$とすると、$cx\in A$、$cy\in\mathfrak{m}$であるから、
+  \[
+    c(ax+y)=a(cx)+cy\in\mathfrak{a}
+  \]
+  ゆえに$\mathfrak{a}$は$A$のイデアルである。
+
+  また$\mathfrak{m}\subsetneq\mathfrak{a}$である。
+  実際、$ax+y$の表式において$x=0$とすれば、任意の$\mathfrak{m}$の元が$\mathfrak{a}$に含まれることがわかる。
+  一方で$a\notin\mathfrak{m}$であるが、あきらかに$a\in\mathfrak{a}$であるから、$\mathfrak{m}\subsetneq\mathfrak{a}$である。
+
+  $\mathfrak{m}$は極大イデアルであるから、従って$\mathfrak{a}=A$となる。
+  従って、ある$x\in A$と$y\in\mathfrak{m}$が存在して、
+  \[
+    ax+y=1
+  \]
+  をみたす。この両辺に$b$を掛けると、
+  \[
+    abx+by=b
+  \]
+  であるが、$ab\in\mathfrak{m}$かつ$y\in\mathfrak{m}$だったため、$b\in\mathfrak{m}$となるが、これは矛盾である。
+\end{proof}
+
+この逆、つまり「素イデアルは極大イデアル」は一般に成り立ちません。
+\begin{example}
+  $\mathbb{C}[X,Y]$を$\mathbb{C}$上の2変数多項式環とする。
+  このとき、$(X)\subset\mathbb{C}[X,Y]$は素イデアルであるが、極大イデアルではない。
+\end{example}
+\begin{proof}
+  たとえば$(X,Y)$は$(X)$を含む極大イデアルである。
+\end{proof}
+
+
+
+\begin{comment}
+  必要になったら必要になったところに移動する。
+\section{イデアル演算}
+
+極大イデアル$\mathfrak{m}$が素イデアルであることを証明するために、$a\in A$に対して
+\[
+  \{ax+y\mid x\in A, y\in\mathfrak{m}\}
+\]
+というイデアルを作りました。
+この考えを一般化することができます。
+\begin{theorem}
+  $A$を可換環、$\mathfrak{a},\mathfrak{b}$を$A$のイデアルとする。
+  このとき、
+  \[
+    \mathfrak{c}:=\{x+y\mid x\in\mathfrak{a},y\in\mathfrak{b}\}
+  \]
+  はイデアルである。
+\end{theorem}
+\begin{proof}
+  $0\in\mathfrak{c}$は自明。
+  $x+y,x'+y'\in\mathfrak{c}$とすると、$x+x'\in\mathfrak{a}$、$y+y'\in\mathfrak{b}$より
+  \[
+    (x+y)+(x'+y')=(x+x')+(y+y')\in\mathfrak{c}
+  \]
+  最後に、$a\in A$、$x+y\in\mathfrak{c}$とすると、$ax\in\mathfrak{a}$、$ay\in\mathfrak{b}$より
+  \[
+    a(x+y)=ax+ay\in\mathfrak{c}
+  \]
+\end{proof}
+\begin{definition}
+  $A$を可換環、$\mathfrak{a},\mathfrak{b}$を$A$のイデアルとする。
+  このとき、イデアル
+  \[
+    \mathfrak{a}+\mathfrak{b}:=\{x+y\mid x\in\mathfrak{a},y\in\mathfrak{b}\}
+  \]
+  を$\mathfrak{a}$と$\mathfrak{b}$の和という。
+\end{definition}
+有限個のイデアルの和も帰納的に定義できます。
+無限個のイデアルのときは次のように定義します。
+\begin{theorem}
+  $A$を可換環、$\{\mathfrak{a}_i\}_{i\in I}$を$A$のイデアルの族とする。
+  このとき、
+  \[
+    \mathfrak{b}:=\{\sum_{i\in I}x_i\mid x_i\in\mathfrak{a}_i, \text{有限個の$i\in I$を除いて$x_i=0$}\}
+  \]
+  はイデアルである。
+\end{theorem}
+\end{comment}
+
+
+
+\section{剰余環}
+
+高校時代に理系だった人は、大学受験の裏技として$\mod$を習ったかもしれません。
+例えば
+\[
+  x\equiv y\mod n
+\]
+と書けば、これは「$x$を$n$で割った余りと、$y$を$n$で割った余りは等しい」と読むのでした。
+そうなると、整数は
+\begin{itemize}
+  \item $n$の倍数
+  \item $n$で割って$1$余る
+  \item $n$で割って$2$余る
+  \item \dots
+  \item $n$で割って$n-1$余る
+\end{itemize}
+によって完全に分類できています。
+また、
+\begin{align*}
+  x\equiv y\mod n &\implies x+c\equiv y+c\mod n\\
+  x\equiv y\mod n &\implies x-c\equiv y-c\mod n\\
+  x\equiv y\mod n &\implies ax\equiv ay\mod n
+\end{align*}
+が成り立つことから、環の構造が見えてきます。
+この考えを一般化したものが剰余環です。
+\begin{theorem}
+  $A$を可換環、$\mathfrak{a}$をイデアルとする。
+  このとき、$x,y\in A$に対して、$x\equiv y\mod\mathfrak{a}$であることを
+  \[
+    x-y\in\mathfrak{a}
+  \]
+  であることと定義すると、この関係は同値関係である。
+\end{theorem}
+\begin{proof}
+  $x\in A$に対して、$x-x=0\in\mathfrak{a}$であるから、反射律を満たす。
+  $x\equiv y\mod \mathfrak{a}$であるとすると、すなわち$x-y\in\mathfrak{a}$である。
+  $\mathfrak{a}$がイデアルであることから、$y-x=-(x-y)\in\mathfrak{a}$。すなわち対称律を満たす。
+  $x\equiv y\mod \mathfrak{a}$かつ$y\equiv z\mod \mathfrak{a}$とすると、$x-y,y-z\in\mathfrak{a}$であるから、$x-z=(x-y)+(y-z)\in\mathfrak{a}$。
+  ゆえに推移律も満たす。
+\end{proof}
+\begin{theorem}
+  $A$を可換環、$\mathfrak{a}$をイデアルとする。
+  同値関係$x\equiv y\mod\mathfrak{a}$による剰余集合を$A/\mathfrak{a}$と書く。
+  また、$x\in A$が含まれる同値類を$x+\mathfrak{a}\in A/\mathfrak{a}$と書く。
+  このとき、写像
+  \[
+    A/\mathfrak{a}\times A/\mathfrak{a}\to A/\mathfrak{a};(x+\mathfrak{a},y+\mathfrak{a})\mapsto x+y+\mathfrak{a}
+  \]
+  はwell-definedである。
+\end{theorem}
+\begin{proof}
+  $x\equiv x'\mod\mathfrak{a}$、$y\equiv y'\mod\mathfrak{a}$とすると、$x-x',y-y'\in\mathfrak{a}$より、
+  \[
+    (x+y)-(x'+y')=(x-x')+(y-y')\in\mathfrak{a}
+  \]
+  ゆえに$x+y\equiv x'+y'\mod\mathfrak{a}$
+\end{proof}
+\begin{theorem}
+  $A$を可換環、$\mathfrak{a}$をイデアルとする。
+  同値関係$x\equiv y\mod\mathfrak{a}$による剰余集合を$A/\mathfrak{a}$と書く。
+  また、$x\in A$が含まれる同値類を$x+\mathfrak{a}\in A/\mathfrak{a}$と書く。
+  このとき、写像
+  \[
+    A/\mathfrak{a}\times A/\mathfrak{a}\to A/\mathfrak{a};(x+\mathfrak{a},y+\mathfrak{a})\mapsto xy+\mathfrak{a}
+  \]
+  はwell-definedである。
+\end{theorem}
+\begin{proof}
+  $x\equiv x'\mod\mathfrak{a}$、$y\equiv y'\mod\mathfrak{a}$とすると、$x-x',y-y'\in\mathfrak{a}$より、
+  \[
+    xy-x'y'=xy-x'y+x'y-x'y'=y(x-x')+x'(y-y')\in\mathfrak{a}
+  \]
+  ゆえに$xy\equiv x'y'\mod\mathfrak{a}$
+\end{proof}
+\begin{theorem}
+  $A$を可換環、$\mathfrak{a}$をイデアルとする。
+  また、$x\in A$が含まれる同値類を$x+\mathfrak{a}\in A/\mathfrak{a}$と書く。
+  このとき$A/\mathfrak{a}$は、
+  \[
+    +:A/\mathfrak{a}\times A/\mathfrak{a}\to A/\mathfrak{a};(x+\mathfrak{a},y+\mathfrak{a})\mapsto x+y+\mathfrak{a}
+  \]
+  を加法、
+  \[
+    \cdot:A/\mathfrak{a}\times A/\mathfrak{a}\to A/\mathfrak{a};(x+\mathfrak{a},y+\mathfrak{a})\mapsto xy+\mathfrak{a}
+  \]
+  を乗法とし、
+  \[0+\mathfrak{a}, 1+\mathfrak{a}\]
+  をそれぞれ加法単位元、乗法単位元として、可換環をなす。
+\end{theorem}
+\begin{proof}
+  TODO
+\end{proof}
+
+
+
+\section{環準同型定理}
+
+
