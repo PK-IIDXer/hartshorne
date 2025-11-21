@@ -2,7 +2,7 @@
 
 Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基礎的と思われるものを頑張って解説する章です。
 
-\section{可換環の定義など}
+\section{可換環の定義と準同型}
 
 \subsection{可換環の定義}
 
@@ -25,7 +25,9 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
       \item \textbf{単位元} $a\cdot 1=1\cdot a=a$
       \item \textbf{可換性} $a\cdot b=b\cdot a$
     \end{itemize}
-    \item \textbf{分配法則} $a\cdot(b+c)=a\cdot b+a\cdot c$
+    \item \textbf{分配法則}\footnote{
+      本来$(a+b)\cdot c=a\cdot c+b\cdot c$も含めるべきかもしれませんが、積の可換性があるのでこれで十分です。
+    } $a\cdot(b+c)=a\cdot b+a\cdot c$
   \end{itemize}
 \end{definition}
 省略記法として、
@@ -133,7 +135,13 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
     (a_1,\dots,a_n):=(\{a_1,\dots,a_n\})
   \]
   と書く。
+
   特に一つの元のみから生成されるイデアルを\textbf{単項イデアル}と呼ぶ。
+  $a$が生成する単項イデアルは
+  \[
+    (a),\text{  あるいは  }aA
+  \]
+  と書かれる。
 \end{definition}
 
 \begin{example}
@@ -166,21 +174,23 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
 \subsubsection{素イデアルの例}
 
 \begin{example}
-  素数$p$に対して、$(p)\subset\mathbb{Z}$は素イデアルである。
+  素数$p$に対して、$p\mathbb{Z}\subset\mathbb{Z}$は素イデアルである\footnote{
+    $\mathbb{Z}$の単項イデアルを$(p)$などと書くとややこしいことが多いので、個人的には$p\mathbb{Z}$と書きたいです。
+  }。
 \end{example}
 \begin{proof}
-  $xy\in(p)$、すなわち、ある$a\in A$が存在して、$xy=ap$が成り立つとする。
+  $xy\in p\mathbb{Z}$、すなわち、ある$a\in \mathbb{Z}$が存在して、$xy=ap$が成り立つとする。
   このとき、素因数分解の一意性から、$x$または$y$は$p$で割り切れなければならない。
   すなわち、もし$x$が$p$で割り切れるならば、$x=x'p$ (${}^\exists x'\in\mathbb{Z}$)。
-  これはすなわち$x\in(p)$を意味する。
+  これはすなわち$x\in p\mathbb{Z}$を意味する。
   $y$が$p$で割り切れるとしても同様である。
 \end{proof}
 
 \begin{example}
-  $(6)\subset\mathbb{Z}$は素イデアルではない。
+  $6\mathbb{Z}\subset\mathbb{Z}$は素イデアルではない。
 \end{example}
 \begin{proof}
-  実際、$2\times3=6\in(6)$であるが、$2$と$3$は$6$で割り切れないから$2\notin(6)$かつ$3\notin(6)$。
+  実際、$2\times3=6\in 6\mathbb{Z}$であるが、$2$と$3$は$6$で割り切れないから$2\notin 6\mathbb{Z}$かつ$3\notin 6\mathbb{Z}$。
 \end{proof}
 
 \begin{example}
@@ -209,10 +219,10 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
 \subsubsection{極大イデアルの例}
 
 \begin{example}
-  素数$p$に対して、$(p)\subset\mathbb{Z}$は極大イデアルである。
+  素数$p$に対して、$p\mathbb{Z}\subset\mathbb{Z}$は極大イデアルである。
 \end{example}
 \begin{proof}
-  もし$(p)\subsetneq\mathfrak{a}\subset\mathbb{Z}$となるイデアル$\mathfrak{a}$が存在したとすると、$\mathfrak{a}$には$p$の倍数でない整数$x$が存在する。
+  もし$p\mathbb{Z}\subsetneq\mathfrak{a}\subset\mathbb{Z}$となるイデアル$\mathfrak{a}$が存在したとすると、$\mathfrak{a}$には$p$の倍数でない整数$x$が存在する。
   $p$は素数ゆえ、$x$と$p$は互いに素となる。
   ここでユークリッドの互除法より$pn+xy=1$をみたす$n,y\in\mathbb{Z}$が存在し、$p,x\in\mathfrak{a}$であるから、$1=pn+xy\in\mathfrak{a}$となる。
   従って、任意の$m\in\mathbb{Z}$に対して、$m=1\cdot m\in\mathfrak{a}$となり、$\mathfrak{a}=\mathbb{Z}$
@@ -428,7 +438,9 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
 \end{proof}
 \begin{theorem}
   $A$を可換環、$\mathfrak{a}$をイデアルとする。
-  また、$x\in A$が含まれる同値類を$x+\mathfrak{a}\in A/\mathfrak{a}$と書く。
+  また、$x\in A$が含まれる同値類を$x+\mathfrak{a}\in A/\mathfrak{a}$と書く\footnote{
+    すなわち、$y\in x+\mathfrak{a}\iff x\equiv y \mod \mathfrak{a}$
+  }。
   このとき$A/\mathfrak{a}$は、
   \[
     +:A/\mathfrak{a}\times A/\mathfrak{a}\to A/\mathfrak{a};(x+\mathfrak{a},y+\mathfrak{a})\mapsto x+y+\mathfrak{a}
@@ -442,11 +454,245 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
   をそれぞれ加法単位元、乗法単位元として、可換環をなす。
 \end{theorem}
 \begin{proof}
-  TODO
+  任意の$x+\mathfrak{a}, y+\mathfrak{a}, z+\mathfrak{a}\in A/\mathfrak{a}$に対して、
+  \begin{itemize}
+    \item 和に関する結合法則：$x+\mathfrak{a}+(y+\mathfrak{a}+z+\mathfrak{a})=x+\mathfrak{a}+(y+z)+\mathfrak{a}=(x+(y+z))+\mathfrak{a}=((x+y)+z)+\mathfrak{a}=(x+y)+\mathfrak{a}+z+\mathfrak{a}=(x+\mathfrak{a}+y+\mathfrak{a})+z+\mathfrak{a}$
+    \item 和に関する単位元：$0+\mathfrak{a}+x+\mathfrak{a}=(0+x)+\mathfrak{a}=x+\mathfrak{a}$、$x+\mathfrak{a}+0+\mathfrak{a}=(x+0)+\mathfrak{a}=x+\mathfrak{a}$
+    \item 和に関する逆元：$x+\mathfrak{a}+(-x)+\mathfrak{a}=(x-x)+\mathfrak{a}=0+\mathfrak{a}$、$-x+\mathfrak{a}+x+\mathfrak{a}=(-x+x)+\mathfrak{a}=0+\mathfrak{a}$
+    \item 積に関する結合法則：$(x+\mathfrak{a})\{(y+\mathfrak{a})(z+\mathfrak{a})\}=(x+\mathfrak{a})(yz+\mathfrak{a})=x(yz)+\mathfrak{a}=(xy)z+\mathfrak{a}=(xy+\mathfrak{a})(z+\mathfrak{a})=\{(x+\mathfrak{a})(y+\mathfrak{a})\}(z+\mathfrak{a})$
+    \item 積に関する単位元：$(1+\mathfrak{a})(x+\mathfrak{a})=1\cdot x+\mathfrak{a}=x+\mathfrak{a}$、$(x+\mathfrak{a})(1+\mathfrak{a})=x\cdot1+\mathfrak{a}=x+\mathfrak{a}$
+    \item 積の可換性：$(x+\mathfrak{a})(y+\mathfrak{a})=xy+\mathfrak{a}=yx+\mathfrak{a}=(y+\mathfrak{a})(x+\mathfrak{a})$
+    \item 分配法則：$(x+\mathfrak{a})(y+\mathfrak{a}+z+\mathfrak{a})=(x+\mathfrak{a})(y+z+\mathfrak{a})=x(y+z)+\mathfrak{a}=xy+xz+\mathfrak{a}=xy+\mathfrak{a}+xz+\mathfrak{a}$
+  \end{itemize}
 \end{proof}
+
+剰余環には以下のような自然な準同型が存在して、重要なものだったりします。
+\begin{theorem}
+  $A$を可換環、$\mathfrak{a}$をそのイデアルとする。
+  このとき、写像
+  \[
+    \pi:A\to A/\mathfrak{a};x\mapsto x+\mathfrak{a}
+  \]
+  は環準同型である。
+\end{theorem}
+\begin{proof}
+  任意の$x,y\in A$に対して、
+  \begin{itemize}
+    \item $\pi(x+y)=x+y+\mathfrak{a}=x+\mathfrak{a}+y+\mathfrak{a}=\pi(x)+\pi(y)$
+    \item $\pi(xy)=xy+\mathfrak{a}=(x+\mathfrak{a})(y+\mathfrak{a})=\pi(x)\pi(y)$
+    \item $\pi(1)=1+\mathfrak{a}$
+  \end{itemize}
+\end{proof}
+
+\subsection{剰余環の例}
+
+\begin{example}
+  $\mathbb{Z}/n\mathbb{Z}$は$n$個の元からなる可換環である。
+  \[
+    \mathbb{Z}/n\mathbb{Z}=\{0+n\mathbb{Z},1+n\mathbb{Z},2+n\mathbb{Z},\dots,n-1+n\mathbb{Z}\}
+  \]
+  たとえば$n=3$のときの和と積の表は次のようになる。
+  \[
+    \begin{array}{c|ccc}
+      + & 0 & 1 & 2\\\hline
+      0 & 0 & 1 & 2\\
+      1 & 1 & 2 & 0\\
+      2 & 2 & 0 & 1
+    \end{array}
+    \qquad
+    \begin{array}{c|ccc}
+      \cdot & 0 & 1 & 2\\\hline
+      0 & 0 & 0 & 0\\
+      1 & 0 & 1 & 2\\
+      2 & 0 & 2 & 1
+    \end{array}
+  \]
+\end{example}
+
+\begin{example}
+  $\mathbb{R}[X]/(X^2+1)$において、$X$を含む同値類$X+(X^2+1)$は虚数と同じ役割を果たす。
+  実際、
+  \[
+    (X+(X^2+1))(X+(X^2+1))=X^2+(X^2+1)
+  \]
+  であるが、もちろん$X^2+1\equiv0\mod(X^2+1)$のため、$X^2\equiv-1\mod(X^2+1)$。
+  ゆえに
+  \[
+    (X+(X^2+1))(X+(X^2+1))=-1+(X^2+1)
+  \]
+\end{example}
+次に紹介する定理を使って、これが実際に$\mathbb{C}$と同型であることを証明します。
 
 
 
 \section{環準同型定理}
 
+剰余環には、「イデアルで環をつぶす」という感覚があります。
+それを如実に表わすのが環準同型定理でしょう。
+準備のために、いくつか準備が必要です。
+\begin{theorem}
+  $A,B$を可換環、$f:A\to B$を環準同型とする。
+  このとき、
+  \[
+    \operatorname{Ker}(f):=\{a\in A\mid f(a)=0\}
+  \]
+  は$A$のイデアルである。
+\end{theorem}
+\begin{proof}
+  $f(0)=0$であるから、$0\in\operatorname{Ker}(f)$。
+  また$x,y\in\operatorname{Ker}(f)$、すなわち$f(x)=f(y)=0$ならば、$f(x+y)=f(x)+f(y)=0+0=0$。ゆえに$x+y\in\operatorname{Ker}(f)$。
+  最後に、$a\in A$、$x\in\operatorname{Ker}(f)$とおくと、$f(ax)=f(a)f(x)=f(a)\cdot0=0$。ゆえに$ax\in\operatorname{Ker}(f)$。
+\end{proof}
+\begin{definition}
+  $A,B$を可換環、$f:A\to B$を環準同型とする。
+  このとき、イデアル
+  \[
+    \operatorname{Ker}(f):=\{a\in A\mid f(a)=0\}
+  \]
+  を、$f$の\textbf{カーネル}(\textit{kernel})と呼ぶ。
+\end{definition}
+\begin{definition}
+  $A,B$を可換環とし、$A\subset B$を満たすとする。
+  このとき、包含写像$i:A\hookrightarrow B$が環準同型となるとき、$A$は$B$の\textbf{部分環}であるという。
+\end{definition}
+\begin{theorem}
+  $A,B$を可換環、$f:A\to B$を環準同型とする。
+  このとき、
+  \[
+    \operatorname{Im}(f):=\{f(x)\in B\mid x\in A\}
+  \]
+  は$B$の部分環である。
+\end{theorem}
+\begin{proof}
+  $f$が環準同型であることから自明。
+\end{proof}
+\begin{theorem}[環準同型定理(well-definedness)]
+  $A,B$を可換環、$f:A\to B$を環準同型とする。
+  このとき、
+  \[
+    \overline{f}:A/\operatorname{Ker}(f)\to\operatorname{Im}(f);x+\operatorname{Ker}(f)\mapsto f(x)
+  \]
+  はうまく定義された写像である。
+\end{theorem}
+\begin{proof}
+  $x-y\in\operatorname{Ker}(f)$、すなわち$f(x-y)=0$を満たすとする。
+  このとき、$0=f(x-y)=f(x)-f(y)$ゆえに$f(x)=f(y)$
+\end{proof}
+\begin{theorem}[環準同型定理]
+  $A,B$を可換環、$f:A\to B$を環準同型とする。
+  このとき、写像
+  \[
+    \overline{f}:A/\operatorname{Ker}(f)\to\operatorname{Im}(f);x+\operatorname{Ker}(f)\mapsto f(x)
+  \]
+  は環同型写像である。
+\end{theorem}
+\begin{proof}
+  \textbf{準同型であること} $x+\operatorname{Ker}(f),y+\operatorname{Ker}(f)\in A/\operatorname{Ker}(f)$に対して、
+  \begin{itemize}
+    \item $\overline{f}(x+\operatorname{Ker}(f)+y+\operatorname{Ker}(f))=\overline{f}(x+y+\operatorname{Ker}(f))=f(x+y)$。
+    一方で$\overline{f}(x+\operatorname{Ker}(f))+\overline{f}(y+\operatorname{Ker}(f))=f(x)+f(y)=f(x+y)=\overline{f}(x+\operatorname{Ker}(f)+y+\operatorname{Ker}(f))$
+    \item $\overline{f}((x+\operatorname{Ker}(f))(y+\operatorname{Ker}(f)))=\overline{f}(xy+\operatorname{Ker}(f))=f(xy)$。
+    一方で$\overline{f}(x+\operatorname{Ker}(f))\overline{f}(y+\operatorname{Ker}(f))=f(x)f(y)=f(xy)=\overline{f}((x+\operatorname{Ker}(f))(y+\operatorname{Ker}(f)))$
+    \item $\overline{f}(1+\operatorname{Ker}(f))=f(1)=1$
+  \end{itemize}
 
+  \textbf{単射性} $x+\operatorname{Ker}(f),y+\operatorname{Ker}(f)\in A/\operatorname{Ker}(f)$に対して、$f(x)=f(y)$を満たすとする。
+  このとき、$0=f(x)-f(y)=f(x-y)$ゆえ$x-y\in\operatorname{Ker}(f)$となる。
+  従って$x+\operatorname{Ker}(f)=y+\operatorname{Ker}(f)$。
+
+  \textbf{全射性} 任意の$f(x)\in\operatorname{Im}(f)$に対して、$\overline{f}(x+\operatorname{Ker}(f))=f(x)$。
+\end{proof}
+
+\begin{example}
+  $\mathbb{R}[X]/(X^2+1)\cong\mathbb{C}$
+\end{example}
+\begin{proof}
+  $\mathbb{R}[X]$から$\mathbb{C}$への写像を
+  \[
+    \varphi:\mathbb{R}[X]\to\mathbb{C};f(X)\mapsto f(\sqrt{-1})
+  \]
+  で定義すると、これは環準同型である。
+  実際、$\varphi(f(X)+g(X))=f(\sqrt{-1})+g(\sqrt{-1})=\varphi(f(X))+\varphi(g(X))$、$\varphi(f(X)g(X))=f(\sqrt{-1})g(\sqrt{-1})=\varphi(f(X))\varphi(g(X))$、$\varphi(1)=1$を満たしている。
+
+  また、$\varphi$は全射である。
+  実際、任意の複素数$\alpha:=a+b\sqrt{-1}\in\mathbb{C}$に対して、$f(X):=a+bX$とおけば、あきらかに$\varphi(f(X))=\alpha$。
+  すなわち$\operatorname{Im}(\varphi)=\mathbb{C}$である。
+
+  準同型定理を使うため、$\operatorname{Ker}(\varphi)=(X^2+1)$を証明する。
+  まず任意の$f(X)\in(X^2+1)$は、$f(X)=g(X)(X^2+1)$となる$g(X)\in\mathbb{R}[X]$が存在するため、
+  \[
+    \varphi(f(X))=\varphi(g(X)(X^2+1))=g(\sqrt{-1})(\sqrt{-1}^2+1)=g(\sqrt{-1})\cdot0=0
+  \]
+  ゆえに$f(X)\in\operatorname{Ker}(\varphi)$。
+  逆に、任意の$f(X)\in\operatorname{Ker}(\varphi)$とする。
+  このとき多項式の除法より、$f(X)=(X^2+1)q(X)+r(X)$となる$q(X),r(X)\in\mathbb{R}[X]$が存在し、$\deg r<2$である。
+  したがって、$r(X)=a+bX$ (${}^\exists a,b\in\mathbb{R}$)と表せる。
+  このとき、$f(X)\in\operatorname{Ker}(\varphi)$すなわち$\varphi(f(X))=f(\sqrt{-1})=0$であったから、
+  \[
+    0=f(\sqrt{-1})=(\sqrt{-1}^2+1)q(\sqrt{-1})+r(\sqrt{-1})=r(\sqrt{-1})=a+b\sqrt{-1}=0
+  \]
+  従って$a=b=0$。
+  ゆえに$r(X)=0$となり、$f(X)=(X^2+1)q(X)\in(X^2+1)$である。
+  
+  以上より、$\operatorname{Ker}(\varphi)=(X^2+1)$が示された。
+  したがって、環準同型定理より、$\mathbb{R}[X]/(X^2+1)\cong\operatorname{Im}(\varphi)=\mathbb{C}$が成り立つ。
+\end{proof}
+
+環準同型定理はこんな感じで、準同型があればいつでも気楽に使えます。
+大学の演習問題で綺麗な準同型作って準同型定理でビシッと決めると、その時だけに分泌される脳内物質の存在を感じます。
+
+
+
+\section{ユークリッド整域}
+
+先ほど\textbf{多項式の割り算}をしれっと行いました。
+高校数学でもやったことあると思います。
+整数の時と同じように、多項式$f$を$g$で割るという操作
+\[
+  f=gq+r,\quad {}^\exists q,r \text{ s.t. } \deg(r)<\deg(g)
+\]
+ができるのです。
+こうみると、\textbf{ユークリッド互除法}とまったく同じことを多項式でやっていると言えます。
+しかし残念ながら、任意の可換環がそのようなアルゴリズムが存在するとは限りません。
+
+まず良くない可能性は、0じゃない元同士の積が0になることがあるということです。
+\begin{example}
+  $\mathbb{Z}/6\mathbb{Z}$において、$2\times3=0$。
+\end{example}
+このようなことが起きると、例えば「$f$を$g$で割ります」といっても、$gq=0$となる$q$が存在すると、$f=r$になってしまって「割り算とはいったい…？」という状態になります。
+こういう不都合な元には名前がついています。
+\begin{definition}
+  $A$を可換環とする。$a\in A\setminus\{0\}$が\textbf{零因子}であるとは、ある$b\in A$が存在して、$ab=0$を満たす時を言う。
+\end{definition}
+
+零因子がない環というのは素敵なものですので、素敵な名前がついています。
+\begin{definition}
+  零因子を持たない可換環$A$を\textbf{整域}(\textit{Domain})と呼ぶ。
+\end{definition}
+別の言い方をすれば、可換環$A$が整域であることとは
+\begin{itemize}
+  \item 任意の$a\in A$、$b\in A$に対して、$ab=0$ならば$a=0$または$b=0$
+  \item $(0)\subset A$は素イデアルである
+\end{itemize}
+ということです。
+
+さて、整域においてでさえユークリッドの互除法を導くことができません。
+整数においても多項式においても、\textbf{剰余の大きさが割った元より小さくなっていかないといけない}のですが、そもそも\textbf{元の大きさ}を可換環の定義では行っていません。
+なので、付け加える必要があります。
+新たな環の出現です！
+\begin{definition}
+  整域$A$が\textbf{ユークリッド環}(\textit{Euclidean domain}\footnote{
+    直訳すると「ユークリッド整域」になりそうですが、最近の本はユークリッド環と訳すのが主流のような雰囲気をそこはかとなく感じています。
+  })であるとは、写像
+  \[
+    |\cdot|:A\to \mathbb{Z}_{\geq0}
+  \]
+  が存在して、次を満たす時を言う。
+  すなわち、任意の$a,b\in A$に対して、$b\neq0$ならば、ある$q,r\in A$が存在して、
+  \[
+    a=bq+r
+  \]
+  を満たし、$r=0$でないならば
+  \[|r|<|b|\]
+  である。
+\end{definition}
