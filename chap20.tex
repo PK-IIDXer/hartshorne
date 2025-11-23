@@ -1,6 +1,9 @@
-\chapter{可換環論 基礎編}
+\chapter{可換環論 入門}
 
 Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基礎的と思われるものを頑張って解説する章です。
+とはいえHartshorneは2ページ目で藪から棒に\textit{Furthermore, since $A$ is a \textbf{noetherian ring}, any ideal $\mathfrak{a}$ has a finite set of generators $f_1,\dots,f_r$.}
+などとぬかしおるので、可換環の定義から始めて「\textbf{ネーター環の任意のイデアルは有限生成}」まで証明しないと、2ページ目で詰むわけです。
+でもセルフコンテインドなテキストを残したい手前、、、とりあえず環準同型定理までを丁寧にやっていきます。
 
 \section{可換環の定義と準同型}
 
@@ -62,6 +65,25 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
   は、通常の和と積に関して可換環となる。
 \end{example}
 
+\subsection{体}
+
+有り体に言えば、体は可換環の中でも、(0除算以外の)割り算も自由に行える可換環を言います。
+\begin{definition}
+  可換環$A$が\textbf{体}\footnote{
+    可換体と呼ぶべきかもしれませんが、誰もそう呼んでない気がします。非可換体のほうを非可換体と呼んで区別してます。
+  }であるとは、$0\neq1$かつ、任意の$a\in A\setminus\{0\}$に対してある$b\in A$が存在して、$ab=1$を満たす時をいう。
+\end{definition}
+$0\neq1$を定義に含めたので、可換環と違って$\{0\}$は体ではありません。
+これは流儀にもよりそうですが、Hartshorneでは$0\neq1$なのでそれに従いましょう。
+
+体そのものの研究については、ガロア理論がその多くを担っている印象が僕にはあります。
+代数幾何学でもガロア理論は重要な位置を占めているのですが、それはこの章の「基礎」の範疇ではないでしょう…。
+ということで、この章では体は「可換環論の一種」として扱います。
+
+\begin{example}
+  先ほど挙げた可換環の例のうち、有理数全体$\mathbb{Q}$、実数全体$\mathbb{R}$、複素数全体$\mathbb{C}$は体である。
+\end{example}
+
 \subsection{準同型}
 
 可換環の構造を保つ写像を環準同型写像といいます。
@@ -117,10 +139,10 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
 \end{theorem}
 \begin{proof}
   まず、有限和の係数をすべて0にすれば$0\in(T)$がわかる。
-  次に$\sum a_ix_i, \sum b_jy_y\in (T)$ならば$\sum a_ix_i+\sum b_jy_y\in (T)$であることは、有限和ふたつの和が有限和になることからわかる。
-  最後に$a\in A$、$\sum b_jy_y\in (T)$ならば、
+  次に$\sum a_ix_i, \sum b_jy_j\in (T)$ならば$\sum a_ix_i+\sum b_jy_j\in (T)$であることは、有限和ふたつの和が有限和になることからわかる。
+  最後に$a\in A$、$\sum b_jy_j\in (T)$ならば、
   \[
-    a\sum b_jy_y=\sum (ab_j)y_j\in(T)
+    a\sum b_jy_j=\sum (ab_j)y_j\in(T)
   \]
 \end{proof}
 \begin{definition}
@@ -145,7 +167,7 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
 \end{definition}
 
 \begin{example}
-  可換環$\mathbb{Q}$には、イデアルが
+  有理数体$\mathbb{Q}$には、イデアルが
   \[(0)=\{0\},\quad (1)=\mathbb{Q}\]
   の二つしか存在しない。
   実際、$\mathfrak{a}$を$(0)$でないイデアルとすると、ある$x\in\mathfrak{a}$が存在して、$x\neq0$。
@@ -207,6 +229,8 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
   ゆえにどちらかの$X$に関する定数項は0であるから、$f$か$g$どちらかは$X$で括れる形になっている。
   すなわち$f\in(X)$または$g\in(X)$
 \end{proof}
+幾何学的には、このイデアル$X$は平面において$X=0$という図形、すなわち$Y$軸を表わしています。
+雑に言ってしまえば、既約多項式$f$が生成するイデアル$(f)$を、$f$のゼロ点集合と同一視しているのです。
 
 \subsection{極大イデアル}
 
@@ -230,11 +254,37 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
 
 この証明の中でイデアルに1が含まれると必ず全体になるというふうに読める部分がありますが、実際これは一般に成り立ちます。
 \begin{theorem}
-  $A$を可換環、$\mathfrak{m}\subset A$をイデアルとする。もし$1\in\mathfrak{a}$ならば、$\mathfrak{a}=A$
+  $A$を可換環、$\mathfrak{a}\subset A$をイデアルとする。もし$1\in\mathfrak{a}$ならば、$\mathfrak{a}=A$
 \end{theorem}
 \begin{proof}
   任意の$a\in A$に対して$a=1\cdot a\in\mathfrak{a}$ゆえ$A\subset\mathfrak{a}$。
   当然$\mathfrak{a}\subset A$でもあるから、$\mathfrak{a}=A$が従う。
+\end{proof}
+
+従って、体のイデアルは一般的に二種類しかありません。
+\begin{theorem}
+  $K$を体とする。このとき、$K$のイデアルは$(0)$と$(1)=K$のみである。
+\end{theorem}
+\begin{proof}
+  $\mathfrak{a}$を$K$の$(0)$でないイデアルとすると、ある元$a\in\mathfrak{a}$が存在して、$a\neq0$。
+  $K$は体だから$a^{-1}\in K$ゆえ、$1\in a^{-1}a\in\mathfrak{a}$となり、$\mathfrak{a}=K$が従う。
+\end{proof}
+
+実はこの逆も成り立ちます。
+\begin{theorem}
+  $A$を可換環とする。このとき、$A$が体であることと、$A$のイデアルが$(0)$と$(1)$しかないことは同値である。
+\end{theorem}
+\begin{proof}
+  体ならばイデアルが$(0)$と$(1)$しかないことは既に確かめた。
+  逆にイデアルが$(0)$と$(1)$しかないとする。
+  このとき、任意の$a\in A\setminus\{0\}$に対して、$a$が生成するイデアル$(a)$は$(0)$か$(1)$のどちらかになる。
+
+  $(a)=(0)$とすると、$a\in(0)$より、任意の$b\in A$に対して$ba\in(0)=\{0\}$ゆえに$ba=0$。
+  特に$b=1$のとき、$a=0$となる。
+  これは$a\in A\setminus\{0\}$ととったことに矛盾する。
+
+  $(a)=(1)$とすると、$1\in(a)$より、ある$c\in A$が存在して、$ca=1$。
+  これは$c$が$a$の逆元であることを意味している。
 \end{proof}
 
 \begin{example}
@@ -259,6 +309,11 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
   \]
   となり、$\mathfrak{a}=\mathbb{C}[X,Y]$が従う。
 \end{proof}
+幾何学的に言えば、この例に出てきた極大イデアル$(X,Y)$は原点$X=Y=0$にあたります。
+雑に言って、可換環の素イデアルを既約多項式のゼロ点集合とみなし、極大イデアルを1点集合とみなします。
+イデアルは可換環があれば定義できるので、ここに一般の可換環を幾何学の舞台に引きずり出すことができるのです！
+後に整数環$\mathbb{Z}$において素数が生成する素イデアルが、実は極大イデアルでもあることを示します。
+素数が「点」であるとは一体何なのでしょう！？
 
 \subsubsection{極大イデアルは素イデアル}
 一般に、極大イデアルは素イデアルです。
@@ -276,7 +331,7 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
   実際、あきらかに$0\in\mathfrak{a}$。
   また、$ax+y,ax'+y'\in\mathfrak{a}$とすると、$x+x'\in A$、$y+y'\in\mathfrak{m}$であるから、
   \[
-    (ax+y)+(ax'+y)=a(x+x')+(y+y')\in\mathfrak{a}
+    (ax+y)+(ax'+y')=a(x+x')+(y+y')\in\mathfrak{a}
   \]
   最後に、$c\in A$、$ax+y\in\mathfrak{a}$とすると、$cx\in A$、$cy\in\mathfrak{m}$であるから、
   \[
@@ -308,6 +363,7 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
 \begin{proof}
   たとえば$(X,Y)$は$(X)$を含む極大イデアルである。
 \end{proof}
+このことは、幾何学的直観からもわかりますね。
 
 
 
@@ -387,6 +443,8 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
 \end{align*}
 が成り立つことから、環の構造が見えてきます。
 この考えを一般化したものが剰余環です。
+発想は単純ですが、ちゃんと考えないといけないことが結構あります。
+見ていきましょう。
 \begin{theorem}
   $A$を可換環、$\mathfrak{a}$をイデアルとする。
   このとき、$x,y\in A$に対して、$x\equiv y\mod\mathfrak{a}$であることを
@@ -466,24 +524,6 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
   \end{itemize}
 \end{proof}
 
-剰余環には以下のような自然な準同型が存在して、重要なものだったりします。
-\begin{theorem}
-  $A$を可換環、$\mathfrak{a}$をそのイデアルとする。
-  このとき、写像
-  \[
-    \pi:A\to A/\mathfrak{a};x\mapsto x+\mathfrak{a}
-  \]
-  は環準同型である。
-\end{theorem}
-\begin{proof}
-  任意の$x,y\in A$に対して、
-  \begin{itemize}
-    \item $\pi(x+y)=x+y+\mathfrak{a}=x+\mathfrak{a}+y+\mathfrak{a}=\pi(x)+\pi(y)$
-    \item $\pi(xy)=xy+\mathfrak{a}=(x+\mathfrak{a})(y+\mathfrak{a})=\pi(x)\pi(y)$
-    \item $\pi(1)=1+\mathfrak{a}$
-  \end{itemize}
-\end{proof}
-
 \subsection{剰余環の例}
 
 \begin{example}
@@ -515,13 +555,221 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
   \[
     (X+(X^2+1))(X+(X^2+1))=X^2+(X^2+1)
   \]
-  であるが、もちろん$X^2+1\equiv0\mod(X^2+1)$のため、$X^2\equiv-1\mod(X^2+1)$。
+  であるが、もちろん$X^2-(-1)=X^2+1\in(X^2+1)$のため、$X^2\equiv-1\mod(X^2+1)$。
   ゆえに
   \[
     (X+(X^2+1))(X+(X^2+1))=-1+(X^2+1)
   \]
 \end{example}
-次に紹介する定理を使って、これが実際に$\mathbb{C}$と同型であることを証明します。
+
+剰余環には以下のような自然な準同型が存在して、重要なものだったりします。
+\begin{theorem}
+  $A$を可換環、$\mathfrak{a}$をそのイデアルとする。
+  このとき、写像
+  \[
+    \pi:A\to A/\mathfrak{a};x\mapsto x+\mathfrak{a}
+  \]
+  は環準同型である。
+\end{theorem}
+\begin{proof}
+  任意の$x,y\in A$に対して、
+  \begin{itemize}
+    \item $\pi(x+y)=x+y+\mathfrak{a}=x+\mathfrak{a}+y+\mathfrak{a}=\pi(x)+\pi(y)$
+    \item $\pi(xy)=xy+\mathfrak{a}=(x+\mathfrak{a})(y+\mathfrak{a})=\pi(x)\pi(y)$
+    \item $\pi(1)=1+\mathfrak{a}$
+  \end{itemize}
+\end{proof}
+
+自然な準同型$\pi:A\to A/\mathfrak{a}$の何が自然かっていうのは、まあ色々ありますが\footnote{
+  色々の例：オウフｗｗｗいわゆるストレートな質問キタコレですねｗｗｗ
+  おっとっとｗｗｗ拙者『キタコレ』などとついネット用語がｗｗｗ
+  まあ拙者の場合『自然』とは言っても、いわゆる日常言語としての自然(Natural)でなく
+  圏論的な自然変換(Natural Transformation)として見ているちょっと変わり者ですのでｗｗｗ
+  マックレーンの影響がですねｗｗｗｗ
+  ドプフォｗｗｗついマニアックな知識が出てしまいましたｗｗｗいや失敬失敬ｗｗｗ
+  まあ単なる核を含む射の因数分解としての普遍性は純粋によく書けてるなと賞賛できますがｗｗｗ
+  私みたいに一歩引いた見方をするとですねｗｗｗ
+  可換環とイデアルのペアがなす圏$C$と可換環の圏$D$における忘却関手から始まる左随伴の列$((A,I)\mapsto A/I)\dashv (A\mapsto(A,0))\dashv (\text{忘却関手})$としてのですねｗｗｗ
+  $\operatorname{Hom}_D(A/I,B)\cong\operatorname{Hom}_C((A,I),(B,0))$が導く$\pi$の必然性がですねｗｗｗｗ
+  フォカヌポウｗｗｗ拙者これではまるで数学徒みたいｗｗｗ
+  拙者は数学徒ではござらんのでｗｗｗコポォ
+}、今回はイデアルの間に綺麗な対応関係を引き起こすことを紹介しましょう。
+この対応関係はHartshorneでも多用するはずです。
+\begin{theorem}
+  $A$を可換環、$\mathfrak{a}$をそのイデアル、$\pi:A\to A/\mathfrak{a}$を自然な準同型とする。
+  このとき、$A/\mathfrak{a}$のイデアル$\mathfrak{b}$に対して、
+  \[
+    \pi^{-1}(\mathfrak{b}):=\{x\in A\mid \pi(x)\in\mathfrak{b}\}
+  \]
+  は$A$のイデアルである。
+\end{theorem}
+\begin{proof}
+  まず、$\pi(0)=0+\mathfrak{a}\in\mathfrak{b}$より$0\in\pi^{-1}(\mathfrak{b})$。
+  次に$x,y\in\pi^{-1}(\mathfrak{b})$すなわち$\pi(x),\pi(y)\in\mathfrak{b}$とすると、
+  $\pi(x+y)=\pi(x)+\pi(y)\in\mathfrak{b}$。
+  ゆえに$x+y\in\pi^{-1}(\mathfrak{b})$。
+  最後に、$a\in A$、$x\in\pi^{-1}(\mathfrak{b})$すなわち$\pi(x)\in\mathfrak{b}$とすると、$\pi(ax)=\pi(a)\pi(x)\in\mathfrak{b}$。
+  ゆえに$ax\in\pi^{-1}(\mathfrak{b})$。
+  以上より、$\pi^{-1}(\mathfrak{b})$は$A$のイデアルである。
+\end{proof}
+
+逆に、$\mathfrak{a}$を含む$A$のイデアルから$A/\mathfrak{a}$のイデアルを作ることもできます。
+\begin{theorem}
+  $A$を可換環、$\mathfrak{a}$をそのイデアル、$\pi:A\to A/\mathfrak{a}$を自然な射影とする。
+  このとき、$\mathfrak{a}\subset\mathfrak{b}$を満たす$A$のイデアル$\mathfrak{b}$に対して、
+  \[
+    \pi(\mathfrak{b}):=\{\pi(x)\in A/\mathfrak{a}\mid x\in\mathfrak{b}\}
+  \]
+  は$A/\mathfrak{a}$のイデアルである。
+\end{theorem}
+\begin{proof}
+  まず、$0+\mathfrak{a}=\pi(0)\in\pi(\mathfrak{b})$である。
+  次に、$\pi(x),\pi(y)\in\pi(\mathfrak{b})$、($x,y\in\mathfrak{b}$)とすると、$x+y\in\mathfrak{b}$。
+  ゆえに$\pi(x)+\pi(y)=\pi(x+y)\in\pi(\mathfrak{b})$。
+  最後に、$\pi(a)\in A/\mathfrak{a}$、$\pi(x)\in\pi(\mathfrak{b})$ ($a\in A$、$x\in\mathfrak{b}$)とすると、$ax\in\mathfrak{b}$。
+  ゆえに$\pi(a)\pi(x)=\pi(ax)\in\pi(\mathfrak{b})$。
+  以上より、$\pi(\mathfrak{b})$は$A/\mathfrak{a}$のイデアルである。
+\end{proof}
+
+実は、これらの対応は互いに逆写像になっています。
+\begin{theorem}
+  $A$を可換環、$\mathfrak{a}$をそのイデアル、$\pi:A\to A/\mathfrak{a}$を自然な準同型とする。
+  このとき、次の写像は全単射である。
+  \[
+    \varphi:\{\mathfrak{b}\mid\mathfrak{b}\text{は$A$のイデアルかつ、}\mathfrak{a}\subset\mathfrak{b}\}\to\{\mathfrak{c}\mid\mathfrak{c}\text{は$A/\mathfrak{a}$のイデアル}\}; \mathfrak{b}\mapsto \pi(\mathfrak{b})
+  \]
+\end{theorem}
+\begin{proof}
+  写像
+  \[
+    \psi:\{\mathfrak{c}\mid\mathfrak{c}\text{は$A/\mathfrak{a}$のイデアル}\}\to\{\mathfrak{b}\mid\mathfrak{b}\text{は$A$のイデアルかつ、}\mathfrak{a}\subset\mathfrak{b}\};\mathfrak{c}\mapsto\pi^{-1}(\mathfrak{c})
+  \]
+  が$\varphi$の逆写像になっていることを示す。
+
+  まず$A/\mathfrak{a}$のイデアル$\mathfrak{c}$に対して、$\varphi(\psi(\mathfrak{c}))=\mathfrak{c}$すなわち$\pi(\pi^{-1}(\mathfrak{c}))=\mathfrak{c}$を示す。
+  ところがこれは$\pi$が全射であることと、集合論における写像の一般論から明らかである。
+
+  次に$\mathfrak{a}\subset\mathfrak{b}$を満たす$A$のイデアル$\mathfrak{b}$に対して、$\psi(\varphi(\mathfrak{b}))=\pi^{-1}(\pi(\mathfrak{b}))=\mathfrak{b}$を示す。
+  $\mathfrak{b}\subset\pi^{-1}(\pi(\mathfrak{b}))$は集合論における写像の一般論から明らかである。
+  逆に、$x\in\pi^{-1}(\pi(\mathfrak{b}))$とすると、$\pi(x)\in\pi(\mathfrak{b})$である。
+  ゆえに、ある$y\in\mathfrak{b}$が存在して、$\pi(x)=\pi(y)$、つまり$x-y\in\mathfrak{a}\subset\mathfrak{b}$。
+  ゆえに$x=(x-y)+y\in\mathfrak{b}$。
+  以上より$\psi(\varphi(\mathfrak{b}))=\pi^{-1}(\pi(\mathfrak{b}))$が示された。
+
+  ゆえに$\varphi$は全単射であり、その逆写像は$\psi$である。
+\end{proof}
+\begin{theorem}[イデアル間の順序同型]
+  $A$を可換環、$\mathfrak{a}$をそのイデアル、$\pi:A\to A/\mathfrak{a}$を自然な準同型とする。
+  このとき、次の全単射
+  \[
+    \varphi:\{\mathfrak{b}\mid\mathfrak{b}\text{は$A$のイデアルかつ、}\mathfrak{a}\subset\mathfrak{b}\}\to\{\mathfrak{c}\mid\mathfrak{c}\text{は$A/\mathfrak{a}$のイデアル}\}; \mathfrak{b}\mapsto \pi(\mathfrak{b})
+  \]
+  は、包含関係を保つ。すなわち、$\mathfrak{b},\mathfrak{b}'$を$\mathfrak{a}$を含む$A$のイデアルであり、かつ$\mathfrak{b}\subset\mathfrak{b}'$を満たすならば、$\varphi(\mathfrak{b})\subset\varphi(\mathfrak{b}')$。
+  また逆に、$\mathfrak{c},\mathfrak{c}'$は$A/\mathfrak{a}$のイデアルであり、$\mathfrak{c}\subset\mathfrak{c}'$を満たすとき、$\varphi^{-1}(\mathfrak{c})\subset\varphi^{-1}(\mathfrak{c}')$。
+\end{theorem}
+\begin{proof}
+  まず$\mathfrak{b}\subset\mathfrak{b}'$ならば$\varphi(\mathfrak{b})\subset\varphi(\mathfrak{b}')$すなわち$\pi(\mathfrak{b})\subset\pi(\mathfrak{b})$を示さねばならないが、これは集合論における写像の一般論から明らか。
+  $\mathfrak{c}\subset\mathfrak{c}'$ならば$\varphi^{-1}(\mathfrak{c})\subset\varphi^{-1}(\mathfrak{c}')$も同様である。
+\end{proof}
+
+\subsection{剰余環を使った極大イデアル判定法}
+
+イデアル間の順序同型定理を紹介しただけではピンと来ないかもしれません。
+ひとつ、使い道を教えましょう。
+可換環のイデアルが素イデアルかどうか、あるいは極大イデアルかどうかを、剰余環の性質から判定することができます。
+最初に簡単な極大イデアルの方から見ていきましょう。
+\begin{theorem}
+  $A$を可換環、$\mathfrak{a}$をそのイデアルとする。
+  このとき、$\mathfrak{a}$が極大イデアルであることと、$A/\mathfrak{a}$が体であることは同値である。
+\end{theorem}
+\begin{proof}
+  自然な準同型
+  \[
+    \pi:A\to A/\mathfrak{a}
+  \]
+  が誘導するイデアル間の順序同型定理を用いて証明する。
+
+  まず$\mathfrak{a}$を極大イデアルとする。
+  このとき、$A/\mathfrak{a}$のイデアルが$(0+\mathfrak{a})$と$(1+\mathfrak{a})$しかないことを示すことで、$A/\mathfrak{a}$が体であることを証明する。
+  $\mathfrak{b}$を$A/\mathfrak{a}$のイデアルとする。
+  このとき、$\pi^{-1}(\mathfrak{b})$は$\mathfrak{a}$を含む$A$のイデアルである。
+  $\mathfrak{a}$は極大イデアルであるから、$\pi^{-1}(\mathfrak{b})=\mathfrak{a}$または$\pi^{-1}(\mathfrak{b})=A$である。
+  $\pi^{-1}(\mathfrak{b})=\mathfrak{a}$のとき、$\mathfrak{b}=\pi(\pi^{-1}(\mathfrak{b}))=\pi(\mathfrak{a})=(0+\mathfrak{a})$である。
+  $\pi^{-1}(\mathfrak{b})=A$のとき、$\mathfrak{b}=\pi(\pi^{-1}(\mathfrak{b}))=\pi(A)=A/\mathfrak{a}=(1+\mathfrak{a})$である。
+  以上より、$A/\mathfrak{a}$のイデアルは$(0+\mathfrak{a})$と$(1+\mathfrak{a})$のみである。
+  したがって、$A/\mathfrak{a}$は体である。
+
+  逆に、$A/\mathfrak{a}$が体であるとする。
+  このとき、$A/\mathfrak{a}$のイデアルは$(0+\mathfrak{a})$と$(1+\mathfrak{a})$のみである。
+  $\mathfrak{b}$を$\mathfrak{a}$を含む$A$のイデアルとする。
+  このとき、$\pi(\mathfrak{b})$は$A/\mathfrak{a}$のイデアルであるから、$\pi(\mathfrak{b})=(0+\mathfrak{a})$または$\pi(\mathfrak{b})=(1+\mathfrak{a})$である。
+  $\pi(\mathfrak{b})=(0+\mathfrak{a})$のとき、任意の$x\in\mathfrak{b}$に対して$\pi(x)\in(0+\mathfrak{a})$、すなわち$x+\mathfrak{a}=0+\mathfrak{a}$であるから、$x\in\mathfrak{a}$。
+  ゆえに$\mathfrak{b}\subset\mathfrak{a}$。
+  $\mathfrak{a}\subset\mathfrak{b}$でもあるから、$\mathfrak{b}=\mathfrak{a}$である。
+  $\pi(\mathfrak{b})=(1+\mathfrak{a})$のとき、$1+\mathfrak{a}\in\pi(\mathfrak{b})$であるから、ある$x\in\mathfrak{b}$が存在して、$\pi(x)=1+\mathfrak{a}$、すなわち$x-1\in\mathfrak{a}$。
+  $\mathfrak{a}\subset\mathfrak{b}$であるから、$x-1\in\mathfrak{b}$。
+  ゆえに$1=x-(x-1)\in\mathfrak{b}$となり、$\mathfrak{b}=A$である。
+  以上より、$\mathfrak{a}$を含む$A$のイデアルは$\mathfrak{a}$と$A$のみである。
+  したがって、$\mathfrak{a}$は極大イデアルである。
+\end{proof}
+
+\begin{comment}
+  TODO ユークリッド整域の後に、タイミングがいいところに入れる
+次に、素イデアルについても同様の判定法があります。
+\begin{theorem}
+  $A$を可換環、$\mathfrak{a}$をそのイデアルとする。
+  このとき、$\mathfrak{a}$が素イデアルであることと、$A/\mathfrak{a}$が整域であることは同値である。
+\end{theorem}
+\begin{proof}
+  自然な準同型
+  \[
+    \pi:A\to A/\mathfrak{a}
+  \]
+  を用いて証明する。
+
+  まず$\mathfrak{a}$を素イデアルとする。
+  このとき、$A/\mathfrak{a}$が整域であること、すなわち零因子を持たないことを示す。
+  $(x+\mathfrak{a})(y+\mathfrak{a})=0+\mathfrak{a}$を満たす$x+\mathfrak{a},y+\mathfrak{a}\in A/\mathfrak{a}$が存在するとする。
+  このとき、$xy+\mathfrak{a}=0+\mathfrak{a}$、すなわち$xy\in\mathfrak{a}$である。
+  $\mathfrak{a}$は素イデアルであるから、$x\in\mathfrak{a}$または$y\in\mathfrak{a}$である。
+  すなわち、$x+\mathfrak{a}=0+\mathfrak{a}$または$y+\mathfrak{a}=0+\mathfrak{a}$である。
+  以上より、$A/\mathfrak{a}$は零因子を持たない。
+  したがって、$A/\mathfrak{a}$は整域である。
+
+  逆に、$A/\mathfrak{a}$が整域であるとする。
+  このとき、$xy\in\mathfrak{a}$を満たす$x,y\in A$が存在するとする。
+  このとき、$(x+\mathfrak{a})(y+\mathfrak{a})=xy+\mathfrak{a}=0+\mathfrak{a}$である。
+  $A/\mathfrak{a}$は整域であるから、$x+\mathfrak{a}=0+\mathfrak{a}$または$y+\mathfrak{a}=0+\mathfrak{a}$である。
+  すなわち、$x\in\mathfrak{a}$または$y\in\mathfrak{a}$である。
+  以上より、$\mathfrak{a}$は素イデアルである。
+\end{proof}
+\end{comment}
+
+ちゃんと書くと長いだけです。
+頑張ってこんなのを読むより自分で考えた方が早いぐらい、簡単なことしか書いてないです。
+
+次に簡単な運用例を示しましょう。
+\begin{example}
+  可換環$\mathbb{Z}$において、素数$p$が生成するイデアルは極大イデアルである。
+\end{example}
+\begin{proof}
+  $\mathbb{Z}/p\mathbb{Z}$が体であることを示せばよい。
+  $a+p\mathbb{Z}\neq0+p\mathbb{Z}$、すなわち$a\notin p\mathbb{Z}$であるとする。
+  従って$a$は$p$の倍数ではないが、$p$は素数であるため$a$と$p$は互いに素である。
+  ゆえにユークリッドの互除法により、ある整数$x,y$が存在して、
+  \[
+    ax+py=1 \text{ すなわち } ax=1-py
+  \]
+  を満たす。
+  ゆえに
+  \[
+    ax+p\mathbb{Z}=1-py+p\mathbb{Z}=1+p\mathbb{Z}
+  \]
+  となる。すなわち$x+p\mathbb{Z}\in\mathbb{Z}/p\mathbb{Z}$は$a+p\mathbb{Z}$の逆元となる。
+  以上より、$\mathbb{Z}/p\mathbb{Z}$は体となり、従って$p\mathbb{Z}$は極大イデアルである。
+\end{proof}
+
+他の可換環やイデアルにこの判定法をうまく運用するには、次の環準同型定理を知っておくとよいでしょう。
 
 
 
@@ -603,6 +851,8 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
   \textbf{全射性} 任意の$f(x)\in\operatorname{Im}(f)$に対して、$\overline{f}(x+\operatorname{Ker}(f))=f(x)$。
 \end{proof}
 
+\subsection{使用例}
+
 \begin{example}
   $\mathbb{R}[X]/(X^2+1)\cong\mathbb{C}$
 \end{example}
@@ -637,62 +887,7 @@ Hartshorneに出てくる可換環論の中でも、僕の独断と偏見で基�
   以上より、$\operatorname{Ker}(\varphi)=(X^2+1)$が示された。
   したがって、環準同型定理より、$\mathbb{R}[X]/(X^2+1)\cong\operatorname{Im}(\varphi)=\mathbb{C}$が成り立つ。
 \end{proof}
+また、可換環$\mathbb{R}[X]/(X^2+1)$が体$\mathbb{C}$と同型になったことで、イデアル$(X^2+1)$が実は極大イデアルであることもわかりました。
 
 環準同型定理はこんな感じで、準同型があればいつでも気楽に使えます。
 大学の演習問題で綺麗な準同型作って準同型定理でビシッと決めると、その時だけに分泌される脳内物質の存在を感じます。
-
-
-
-\section{ユークリッド整域}
-
-先ほど\textbf{多項式の割り算}をしれっと行いました。
-高校数学でもやったことあると思います。
-整数の時と同じように、多項式$f$を$g$で割るという操作
-\[
-  f=gq+r,\quad {}^\exists q,r \text{ s.t. } \deg(r)<\deg(g)
-\]
-ができるのです。
-こうみると、\textbf{ユークリッド互除法}とまったく同じことを多項式でやっていると言えます。
-しかし残念ながら、任意の可換環がそのようなアルゴリズムが存在するとは限りません。
-
-まず良くない可能性は、0じゃない元同士の積が0になることがあるということです。
-\begin{example}
-  $\mathbb{Z}/6\mathbb{Z}$において、$2\times3=0$。
-\end{example}
-このようなことが起きると、例えば「$f$を$g$で割ります」といっても、$gq=0$となる$q$が存在すると、$f=r$になってしまって「割り算とはいったい…？」という状態になります。
-こういう不都合な元には名前がついています。
-\begin{definition}
-  $A$を可換環とする。$a\in A\setminus\{0\}$が\textbf{零因子}であるとは、ある$b\in A$が存在して、$ab=0$を満たす時を言う。
-\end{definition}
-
-零因子がない環というのは素敵なものですので、素敵な名前がついています。
-\begin{definition}
-  零因子を持たない可換環$A$を\textbf{整域}(\textit{Domain})と呼ぶ。
-\end{definition}
-別の言い方をすれば、可換環$A$が整域であることとは
-\begin{itemize}
-  \item 任意の$a\in A$、$b\in A$に対して、$ab=0$ならば$a=0$または$b=0$
-  \item $(0)\subset A$は素イデアルである
-\end{itemize}
-ということです。
-
-さて、整域においてでさえユークリッドの互除法を導くことができません。
-整数においても多項式においても、\textbf{剰余の大きさが割った元より小さくなっていかないといけない}のですが、そもそも\textbf{元の大きさ}を可換環の定義では行っていません。
-なので、付け加える必要があります。
-新たな環の出現です！
-\begin{definition}
-  整域$A$が\textbf{ユークリッド環}(\textit{Euclidean domain}\footnote{
-    直訳すると「ユークリッド整域」になりそうですが、最近の本はユークリッド環と訳すのが主流のような雰囲気をそこはかとなく感じています。
-  })であるとは、写像
-  \[
-    |\cdot|:A\to \mathbb{Z}_{\geq0}
-  \]
-  が存在して、次を満たす時を言う。
-  すなわち、任意の$a,b\in A$に対して、$b\neq0$ならば、ある$q,r\in A$が存在して、
-  \[
-    a=bq+r
-  \]
-  を満たし、$r=0$でないならば
-  \[|r|<|b|\]
-  である。
-\end{definition}

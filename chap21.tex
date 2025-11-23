@@ -1,0 +1,287 @@
+\chapter{可換環論 初級}
+
+こちらは$\text{ユークリッド環}\subset\text{PID}$の紹介と証明から、ネーター環に至るまでを中心に、その他もろもろ解説していきます。
+
+\section{ユークリッド環}
+
+前章の例題で、\textbf{多項式の割り算}をしれっと行いました。
+高校数学でもやったことあると思います。
+整数の時と同じように、多項式$f$を$g$で割るという操作
+\[
+  f=gq+r,\quad {}^\exists q,r \text{ s.t. } \deg(r)<\deg(g)
+\]
+ができるのです。
+こうみると、\textbf{ユークリッド互除法}とまったく同じことを多項式でやっていると言えます。
+しかし残念ながら、任意の可換環がそのようなアルゴリズムが存在するとは限りません。
+
+まず良くない可能性は、0じゃない元同士の積が0になることがあるということです。
+\begin{example}
+  $\mathbb{Z}/6\mathbb{Z}$において、$2\times3=0$。
+\end{example}
+このようなことが起きると、例えば「$f$を$g$で割ります」といっても、$gq=0$となる$q$が存在すると、$f=r$になってしまって「割り算とはいったい…？」という状態になります。
+こういう不都合な元には名前がついています。
+\begin{definition}
+  $A$を可換環とする。$a\in A\setminus\{0\}$が\textbf{零因子}であるとは、ある$b\in A$が存在して、$ab=0$を満たす時を言う。
+\end{definition}
+
+零因子がない環というのは素敵なものですので、素敵な名前がついています。
+\begin{definition}
+  零因子を持たない可換環$A$を\textbf{整域}(\textit{Domain})と呼ぶ。
+\end{definition}
+別の言い方をすれば、可換環$A$が整域であることとは
+\begin{itemize}
+  \item 任意の$a\in A$、$b\in A$に対して、$ab=0$ならば$a=0$または$b=0$
+  \item $(0)\subset A$は素イデアルである
+\end{itemize}
+ということです。
+
+さて、整域においてでさえユークリッドの互除法を導くことができません。
+整数においても多項式においても、\textbf{剰余の大きさが割った元より小さくなっていかないといけない}のですが、そもそも\textbf{元の大きさ}を可換環の定義では行っていません。
+なので、付け加える必要があります。
+新たな環の出現です！
+\begin{definition}
+  整域$A$が\textbf{ユークリッド環}(\textit{Euclidean domain}\footnote{
+    直訳すると「ユークリッド整域」になりそうですが、最近の本はユークリッド環と訳すのが主流のような雰囲気をそこはかとなく感じています。
+  })であるとは、写像
+  \[
+    |\cdot|:A\setminus\{0\}\to \mathbb{Z}_{\geq0}
+  \]
+  が存在して、次を満たす時を言う。
+  すなわち、任意の$a,b\in A$に対して、$b\neq0$ならば、ある$q,r\in A$が存在して、
+  \[
+    a=bq+r
+  \]
+  を満たし、$r=0$でないならば
+  \[|r|<|b|\]
+  である。
+
+  上記の条件を満たす写像$|\cdot|:A\setminus\{0\}\to \mathbb{Z}_{\geq0}$を\textbf{ユークリッドノルム}と呼ぶ。
+\end{definition}
+
+\subsection{ユークリッド環の例}
+
+非常に当たり前ですが、体はユークリッド環です。
+\begin{example}
+  体$K$は、
+  \[
+    |\cdot|:K\setminus\{0\}\to\mathbb{Z}_{\geq0};x\mapsto 0
+  \]
+  をユークリッドノルムとするユークリッド環である。
+\end{example}
+\begin{proof}
+  $a,b\in K$に対して、$b\neq0$ならば、$q=b^{-1}a$、$r=0$とおけば
+  \[
+    bq=b(b^{-1}a)=a
+  \]
+  となるから、$|\cdot|$はユークリッドノルムである。
+
+  整域であることを示す。
+  $a,b\in K$に対して$ab=0$とすれば、$a\neq0$ならば、両辺に$a^{-1}$を掛けることで$b=0$を得る。
+  ゆえに$K$は整域である\footnote{
+    こういう整域であることの証明方法は随所で見られます。
+    ロジックが理解できていれば説明は不要でしょうけれども、突然このように言われるとギョッとするかもしれません。
+    このような証明が成り立つ理由は、整域の定義の一つ「$ab=0$ならば$a=0$または$b=0$」と排中律から来ています。
+    つまり、$ab=0$かつ$a\neq0$から$b=0$を示すことができれば、\textbf{あるいは$a=0$のとき}という排中律がすぐさま$a=0$を示すためです。
+  }。
+\end{proof}
+
+もちろん、今まで見てきた整数環$\mathbb{Z}$や、体$K$上の一変数多項式環$K[X]$はユークリッド環です。
+\begin{example}
+  整数環$\mathbb{Z}$は、通常の絶対値
+  \[
+    \mathbb{Z}\setminus\{0\}\to\mathbb{Z}_{\geq0};n\mapsto|n|
+  \]
+  をユークリッドノルムとするユークリッド環である。
+\end{example}
+\begin{proof}
+  ユークリッドの互除法そのものであるから自明。
+\end{proof}
+
+\begin{example}
+  $K$を体とする。このとき一変数多項式環$K[X]$は、多項式$f$の$X$に関する次数$\deg(f)$をユークリッドノルムとするユークリッド環である。
+\end{example}
+ほぼ自明ですが証明します。
+\begin{proof}
+  まず整域であることを示すために、$f,g\in K[X]\setminus\{0\}$かつ$fg=0$とする。
+  もし$\deg(f)=\deg(g)=0$であれば、すなわち$f,g\in K$であるから、$f=0$または$g=0$。
+  ゆえにどちらか一方の次数は$0$でないとする(背理法の仮定)。
+  このとき、$f$の最高次の係数を$a_f\in K\setminus\{0\}$、$g$の最高次の係数を$a_g\in K\setminus\{0\}$とすれば、
+  \[
+    fg=a_fa_gX^{\deg(f)+\deg(g)}+\cdots
+  \]
+  となっていて、かつ$K$は整域ゆえ$a_fa_g\neq0$かつ、$\deg(f)>0$または$\deg(g)>0$だったから$\deg(f)+\deg(g)>0$。
+  従って$fg\neq0$となってしまい、矛盾する。
+  よって$\deg(f)=\deg(g)=0$でなければならず、従って上述の通り$f=0$または$g=0$ゆえ、$K[X]$は整域である。
+
+  $\deg$がユークリッドノルムであることを示すために、$f,g\in K[X]$、$g\neq0$とする。
+  \begin{itemize}
+    \item $\deg(f)<\deg(g)$ならば、$q=0,r=f$とおいて、$f=qg+r$かつ、$\deg(r)<\deg(g)$を満たしている。
+    \item $\deg(f)\geq\deg(g)$のとき、$f$は
+    \[
+      f=a_nX^n+\cdots+a_{\deg(g)}X^{\deg(g)}+r_0,\quad\deg(r_0)<\deg(g)
+    \]
+    とおくことができる。
+    ここで$g$の最高次の係数を$b$とおくと、明らかに
+    \begin{align*}
+      \deg(f-a_nb^{-1}X^{n-\deg(g)}g)\leq n-1
+    \end{align*}
+    そこで、
+    \[
+      f_1:=f-a_nb^{-1}X^{n-\deg(g)}g
+    \]
+    とおくと、この最高次の係数も、ある$c\in K$によって
+    \[
+      \deg(f_1-cX^{n-1-\deg(g)}g)\leq n-2
+    \]
+    と消していくことができる\footnote{
+      これは$\deg(f_1)=n-1$のときにこうします。
+      もしかすると$f-a_nb^{-1}X^{n-\deg(g)}g$の時点で$n-1$次以下の項も消えてるかもしれません。
+      まあそうであっても、やることは同じです。
+    }。
+    これを繰り返せば、ある$q,r\in K[X]$が存在して、
+    \[
+      f=qg+r,\quad\deg(r)<\deg(g)
+    \]
+    を満たすことがわかる。
+  \end{itemize}
+\end{proof}
+
+
+
+\section{単項イデアル整域}
+
+一変数多項式環はユークリッド環でしたが、2変数にするとユークリッド環ではなくなります。
+その理由は以下になります。
+\begin{lemma}
+  $K[X,Y]$のイデアル$(X,Y)$は単項イデアルではない。
+\end{lemma}
+\begin{proof}
+  もし単項イデアルであるとすると、ある$f\in K[X,Y]$が存在して、$(X,Y)=(f)$となる。
+  このとき$X\in(f)$かつ$Y\in(f)$であるから、
+  \[
+    X=fg,\quad Y=fh\quad({}^\exists g,h\in K[X,Y])
+  \]
+  と書ける。
+  次数を比較すると、$\deg_X(X)=\deg_X(f)+\deg_X(g)=1$であるから、$\deg_X(f)$は0か1である。
+  ここで$\deg_X$は$X$に関する次数を表わす。
+  もし$\deg_X(f)=1$とすると、$Y=fh$において左辺の$X$次数は0であるから、$\deg_X(h)=-1$とならざるを得ず矛盾する。
+  したがって$\deg_X(f)=0$、すなわち$f$は$X$を含まない多項式である。
+  同様に$Y=fh$から$\deg_Y(f)=0$も言えるため、$f$は定数、すなわち$f\in K$である。
+  
+  ここで、もし$f=0$ならば$(f)=\{0\}$となり$(X,Y)$と一致しない。
+  ゆえに$f\in K\setminus\{0\}$である。
+  したがって$1=f\cdot f^{-1}\in(f)=(X,Y)$となる。
+  すなわち、ある$p,q\in K[X,Y]$が存在して
+  \[
+    1=Xp+Yq
+  \]
+  と書けることになるが、両辺に$(0,0)$を代入すると$1=0$となり矛盾する。
+  以上より、$(X,Y)$を生成する単一の多項式$f$は存在しない。
+\end{proof}
+
+なぜこれで$K[X,Y]$がユークリッド環でないことが分かるかというと、次の定理が知られているからです。
+\begin{theorem}
+  $A$をユークリッド環とする。このとき、$A$の任意のイデアルは単項イデアルである。
+\end{theorem}
+\begin{proof}
+  $\mathfrak{a}$を$A$のイデアルとする。
+  $\mathfrak{a}=(0)$ならば$(0)$という単項イデアルであるからよい。
+  $\mathfrak{a}\neq(0)$とする。
+  このとき、$\mathfrak{a}$の$0$でない元の中で、ノルム$|x|$が最小となる元を一つ選び、$d$とする。
+  この$d$がイデアルすべてを生成すること、すなわち$\mathfrak{a}=(d)$を示そう。
+  
+  $d\in\mathfrak{a}$であるから、$(d)\subset\mathfrak{a}$は明らか。
+  逆に任意の$a\in\mathfrak{a}$をとる。
+  ユークリッド環の定義より、
+  \[
+    a = dq + r \quad (r=0 \text{ または } |r|<|d|)
+  \]
+  となる$q,r \in A$が存在する。
+  変形すると$r = a - dq$である。
+  $a\in\mathfrak{a}$かつ$d\in\mathfrak{a}$より、$r\in\mathfrak{a}$である。
+  
+  ここで、もし$r\neq 0$だとすると、$|r|<|d|$となり、$d$がノルム最小の元として選ばれたことに矛盾する。
+  したがって$r=0$でなければならない。
+  ゆえに$a=dq \in (d)$となり、$\mathfrak{a}\subset(d)$。
+  以上より$\mathfrak{a}=(d)$である。
+\end{proof}
+
+これにより$K[X,Y]$がユークリッド環でないことが分かったばかりか、整数環$\mathbb{Z}$や多項式環$K[x]$のイデアルが、すべて1つの元で生成されることが保証されました！
+このような整域には名前を付けてあげましょう。
+\begin{definition}
+  整域$A$が\textbf{単項イデアル整域}(\textit{principal ideal domain}, 略してPID)であるとは、任意のイデアルが単項イデアルであるときをいう。
+\end{definition}
+先ほど示したことは、\textbf{ユークリッド環はPIDである}ということです。
+
+
+
+\section{ネーター環}
+
+すべてのイデアルが単項イデアル、という面白い可換環を知ったことで、もう一つ興味が出てきます。
+ちょっとだけPIDの定義を拡張して、「任意のイデアルが有限生成だったら？」ということです。
+この疑問を持った君はするどい！
+これは実は代数幾何学で空気のように扱われる概念です。
+\begin{definition}[ネーター環]
+  任意のイデアルが有限生成であるような可換環$A$を\textbf{ネーター環}(\textit{Noetherian ring})と呼ぶ。
+\end{definition}
+
+
+\begin{comment}
+\begin{definition}[ネーター環]
+  可換環$A$が\textbf{ネーター環}(\textit{Noetherian ring})であるとは、
+  $A$のイデアルの任意の昇鎖列
+  \[
+    \mathfrak{a}_1 \subset \mathfrak{a}_2 \subset \mathfrak{a}_3 \subset \dots
+  \]
+  に対して、ある番号$N$が存在して、それ以降は一定になる(停留する)ときを言う。
+  すなわち、任意の$n \geq N$に対して$\mathfrak{a}_n = \mathfrak{a}_N$が成り立つ。
+  これを\textbf{昇鎖条件}(\textit{Ascending Chain Condition}, ACC)と呼ぶ。
+\end{definition}
+
+一見すると、この「昇鎖条件」は「有限生成」とは関係なさそうに見えます。
+しかし、この二つは等価なのです。Hartshorneがいきなり「ネーター環だから有限生成」と言い放った根拠はここにあります。
+
+\begin{theorem}
+  可換環$A$について、次は同値である。
+  \begin{enumerate}
+    \item $A$はネーター環である（昇鎖条件を満たす）。
+    \item $A$の任意のイデアルは有限生成である。
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  (1 $\implies$ 2)
+  $A$をネーター環とし、$\mathfrak{a}$をそのイデアルとする。
+  背理法を用いる。もし$\mathfrak{a}$が有限生成でないと仮定する。
+  まず、$a_1 \in \mathfrak{a}$を選び、イデアル$\mathfrak{a}_1 = (a_1)$を作る。
+  $\mathfrak{a}$は有限生成ではないので、$\mathfrak{a} \neq \mathfrak{a}_1$である。
+  そこで、$a_2 \in \mathfrak{a} \setminus \mathfrak{a}_1$を選び、$\mathfrak{a}_2 = (a_1, a_2)$を作る。
+  まだ$\mathfrak{a}$は有限生成でないので、$\mathfrak{a} \neq \mathfrak{a}_2$である。
+  これを繰り返して、$a_n \in \mathfrak{a} \setminus \mathfrak{a}_{n-1}$を選び続け、$\mathfrak{a}_n = (a_1, \dots, a_n)$を作ると、
+  \[
+    \mathfrak{a}_1 \subsetneq \mathfrak{a}_2 \subsetneq \mathfrak{a}_3 \subsetneq \dots
+  \]
+  という真に増大していくイデアルの列ができてしまう。
+  これは$A$が昇鎖条件を満たすことに矛盾する。
+  したがって、$\mathfrak{a}$は有限生成でなければならない。
+
+  (2 $\implies$ 1)
+  $A$の任意のイデアルが有限生成であるとする。
+  イデアルの昇鎖列 $\mathfrak{a}_1 \subset \mathfrak{a}_2 \subset \dots$ を考える。
+  ここで、これらの和集合
+  \[
+    \mathfrak{a} := \bigcup_{i=1}^{\infty} \mathfrak{a}_i
+  \]
+  を考えると、これもイデアルになる（確かめよ）。
+  仮定より$\mathfrak{a}$は有限生成なので、生成元 $x_1, \dots, x_r$ が存在する。
+  すなわち $\mathfrak{a} = (x_1, \dots, x_r)$。
+  各生成元 $x_j$ は和集合のどこかの段階で入ってきたはずなので、ある番号 $n_j$ が存在して $x_j \in \mathfrak{a}_{n_j}$ となる。
+  ここで $N = \max(n_1, \dots, n_r)$ とおくと、すべての $j$ について $x_j \in \mathfrak{a}_N$ となる。
+  したがって、
+  \[
+    \mathfrak{a} = (x_1, \dots, x_r) \subset \mathfrak{a}_N \subset \mathfrak{a}_{N+1} \subset \dots \subset \mathfrak{a}
+  \]
+  となるため、$\mathfrak{a}_N = \mathfrak{a}_{N+1} = \dots = \mathfrak{a}$ となり、列は停留する。
+\end{proof}
+\end{comment}
+
+
