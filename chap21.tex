@@ -225,6 +225,207 @@
   任意のイデアルが有限生成であるような可換環$A$を\textbf{ネーター環}(\textit{Noetherian ring})と呼ぶ。
 \end{definition}
 
+実はもともとネーター環は、不変式論と呼ばれる分野での\textbf{ヒルベルトの基底定理}および、代数的整数論におけるデデキントによる\textbf{イデアルの昇鎖列が止まるか問題}に対して提唱されました。
+
+\subsection{コラム：ネーター環はどこから？}
+
+Fermat予想へのLam\'eとKummerの試みに話を戻しましょう。
+彼らは$\mathbb{Z}[\zeta_{23}]$で素因数分解の一意性が成り立たないことに気が付いたのでした（リウヴィル(Liouville)などの指摘もあり）。
+この一意性問題を、Kummerは数そのものではなく、それが生成するイデアルだと思うことで「素イデアル分解の一意性」として解決します。
+
+$\mathbb{Z}[\zeta_{23}]$で考えるのは少し大変なので、よく知られた例である
+\[
+  A=\mathbb{Z}[\sqrt{-5}]
+\]
+を考えましょう。
+この環では、
+\[
+  6=2\cdot3=(1+\sqrt{-5})(1-\sqrt{-5})
+\]
+というように、素因数分解の一意性が成り立っていない例が見られます。
+イデアルではどう考えるかというと、まずイデアルの積を考えないといけないですね。
+\begin{definition}
+  $A$を可換環、$\mathfrak{a}$と$\mathfrak{b}$を$A$のイデアルとする。
+  このとき、$\mathfrak{a}$と$\mathfrak{b}$の元すべての組の積が生成するイデアル、つまり
+  \[
+    \mathfrak{a}\mathfrak{b}:=\left(\{ab\in A\mid a\in\mathfrak{a}, b\in\mathfrak{b}\}\right)
+  \]
+  を、\textbf{イデアル$\mathfrak{a}$と$\mathfrak{b}$の積}と呼ぶ。
+\end{definition}
+
+簡単なところから計算例をお見せしましょう。
+\begin{example}
+  $\mathbb{Z}$において、
+  \[
+    (6)=(2)(3)
+  \]
+\end{example}
+\begin{proof}
+  $(2)=\{2n\mid n\in\mathbb{Z}\}$、$(3)=\{3m\mid\in\mathbb{Z}\}$であるから、$(2)(3)$の元は、$6k$という形をしている。
+  すなわち$(2)(3)\subset(6)$。
+  逆に$n\in(6)$とすると、これはすなわち$n=6m$ (${}^\exists m\in\mathbb{Z}$)。
+  このとき、$2\in(2)$、$3m\in(3)$ゆえに$2\cdot 3m=6m=n\in(2)(3)$。
+  すなわち$(6)\subset(2)(3)$、ゆえに$(6)=(2)(3)$。
+\end{proof}
+
+実は定義から明らかに、もし$\mathfrak{a}=(a_1,\dots,a_n)$、$\mathfrak{b}=(b_1,\dots,b_m)$なら、
+\[
+  \mathfrak{a}\mathfrak{b}=(a_1b_1,a_1b_2,\dots,a_1b_m,a_2b_1,\dots,a_2b_m,\dots,a_nb_m)
+\]
+です。
+
+さて、$\mathbb{Z}[\sqrt{-5}]$ではどうでしょうか？
+まず$(6)=(2)(3)$は$\mathbb{Z}[\sqrt{-5}]$でも正しいです。
+しかしイデアルの世界では、これをさらに分解することができるのです！
+
+まず、実のところ$(2)$や$3$は$\mathbb{Z}[\sqrt{-5}]$では素イデアルではないという問題があります。
+\begin{example}
+  イデアル$(2)\subset\mathbb{Z}[\sqrt{-5}]$は素イデアルではない。
+\end{example}
+\begin{proof}
+  $1+\sqrt{-5}\in\mathbb{Z}[\sqrt{-5}]$は$(2)$に含まれない。
+  実際、もし$1+\sqrt{-5}\in(2)$とすると、ある$a+b\sqrt{-5}\in\mathbb{Z}[\sqrt{-5}]$が存在して、$1+\sqrt{-5}=2(a+b\sqrt{-5})$。
+  ところがこれらの複素数が一致するためには、$1=2a$、$1=2b$が成り立たなければならないが、そのような$a,b\in\mathbb{Z}$は存在しない。
+  ゆえに$1+\sqrt{-5}\notin\mathbb{Z}[\sqrt{-5}]$。
+
+  ところが、$(1+\sqrt{-5})^2=1+2\sqrt{-5}-5=-4+2\sqrt{-5}=2(-2+\sqrt{-5})\in(2)$。
+\end{proof}
+\begin{example}
+  イデアル$(3)\subset\mathbb{Z}[\sqrt{-5}]$は素イデアルではない。
+\end{example}
+\begin{proof}
+  $1+\sqrt{-5},1-\sqrt{-5}\notin(3)$である。これは上記と同様である。
+  一方で$(1+\sqrt{-5})(1-\sqrt{-5})=1+5=6\in(3)$
+\end{proof}
+
+素イデアルというのは、極大イデアルが素イデアルであったことからわかるように、「かなり大きい」集合になっています。
+素イデアルでない$(2)$や$(3)$を素イデアルにするには、元が足りないのです。
+そこで上記証明でも障害となった二つの元に注目します。
+\begin{example}
+  $(2,1+\sqrt{-5})$は極大イデアルであり、従って素イデアルである。
+\end{example}
+\begin{proof}
+  準同型
+  \[
+    f:\mathbb{Z}\to\mathbb{Z}[\sqrt{-5}]/(2,1+\sqrt{-5});n\mapsto(2,1+\sqrt{-5})
+  \]
+  は全射である。
+  実際、任意の$a+b\sqrt{-5}+(2,1+\sqrt{-5})\in\mathbb{Z}[\sqrt{-5}]/(2,1+\sqrt{-5})$に対して、
+  \[
+    a-b=(a+b\sqrt{-5})-b(1+\sqrt{-5}) \text{ 従って } a-b\equiv a+b\sqrt{-5}\mod(2,1+\sqrt{-5})
+  \]
+  であるから、$f(a-b)=a+b\sqrt{-5}+(2,1+\sqrt{-5})$。
+
+  また$\operatorname{Ker}(f)$を求めるために、$f(n)=0+(2,1+\sqrt{-5})$すなわち$n+(2,1+\sqrt{-5})=0+(2,1+\sqrt{-5})$とする。
+  このとき、$n\in(2,1+\sqrt{-5})$であるから、ある$a+b\sqrt{-5},c+d\sqrt{-5}\in\mathbb{Z}[\sqrt{-5}]$が存在して、
+  \[
+    n=2(a+b\sqrt{-5})+(1+\sqrt{-5})(c+d\sqrt{-5})=2a+c-5d+(2b+c+d)\sqrt{-5}
+  \]
+  を満たす。
+  この複素数の等式を満たすには、
+  \[
+    \begin{cases}
+      n=2a+c-5d\\
+      2b+c+d=0
+    \end{cases}
+  \]
+  を満たさなければならない。
+  第二式より$c=-2b-d$であるから、これを第一式に代入すると
+  \[
+    n=2a-2b-6d
+  \]
+  となる。
+  $a,b,d$は任意の整数を動くから、$n$は任意の偶数の値を取ることができる。
+  すなわち$\operatorname{Ker}(f)\subset2\mathbb{Z}$。
+  逆に任意の偶数$2m$に対して、$2m\in(2,1+\sqrt{-5})$であるから$f(2m)=0+(2,1+\sqrt{-5})$。
+  ゆえに$\operatorname{Ker}(f)=2\mathbb{Z}$である。
+
+  従って準同型定理より、
+  \[
+    \mathbb{Z}/2\mathbb{Z}\cong\mathbb{Z}[\sqrt{-5}]/(2,1+\sqrt{-5})
+  \]
+  となる。左辺は体であるから、$(2,1+\sqrt{-5})$は極大イデアルである。
+\end{proof}
+
+同様にして次が成り立ちます。
+\begin{example}
+  $(3,1\pm\sqrt{-5})$は$\mathbb{Z}[\sqrt{-5}]$の極大イデアルであり、従って素イデアルである。
+\end{example}
+\begin{proof}
+  \[
+    f:\mathbb{Z}\to\mathbb{Z}[\sqrt{-5}]/(3,1\pm\sqrt{-5})
+  \]
+  が全射であり、$\operatorname{Ker}(f)=3\mathbb{Z}$になることが、上記と同様にわかる。
+  従って準同型定理より$\mathbb{Z}/3\mathbb{Z}\cong\mathbb{Z}[\sqrt{-5}]/(3,1\pm\sqrt{-5})$であるが、左辺は体であるから$(3,1\pm\sqrt{-5})$は極大イデアルである。
+\end{proof}
+
+さてここまでやったら、色々試してみればいいでしょう。
+数学書は綺麗になった理論しか読者に見せませんが、裏では泥臭い計算が行われているものです。
+多分Kummerもいろんなイデアルの積を考えまくったことでしょう。
+とはいえ結論、次のようになります。
+\begin{example}
+  $\mathbb{Z}[\sqrt{-5}]$において、
+  \[
+    (2)=(2,1+\sqrt{-5})^2
+  \]
+\end{example}
+\begin{proof}
+  $(2)\subset(2,1+\sqrt{-5})^2$を示すためには、$2\in(2,1+\sqrt{-5})^2$を示せばよい。
+  \[
+    (2,1+\sqrt{-5})^2=(4,2+2\sqrt{-5},-4+2\sqrt{-5})
+  \]
+  であるから、
+  \[
+    2=-4+(2+2\sqrt{-5})-(-4+2\sqrt{-5})\in(4,2+2\sqrt{-5},-4+2\sqrt{-5})=(2,1+\sqrt{-5})^2
+  \]
+  逆に、$(2,1+\sqrt{-5})^2\subset(2)$を示すには、$4,2+2\sqrt{-5},-4+2\sqrt{-5}\in(2)$を示せばよいが、これは明らか。
+  従って題意が示された。
+\end{proof}
+\begin{example}
+  $\mathbb{Z}[\sqrt{-5}]$において、
+  \[
+    (3)=(3,1+\sqrt{-5})(3,1-\sqrt{-5})
+  \]
+\end{example}
+\begin{proof}
+  $(3)\subset(3,1+\sqrt{-5})(3,1-\sqrt{-5})$を示すためには、$3\in(3,1+\sqrt{-5})(3,1-\sqrt{-5})$を示せばよい。
+  \[
+    (3,1+\sqrt{-5})(3,1-\sqrt{-5})=(9,3+3\sqrt{-5},3-3\sqrt{-5},6)
+  \]
+  であるから、
+  \[
+    3=9-6\in(3,1+\sqrt{-5})(3,1-\sqrt{-5})
+  \]
+  逆に、$(3,1+\sqrt{-5})(3,1-\sqrt{-5})\subset(3)$を示すには、$9,3+3\sqrt{-5},3-3\sqrt{-5},6\in(2)$を示せばよいが、これは明らか。
+  従って題意が示された。
+\end{proof}
+以上から、$\mathbb{Z}[\sqrt{-5}]$における$(6)$の素イデアル分解
+\[
+  (6)=(2,1+\sqrt{-5})^2(3,1+\sqrt{-5})(3,1-\sqrt{-5})
+\]
+が得られました。
+
+
+
+
+\begin{comment}
+\begin{theorem}
+  $A$を可換環、$\mathfrak{a}$を$A$のイデアルとする。
+  このとき、$\mathfrak{a}$が素イデアルであることと、$A/\mathfrak{a}$が整域であることは同値である。
+\end{theorem}
+\begin{proof}
+  $\mathfrak{a}$が素イデアルであるとし、$x+\mathfrak{a},y+\mathfrak{a}\in A/\mathfrak{a}$は$xy+\mathfrak{a}=0+\mathfrak{a}$が成り立つとする。
+  すなわち$xy\in\mathfrak{a}$であるが、$\mathfrak{a}$は素イデアルであるから、$x\in\mathfrak{a}$または$y\in\mathfrak{a}$が成り立つ。
+  これはすなわち$x+\mathfrak{a}=0+\mathfrak{a}$または$y+\mathfrak{a}=0+\mathfrak{a}$であるから、$A/\mathfrak{a}$は素イデアルとなる。
+
+  逆に$A/\mathfrak{a}$が整域ならば$\mathfrak{a}$が素イデアルであることは、上記を逆にたどればわかる。
+\end{proof}
+\end{comment}
+
+
+
+
+
 
 \begin{comment}
 \begin{definition}[ネーター環]
