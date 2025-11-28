@@ -1,6 +1,6 @@
 \chapter{可換環論 初級}
 
-こちらは$\text{ユークリッド環}\subset\text{PID}$の紹介と証明から、ネーター環に至るまでを中心に、その他もろもろ解説していきます。
+こちらは$\text{ユークリッド環}\subset\text{PID}$の紹介と証明から、Noether環に至るまでを中心に、その他もろもろ解説していきます。
 
 \section{ユークリッド環}
 
@@ -215,19 +215,19 @@
 
 
 
-\section{ネーター環}
+\section{Noether環}
 
 すべてのイデアルが単項イデアル、という面白い可換環を知ったことで、もう一つ興味が出てきます。
 ちょっとだけPIDの定義を拡張して、「任意のイデアルが有限生成だったら？」ということです。
 この疑問を持った君はするどい！
 これは実は代数幾何学で空気のように扱われる概念です。
-\begin{definition}[ネーター環]
-  任意のイデアルが有限生成であるような可換環$A$を\textbf{ネーター環}(\textit{Noetherian ring})と呼ぶ。
+\begin{definition}[Noether環]
+  任意のイデアルが有限生成であるような可換環$A$を\textbf{Noether環}(\textit{Noetherian ring})と呼ぶ。
 \end{definition}
 
-実はもともとネーター環は、不変式論と呼ばれる分野での\textbf{ヒルベルトの基底定理}および、代数的整数論におけるデデキントによる\textbf{イデアルの昇鎖列が止まるか問題}に対して提唱されました。
+実はもともとNoether環は、不変式論と呼ばれる分野での\textbf{Hilbertの基底定理}および、代数的整数論におけるデデキントによる\textbf{イデアルの昇鎖列が止まるか問題}に対して提唱されました。
 
-\subsection{コラム：ネーター環はどこから？}
+\subsection{コラム：Noether環はどこから？私は代数的整数論から}
 
 Fermat予想へのLam\'eとKummerの試みに話を戻しましょう。
 彼らは$\mathbb{Z}[\zeta_{23}]$で素因数分解の一意性が成り立たないことに気が付いたのでした（リウヴィル(Liouville)などの指摘もあり）。
@@ -399,59 +399,47 @@ $\mathbb{Z}[\zeta_{23}]$で考えるのは少し大変なので、よく知ら�
   逆に、$(3,1+\sqrt{-5})(3,1-\sqrt{-5})\subset(3)$を示すには、$9,3+3\sqrt{-5},3-3\sqrt{-5},6\in(2)$を示せばよいが、これは明らか。
   従って題意が示された。
 \end{proof}
-以上から、$\mathbb{Z}[\sqrt{-5}]$における$(6)$の素イデアル分解
+上記の素イデアルを
+\begin{align*}
+  \mathfrak{p}_2&:=(2,1+\sqrt{-5})\\
+  \mathfrak{p}_3&:=(3,1+\sqrt{-5})\\
+  \overline{\mathfrak{p}_3}&:=(2,1-\sqrt{-5})
+\end{align*}
+とおけば、以上から$\mathbb{Z}[\sqrt{-5}]$における$(6)$の素イデアル分解
 \[
-  (6)=(2,1+\sqrt{-5})^2(3,1+\sqrt{-5})(3,1-\sqrt{-5})
+  (6)=\mathfrak{p}_2^2\mathfrak{p}_3\overline{\mathfrak{p}_3}
 \]
 が得られました。
 
-
-
-
-\begin{comment}
-\begin{theorem}
-  $A$を可換環、$\mathfrak{a}$を$A$のイデアルとする。
-  このとき、$\mathfrak{a}$が素イデアルであることと、$A/\mathfrak{a}$が整域であることは同値である。
-\end{theorem}
-\begin{proof}
-  $\mathfrak{a}$が素イデアルであるとし、$x+\mathfrak{a},y+\mathfrak{a}\in A/\mathfrak{a}$は$xy+\mathfrak{a}=0+\mathfrak{a}$が成り立つとする。
-  すなわち$xy\in\mathfrak{a}$であるが、$\mathfrak{a}$は素イデアルであるから、$x\in\mathfrak{a}$または$y\in\mathfrak{a}$が成り立つ。
-  これはすなわち$x+\mathfrak{a}=0+\mathfrak{a}$または$y+\mathfrak{a}=0+\mathfrak{a}$であるから、$A/\mathfrak{a}$は素イデアルとなる。
-
-  逆に$A/\mathfrak{a}$が整域ならば$\mathfrak{a}$が素イデアルであることは、上記を逆にたどればわかる。
-\end{proof}
-\end{comment}
-
-
-
-
-
-
-\begin{comment}
-\begin{definition}[ネーター環]
-  可換環$A$が\textbf{ネーター環}(\textit{Noetherian ring})であるとは、
-  $A$のイデアルの任意の昇鎖列
-  \[
-    \mathfrak{a}_1 \subset \mathfrak{a}_2 \subset \mathfrak{a}_3 \subset \dots
-  \]
-  に対して、ある番号$N$が存在して、それ以降は一定になる(停留する)ときを言う。
-  すなわち、任意の$n \geq N$に対して$\mathfrak{a}_n = \mathfrak{a}_N$が成り立つ。
-  これを\textbf{昇鎖条件}(\textit{Ascending Chain Condition}, ACC)と呼ぶ。
-\end{definition}
-
-一見すると、この「昇鎖条件」は「有限生成」とは関係なさそうに見えます。
-しかし、この二つは等価なのです。Hartshorneがいきなり「ネーター環だから有限生成」と言い放った根拠はここにあります。
+Kummerが考えたこの素イデアル分解ですが、実は任意の可換環で一意性が成り立つとは限りませんし、そもそも分解が有限回で終わるとも限りません。
+しかし、Noether環であれば、少なくとも「分解操作がいつか終わる」ことだけは保証できます。
+理由はイデアルの「大きさ」に関する直感の逆転にあります。
+通常の数では、割れば割るほど数字は小さくなりますが、イデアルの世界では「割り切れる」ことは「包含される」ことを意味します。
+実際、6は2より大きい数ですが、イデアルとしては$(6)\subset(2)$というように、約数の方が集合として大きくなるのです。
+したがって、「分解を繰り返していく」という操作は、イデアルの包含関係において
+\[
+  \mathfrak{a}_1 \subset \mathfrak{a}_2 \subset \mathfrak{a}_3 \subset \cdots
+\]
+というように、集合がどんどん大きくなっていく「昇鎖」を作ることに他なりません。
+分解が必ず終わるためには、この拡大がどこかで止まる必要があります。
+すなわち、任意の昇鎖列に対してある番号$N$が存在し、
+\[
+  \mathfrak{a}_N = \mathfrak{a}_{N+1} = \mathfrak{a}_{N+2} = \cdots
+\]
+となって停留する（これ以上大きくならない）ことが条件となります。
+これをイデアルの\textbf{昇鎖条件}(\textit{Ascending Chain Condition}, ACC)といいます。
+実は、この条件こそがNoether環の定義なのです。
 
 \begin{theorem}
   可換環$A$について、次は同値である。
   \begin{enumerate}
-    \item $A$はネーター環である（昇鎖条件を満たす）。
+    \item $A$はイデアルの昇鎖条件(以降ACC)を満たす。
     \item $A$の任意のイデアルは有限生成である。
   \end{enumerate}
 \end{theorem}
 \begin{proof}
   (1 $\implies$ 2)
-  $A$をネーター環とし、$\mathfrak{a}$をそのイデアルとする。
+  $A$はイデアルのACCを満たすとし、$\mathfrak{a}$をそのイデアルとする。
   背理法を用いる。もし$\mathfrak{a}$が有限生成でないと仮定する。
   まず、$a_1 \in \mathfrak{a}$を選び、イデアル$\mathfrak{a}_1 = (a_1)$を作る。
   $\mathfrak{a}$は有限生成ではないので、$\mathfrak{a} \neq \mathfrak{a}_1$である。
@@ -472,8 +460,13 @@ $\mathbb{Z}[\zeta_{23}]$で考えるのは少し大変なので、よく知ら�
   \[
     \mathfrak{a} := \bigcup_{i=1}^{\infty} \mathfrak{a}_i
   \]
-  を考えると、これもイデアルになる（確かめよ）。
-  仮定より$\mathfrak{a}$は有限生成なので、生成元 $x_1, \dots, x_r$ が存在する。
+  を考えると、これもイデアルになる。
+  実際、明らかに$0\in\mathfrak{a}$。
+  また任意の$x,y\in\mathfrak{a}$に対して、$x\in\mathfrak{a}_n$、$y\in\mathfrak{a}_m$とすると、$n\leq m$ならば$x,y\in\mathfrak{a}_m$であるから$x+y\in\mathfrak{a}_m\subset\mathfrak{a}$。
+  逆に$m\leq n$でも同様。
+  最後に、$a\in A$かつ$x\in\mathfrak{a}$とすると、ある$n$に対して$x\in\mathfrak{a}_n$ゆえ$ax\in\mathfrak{a}_n\subset\mathfrak{a}$。
+
+  さて、仮定より$\mathfrak{a}$は有限生成なので、生成元 $x_1, \dots, x_r$ が存在する。
   すなわち $\mathfrak{a} = (x_1, \dots, x_r)$。
   各生成元 $x_j$ は和集合のどこかの段階で入ってきたはずなので、ある番号 $n_j$ が存在して $x_j \in \mathfrak{a}_{n_j}$ となる。
   ここで $N = \max(n_1, \dots, n_r)$ とおくと、すべての $j$ について $x_j \in \mathfrak{a}_N$ となる。
@@ -483,6 +476,199 @@ $\mathbb{Z}[\zeta_{23}]$で考えるのは少し大変なので、よく知ら�
   \]
   となるため、$\mathfrak{a}_N = \mathfrak{a}_{N+1} = \dots = \mathfrak{a}$ となり、列は停留する。
 \end{proof}
-\end{comment}
+
+\subsection{コラム：Noether環はどこから？私は不変式論から}
+
+不変式とは、ざっくり言えば「座標変換しても値が変わらない式」のことです。
+最も有名な例は、2次方程式の判別式でしょう。
+\[
+  f(x,y)=ax^2+2bxy+cy^2
+\]
+という2変数2次形式を考えます(計算の都合上$2b$としています)。
+この式の形を決めるのは係数$a,b,c$ですが、これらが作る判別式
+\[
+  D=b^2-ac
+\]
+は、この式の「ある性質」を表わしています。
+
+座標変換を行ってみましょう。
+行列
+\[
+  M = \begin{pmatrix}
+    p & q \\
+    r & s
+  \end{pmatrix}
+\]
+を用いて、変数を
+\[
+  \begin{pmatrix}
+    x \\ y
+  \end{pmatrix}
+  =
+  M
+  \begin{pmatrix}
+    x' \\ y'
+  \end{pmatrix}
+\]
+と取り替えたとします。
+これを元の式$f(x,y)$に代入して整理すると、新しい係数$a', b', c'$を持つ式
+\[
+  f(x',y')=a'x'^2+2b'x'y'+c'y'^2
+\]
+が得られます。当然、係数$a', b', c'$は元の$a,b,c$と$p,q,r,s$が複雑に混ざった値になります。
+しかし、驚くべきことに、新しい係数で作った判別式$D' = (b')^2 - a'c'$を計算すると、
+\[
+  D'=(\det(M))^2D
+\]
+という非常に綺麗な関係が成り立つのです。
+特に行列式が1の変換($\det(M)=1$)に限れば、$D'=D$となり、値が全く変わりません。
+このように、座標を変えても不変な式のことを\textbf{不変式}と呼びます。
+
+19世紀の数学者たちは考えました。
+「もっと変数を増やしたり、次数を上げたりしても、このような不変式をすべて見つけ出すことができるだろうか？」
+彼らの目標は、あらゆる不変式を
+\[
+  I=F(J_1,J_2,\dots,J_n)
+\]
+
+というように、有限個の「基本となる不変式$J_1,\dots,J_n$」の多項式として書き表すことでした。
+これを「不変式環の有限生成問題」といいます。
+
+これは「泥沼」でした。
+変数が2個、3個と増えるにつれ、計算量は爆発的に増大します。
+当時の計算の大家ゴルダン(Gordan)は、凄まじい計算力で2変数の場合を解決しましたが、3変数以上では誰も歯が立ちませんでした。
+「基本となる不変式が有限個である」ことを示すために、具体的にそれらを見つけようとすると、宇宙が終わるほどの時間がかかってしまうのです。
+
+そこに現れたのが、Noetherの師であるHilbertです。
+彼は具体的な$J_i$を計算するのをやめました。
+代わりにこう考えたのです。
+「不変式たちが生成する\textbf{イデアル}を考えよう」
+
+彼は、多項式環の強力な性質を証明しました。
+\begin{theorem}[Hilbertの基底定理]
+  体$K$上の多項式環$R=K[X_1, \dots, X_n]$の任意のイデアル$\mathfrak{a}$は有限生成である。
+  すなわち、有限個の元$f_1, \dots, f_m$が存在して、
+  \[
+    \mathfrak{a}=(f_1,\dots,f_m)
+  \]
+  と書ける。
+\end{theorem}
+\begin{proof}
+  1変数の場合、$R=K[X]$がNoether環であることを示せばよい。
+  これは次数をユークリッドノルムとして$K[x]$がユークリッド環になることからPIDであり、従って全てのイデアルは一つ、すなわち有限の元で生成される。
+
+  一般の場合、$A:=[X_1,\dots,X_{n-1}]$がNoether環であると仮定したとき、$A[X_n]$もまたNoetherであることを示す。
+  これはより一般に、次の定理によってわかる。
+\end{proof}
+\begin{theorem}
+  $A$がNoether環ならば、$A[X]$もNoether環である。
+\end{theorem}
+\begin{proof}
+  $\mathfrak{f}\subset A[X]$を任意のイデアルとする。
+  $\mathfrak{f}$に含まれる多項式の最高次係数全体からなる集合
+  \[
+    \mathfrak{a}:=\{a\in A\mid {}^\exists aX^n+a_{n-1}X^{n-1}+\cdots+a_0\in\mathfrak{f}\} \cup \{0\}
+  \]
+  を考えると、$\mathfrak{a}$は$A$のイデアルとなる。
+  
+  実際、$a,b\in\mathfrak{a}$とし、それぞれを最高次係数に持つ多項式を$f=aX^n+\cdots$、$g=bX^m+\cdots$とする（$f,g\in\mathfrak{f}$）。
+  一般性を失わず$n\leq m$とすると、$X^{m-n}f \in \mathfrak{f}$であり、これと$g$の和をとることで
+  \[
+    X^{m-n}f + g = (a+b)X^m + \cdots \in \mathfrak{f}
+  \]
+  となるため、$a+b\in\mathfrak{a}$である。
+  また$A$倍についても同様に閉じており、$\mathfrak{a}$はイデアルである。
+
+  $A$はNoether環であるから、$\mathfrak{a}$は有限生成である。
+  \[
+    \mathfrak{a}=(a_1,\dots,a_n)
+  \]
+  とおく。各$a_i$に対して、それを最高次係数としてもつ多項式$f_i \in \mathfrak{f}$を選び、その次数を$r_i=\deg(f_i)$とする。ここで
+  \[
+    r:=\max\{r_1, \dots, r_n\}
+  \]
+  とおく。さらに、これらの生成元で生成される$A[X]$のイデアルを
+  \[
+    \mathfrak{f}':=(f_1,\dots,f_n)
+  \]
+  とおく。明らかに$\mathfrak{f}'\subset\mathfrak{f}$である。
+
+  任意の$f \in \mathfrak{f}$をとる。
+  $f$の次数$m$が$m \geq r$であれば、その最高次係数$a$は$\mathfrak{a}$の元であるから$a=\sum c_i a_i$ ($c_i \in A$) と書ける。
+  このとき、
+  \[
+    f - \sum_{i=1}^n c_i X^{m-r_i} f_i
+  \]
+  を考えると、これは$\mathfrak{f}$の元であり、かつ$m$次の項が消去されているため、次数は$m$より小さくなる。
+  この操作を繰り返すことで、任意の$f \in \mathfrak{f}$に対して
+  \[
+    f = h + g, \quad h \in \mathfrak{f}', \quad \deg(g) < r
+  \]
+  となる$g \in \mathfrak{f}$が存在することがわかる。
+  もし$g=0$ならば$f \in \mathfrak{f}'$であるが、一般には$g \neq 0$の可能性があるため、次数が$r$未満の多項式について考える必要がある。
+
+  各整数$k$ ($0 \leq k < r$) に対して、次数が$k$であるような$\mathfrak{f}$の元の最高次係数全体（および$0$）の集合を$\mathfrak{a}_k$とおく。
+  すなわち、
+  \[
+    \mathfrak{a}_k := \{ c \in A \mid \exists p \in \mathfrak{f}, \deg(p) = k, \text{の最高次係数が } c \} \cup \{0\}
+  \]
+  これらはそれぞれ$A$のイデアルとなるため、Noether性より有限生成である。
+  各$k$について、その生成元を$c_{k,1}, \dots, c_{k, s_k}$とし、
+  それらを最高次係数に持つ多項式 $g_{k,j} \in \mathfrak{f}$ （$\deg g_{k,j} = k$）を選んで固定する。
+
+  これら有限個の多項式全体
+  \[
+    S := \{f_1, \dots, f_n\} \cup \{ g_{k,j} \mid 0 \leq k < r, \, 1 \leq j \leq s_k \}
+  \]
+  が$\mathfrak{f}$を生成することを示す。
+
+  先ほどの剰余多項式$g$（$\deg g < r$）を考える。
+  $g=0$なら証明終了である。
+  $g \neq 0$とし、$\deg(g) = d$ ($d < r$)、その最高次係数を$c$とする。
+  定義より$c \in \mathfrak{a}_d$であるから、$c$は$\mathfrak{a}_d$の生成元$c_{d,j}$の一次結合で書ける。
+  したがって、適当な係数$b_j \in A$を用いて
+  \[
+    g - \sum_{j=1}^{s_d} b_j g_{d,j}
+  \]
+  を作ると、これは$\mathfrak{f}$の元であり、かつ$d$次の項が消去されるため次数は$d$未満となる。
+  
+  この次数引き下げの操作を繰り返せば、最終的に次数は$0$より小さく（すなわち$0$多項式に）なる。
+  ゆえに$g$は$\{g_{k,j}\}$の$A$-係数線形結合で書けることがわかり、$f$は$S$の元で生成されるイデアルに含まれる。
+  
+  以上より$\mathfrak{f}$は有限生成であり、$A[X]$はNoether環である。
+\end{proof}
+
+Hilbertはこの定理を使い、「具体的な形はわからないが、有限個の基底が存在することだけは間違いない」と証明してしまったのです。
+これを見たGordanは「これは数学ではない、神学だ！」と叫んだとか。
+こうして、「具体的な計算」の限界を「イデアルの有限生成性」という抽象的な性質が突破しました。
+この「任意のイデアルが有限生成である」という性質こそ、後にEmmy Noetherが「Noether環」として定義したものの正体です。
+前節で見たように、この「有限生成性」は、先ほどの「昇鎖条件」と全く同じ意味を持つのです。
+
+ちなみに、この「変換しても変わらない性質に着目する」という思想は、同時代のフェリックス・クライン(Felix Klein)による「\textbf{エルランゲン・プログラム}」（幾何学を変換群の観点で統一する試み）と完全に共鳴するものです。
+不変式論は、Kleinが描いた幾何学の設計図を、代数の計算によって具体的に実現しようとする試みだったとも言えるでしょう。
+やがてこの流れは、計算（不変式）から構造（群・環・体）へと主役を移し、Noetherによる現代代数学へと結実していきます。
+
+
+
+\section{やり残したこと}
+
+話の流れ的にどこにも差し込みにくかった定理をここに証明します。
+
+\begin{theorem}
+  $A$を可換環、$\mathfrak{a}$を$A$のイデアルとする。
+  このとき、$\mathfrak{a}$が素イデアルであることと、$A/\mathfrak{a}$が整域であることは同値である。
+\end{theorem}
+\begin{proof}
+  $\mathfrak{a}$が素イデアルであるとし、$x+\mathfrak{a},y+\mathfrak{a}\in A/\mathfrak{a}$は$xy+\mathfrak{a}=0+\mathfrak{a}$が成り立つとする。
+  すなわち$xy\in\mathfrak{a}$であるが、$\mathfrak{a}$は素イデアルであるから、$x\in\mathfrak{a}$または$y\in\mathfrak{a}$が成り立つ。
+  これはすなわち$x+\mathfrak{a}=0+\mathfrak{a}$または$y+\mathfrak{a}=0+\mathfrak{a}$であるから、$A/\mathfrak{a}$は素イデアルとなる。
+
+  逆に$A/\mathfrak{a}$が整域ならば$\mathfrak{a}$が素イデアルであることは、上記を逆にたどればわかる。
+\end{proof}
+
+
+
+
+
 
 
