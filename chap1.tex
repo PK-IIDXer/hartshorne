@@ -87,3 +87,210 @@ $k$を代数閉体、$A:=k[x_1,\dots,x_n]$を$k$上の多項式環とします�
   以上より$Z(T)=Z(\mathfrak{a})$。
 \end{proof}
 
+$A=k[x_1,\dots,x_n]$はHilbertの基底定理よりNoether環でしたので、イデアル$\mathfrak{a}$は有限個の生成元$f_1,\dots,f_n\in A$をもちます。
+つまり$Z(T)$は多項式$f_1,\dots,f_n$の共通ゼロ点集合ということです。
+別に$T$は有限集合と限っているわけではないのに、結局は有限個の多項式のゼロ点集合で表わせるのは面白いですね。
+
+今まではイデアルからゼロ点集合を作りましたが、逆にイデアルのゼロ点集合になれる部分集合を定義します。
+\begin{definition}
+  $k$を代数閉体、$\mathbb{A}^n$をアフィン空間、$A=k[x_1,\dots,x_n]$とする。
+  $Y\subset\mathbb{A}^n$が\textbf{代数的集合}(\textit{algebraic set})であるとは、ある部分集合$T\subset A$が存在して、$Y=Z(T)$を満たす時を言う。
+\end{definition}
+代数的集合からなる$\mathbb{A}^n$の部分集合族は位相をなすことがわかります。
+\begin{theorem}[本文Proposition 1.1]
+  代数的集合の集合族は閉集合の公理を満たす。すなわち
+  \begin{enumerate}
+    \item 二つの代数的集合の和集合はまた代数的集合
+    \item 任意の代数的集合の族の共通集合はまた代数的集合
+    \item 空集合と全体$\mathbb{A}^n$は代数的集合
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  (1.) $Y_1=Z(T_1)$、$Y_2=Z(T_2)$を代数的集合とする。ここで$T_1T_2$で、$T_1$の元と$T_2$の元をひとつずつかけ合わせたもの全体の集合とする。
+  このとき、$Y_1\cup Y_2=Z(T_1T_2)$であることが次のように示される。
+  $P\in Y_1\cup Y_2$とすると、$P\in Y_1$または$P\in Y_2$。
+  $P\in Y_1$とすれば、任意の$f\in T_1$に対して$f(P)=0$だから、任意の$fg\in T_1T_2$に対して$f(P)g(P)=0$ゆえ$P\in Z(T_1T_2)$。
+  $P\in Y_2$としても同様であるから、$Y_1\cup Y_2\subset Z(T_1T_2)$。
+  逆に$P\in Z(T_1T_2)$かつ$P\notin Y_1$であるとすると、ある$f\in T_1$が存在して、$f(P)\neq0$。
+  このとき、$p\in Z(T_1T_2)$であるから、任意の$g\in T_2$に対して$f(P)g(P)=0$であるはずであるが、$f(P)\neq0$であるから$g(P)=0$が任意の$g\in T_2$について成り立つということである。
+  従って$P\in Y_2$となる。
+  同様に$P\notin Y_2$ならば$P\in Y_1$が分かるから、$Z(T_1T_2)\subset Z(T_1T_2)$。
+  従って$Y_1\cup Y_2=Z(T_1T_2)$。
+
+  (2.) $Y_\alpha=Z(T_\alpha)$を代数的集合の族とする。
+  このとき$\bigcap_\alpha Y_\alpha=Z(\bigcup_\alpha T_\alpha)$であることが次のように示せる。\\
+  $P\in\bigcap_\alpha Y_\alpha=\bigcap_\alpha Z(T_\alpha)$\\
+  $\iff$ 任意の$f\in\bigcup_\alpha T_\alpha$に対して、$f(P)=0$。\\
+  $\iff$ $P\in Z(\bigcup_\alpha T_\alpha)$。
+
+  (3.) $\varnothing =Z(\{1\})$、$\mathbb{A}^n=Z(\{0\})$である。
+\end{proof}
+
+\begin{definition}
+  代数閉体上のアフィン空間$\mathbb{A}^n$の閉集合族が誘導する位相を\textbf{ザリスキー(Zariski)位相}という。
+\end{definition}
+Zariski位相における開集合は、代数的集合の補集合です。
+いくつか具体例を見ていきましょう。
+
+\begin{example}[本文 Example1.1.1]
+  $\mathbb{A}^1$のZariski位相を考える。
+  $A=k[x]$はPIDだから、任意のイデアルは一つの多項式$f$で生成される。
+  ところで$k$は代数閉体だから、$f=c(x-a_1)\cdots(x-a_n)$と分解される。
+  よって任意の閉集合は、
+  \[
+    Y=Z(\{f\})=Z(\{c(x-a_1)\cdots(x-a_n)\})=\{a_1,\dots,a_n\}
+  \]
+  となる。すなわち、$\mathbb{A}^1$のZariski位相は、有限個の点(および全体$\mathbb{A}^1$)を閉集合とする位相が入っている。
+  言い換えれば、任意の開集合は有限個の点の補集合(あるいは$\varnothing $)である。
+
+  この位相はハウスドルフ(Hausdorff)ではない。
+  実際、任意の異なる二点$a,b\in\mathbb{A}^1$をとり、これらを分割する開集合$U_a$、$U_b$があったとすると、$U_a\cap U_b=\varnothing $。
+  ところが閉集合$F_a:=\mathbb{A}^1\setminus U_a$と$F_b:=\mathbb{A}^1\setminus U_b$は有限集合であり、従って$F_a\cup F_b$も有限集合。
+  ところが$\mathbb{A}^1=k$は代数閉体だから無限集合であるから、
+  \[
+    \varnothing=U_a\cap U_b=X\setminus(F_a\cup F_b)\neq\varnothing
+  \]
+  ゆえ矛盾する。
+\end{example}
+Zariski位相がHausdorffでないことは、この位相が有益な情報をもつコホモロジーを作るほど豊かであるとは言い難いことを示唆しています。
+これを解決していくのがこれからのHartshorneの課題の一つです。
+第一章ではこの問題はとりあえずおいておいて、先に進んでいきます。
+位相を定義したので、そちら方向から多様体の構造に迫っていきます。
+
+\begin{definition}
+  位相空間$X$において、空でない部分集合$Y$が\textbf{既約}(\textit{irreducible})であるとは、$Y$の誘導位相による二つの閉かつ真なる部分集合$Y_1,Y_2$であって、$Y=Y_1\cup Y_2$となるものが存在しない時を言う。
+  空集合は既約とはみなさない。
+\end{definition}
+ちょっと何言ってるかわからない人のために、いくつか例を用意してくれています。
+
+\begin{example}[本文 Example1.1.2]
+  $\mathbb{A}^1$は既約。
+  なぜなら、$\mathbb{A}^1$の閉集合は有限集合しかなく、$\mathbb{A}^1=k$は代数閉体だから無限集合であり、二つの閉集合の和集合で表わしえないため。
+\end{example}
+
+\begin{example}[本文 Example1.1.3]
+  既約空間の空でない開集合は既約かつ稠密。
+\end{example}
+証明書いてないのでイミフです。
+これは著者の「手を動かせ」というメッセージです。
+\begin{proof}
+  背理法で証明する。
+  $X$を既約空間とし、$Y$を空でない開部分集合とする。
+  $Y_1,Y_2\subset Y$を空かつ真でない閉集合であり、$Y=Y_1\cup Y_2$と満たすとする。
+  $Y_1,Y_2$は閉集合だから、ある閉集合$C_1,C_2\subset X$が存在して、$Y_1=Y\cap C_1$、$Y_2=Y\cap C_2$。
+  このとき、二つの$X$における閉集合
+  \begin{align*}
+    Z_1&:=C_1\cup(X\setminus Y)\\
+    Z_2&:=C_2\cup(X\setminus Y)
+  \end{align*}
+  を考えると、
+  \[
+    Z_1\cup Z_2=C_1\cup C_2\cup(X\setminus Y)
+  \]
+  は$X$に一致する。
+  実際、$Y=Y_1\cup Y_2\subset C_1\cup C_2$であるから、$C_1\cup C_2\cup(X\setminus Y)=X$。
+  $X$は既約だったから、$Z_1$か$Z_2$のうち少なくとも一方は$X$に一致しなければならない。
+  仮に$Z_1=X$だとすると、$Y=X\cap Y=Z_1\cap Y$から
+  \begin{align*}
+    Y&=X\cap Y=Z_1\cap Y\\
+    &=(C_1\cup(X\setminus Y))\cap Y\\
+    &=(C_1\cap Y)\cup((X\setminus Y)\cap Y)\\
+    &=Y_1\cup\varnothing\\
+    &=Y_1
+  \end{align*}
+  となり、$Y_1$が$Y$の真部分集合であったことに矛盾する。
+  $Z_2=X$であっても同様であるから、$Y$は既約でなければならない。
+
+  また、$Y$が稠密であること、すなわち$\overline{Y}=X$を示す。
+  閉集合$X\setminus Y$は真部分集合であり、$Y\subset \overline{Y}$であるから、$X$は
+  \[
+    X=(X\setminus Y)\cup \overline{Y}
+  \]
+  と閉集合で覆える。
+  ところが$X$は既約であり、$X\setminus Y$は真部分集合だから、$\overline{Y}=X$とならなければならない。
+\end{proof}
+
+\begin{example}[本文 Example1.1.4]
+  $Y$を$X$の既約部分集合とするとき、閉包$\overline{Y}$も$X$の既約部分集合である。
+\end{example}
+これも証明が書いてないですね。
+示していきましょう。
+\begin{proof}
+  背理法で証明する。
+  $\overline{Y}$の真閉集合$Y_1,Y_2$が存在して、$\overline{Y}=Y_1\cup Y_2$を満たすとする。
+  $\overline{Y}$は閉集合だから、$Y_1,Y_2$は$X$でも閉集合である。
+  また、
+  \[
+    Y=Y\cap\overline{Y}=Y\cap(Y_1\cup Y_2)=(Y\cap Y_1)\cup(Y\cap Y_2)
+  \]
+  であることから、$Y$の既約性から$Y=Y\cap Y_1$または$Y=Y\cap Y_2$が成り立たねばならない($Y$の相対位相で考えることに注意)。
+  もし$Y=Y\cap Y_1$とすると$Y\subset Y_1$である。
+  $\overline{Y}$は$Y$を含む最小の閉集合であったから、$\overline{Y}\subset Y_1\subset\overline{Y}$となり、$Y_1=\overline{Y}$。
+  これは$Y_1$が$\overline{Y}$の真部分集合であったことに矛盾する。
+  $Y=Y\cap Y_2$としても同様に$Y_2=\overline{Y}$となって矛盾。
+\end{proof}
+
+既約集合の感覚が分かったでしょうか？
+ぶっちゃけ名前から察しはついているでしょうけれども、素イデアルの代数的集合などが既約集合をなします。
+ここからはそんな感じの話だと思います。
+
+\begin{definition}
+  $k$を代数閉体、$\mathbb{A}^n$をアフィン空間とする。
+  \textbf{アフィン代数多様体}(\textit{affine algenraic variety})とは、$\mathbb{A}^n$の既約閉部分集合に誘導位相を入れたものをいう。
+  単に\textbf{アフィン多様体}(\textit{affine variety})とも呼ぶ。
+  またアフィン多様体の開部分集合を\textbf{準アフィン多様体}(\textit{quasi-affine variety})と呼ぶ。
+\end{definition}
+
+アフィン多様体が代数幾何学における最初の議論対象なのですが、これを代数的に扱うための一つのツールを導入します。
+\begin{definition}
+  $k$を代数閉体、$Y$を$\mathbb{A}^n=k^n$の部分集合とする。
+  このとき、\textbf{$Y$の$A=k[x_1,\dots,x_n]$におけるイデアル}を
+  \[
+    I(Y):=\{f\in A\mid f(P)=0\;{}^\forall P\in Y\}
+  \]
+  と定義する。
+\end{definition}
+もしセミナーなら、誰かから「$I(Y)$が本当にイデアルなのか？」と聞かれてしまうでしょう。
+難しくはないですが、一応ちゃんと証明しましょう。
+\begin{lemma}
+  $Y$を$\mathbb{A}^n=k^n$の部分集合とする。
+  このとき、
+  \[
+    I(Y):=\{f\in A\mid f(P)=0\;{}^\forall P\in Y\}
+  \]
+  は$A$のイデアルである。
+\end{lemma}
+\begin{proof}
+  $0\in I(Y)$はあきらか。
+  $f,g\in I(Y)$のとき、任意の$P\in Y$に対して$f(P)=g(P)=0$であるから、$(f+g)(P)=f(P)+g(P)=0$。
+  ゆえに$f+g\in I(Y)$。
+  最後に、$a\in A$、$f\in I(Y)$とすると、任意の$P\in Y$に対して$f(P)=0$であるから、$(af)(P)=a(P)f(P)=0$。
+  ゆえに$af\in I(Y)$。
+\end{proof}
+
+ここに
+\begin{align*}
+  \text{$A$の部分集合}&\overset{Z}{\longrightarrow}\text{$\mathbb{A}^n$の代数的集合}\\
+  \text{$A$のイデアル}&\overset{I}{\longleftarrow}\text{$\mathbb{A}^n$の部分集合}
+\end{align*}
+という二つの写像が得られました。
+これらの間にはきっと素晴らしい関係があるはずです。
+いや、あります。見ていきましょう。
+
+\begin{theorem}[本文 Proposition1.2]
+  $k$を代数閉体、$\mathbb{A}^n$をアフィン空間、$A=k[x_1,\dots,x_n]$とする。
+  このとき、以下が成り立つ。
+  \begin{itemize}
+    \item[(a)] $T_1\subset T_2$が$A$の部分集合ならば、$Z(T_1)\supset Z(T_2)$
+    \item[(b)] $Y_1\subset Y_2$が$\mathbb{A}^n$の部分集合ならば、$I(Y_1)\supset I(Y_2)$
+    \item[(c)] $Y_1,Y_2$を$\mathbb{A}^n$の二つの部分集合とすると、$I(Y_1\cup Y_2)=I(Y_1)\cap I(Y_2)$
+    \item[(d)] 任意のイデアル$\mathfrak{a}\subset A$に対して、$I(Z(\mathfrak{text}))=\sqrt{\mathfrak{a}}$ ($\sqrt{\mathfrak{a}}$は$\mathfrak{a}$の\textbf{根基})
+    \item[(e)] 任意の部分集合$Y\subset\mathbb{A}^n$に対して、$Z(I(Y))=\overline{Y}$
+  \end{itemize}
+\end{theorem}
+\begin{comment}
+(a),(b),(c)は自明と言っていますが、僕たちは一応ちゃんと証明しましょう。
+(d)は\textbf{Hilbertの零点定理}なるものが必要というか、これはほぼその定理そのものです。
+これはまあまあ重い定理なので、後ろのほうを読んでいただければ幸いです。
+ゆえに著者がまともに証明を書いているのは(e)だけです。
+\end{comment}

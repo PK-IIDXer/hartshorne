@@ -7,7 +7,7 @@
 \usepackage{comment}
 
 \theoremstyle{definition}
-\newtheorem{theorem}{定理}[chapter]
+\newtheorem{theorem}{定理}[section]
 \newtheorem{corollary}[theorem]{系}
 \newtheorem{definition}[theorem]{定義}
 \newtheorem{lemma}[theorem]{補題}
@@ -20,7 +20,13 @@
 \setlength{\textwidth}{\fullwidth}
 \setcounter{chapter}{-1}
 
+\title{【精読ノート】Robin Hartshorne著\\\textit{Algebraic Geometry}}
+\author{ずんだもん博士}
+\date{\today}
+
 \begin{document}
+  \maketitle
+  \tableofcontents
   \include{introduction}
   \include{chap0}
   \part{本文の解説}
