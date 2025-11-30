@@ -271,7 +271,7 @@ $0\neq1$を定義に含めたので、環と違って$\{0\}$は体ではあり�
 \begin{proof}
   もし$p\mathbb{Z}\subsetneq\mathfrak{a}\subset\mathbb{Z}$となるイデアル$\mathfrak{a}$が存在したとすると、$\mathfrak{a}$には$p$の倍数でない整数$x$が存在する。
   $p$は素数ゆえ、$x$と$p$は互いに素となる。
-  ここでユークリッドの互除法より$pn+xy=1$をみたす$n,y\in\mathbb{Z}$が存在し、$p,x\in\mathfrak{a}$であるから、$1=pn+xy\in\mathfrak{a}$となる。
+  ここでEuclidの互除法より$pn+xy=1$をみたす$n,y\in\mathbb{Z}$が存在し、$p,x\in\mathfrak{a}$であるから、$1=pn+xy\in\mathfrak{a}$となる。
   従って、任意の$m\in\mathbb{Z}$に対して、$m=1\cdot m\in\mathfrak{a}$となり、$\mathfrak{a}=\mathbb{Z}$
 \end{proof}
 
@@ -387,57 +387,6 @@ $0\neq1$を定義に含めたので、環と違って$\{0\}$は体ではあり�
   たとえば$(X,Y)$は$(X)$を含む極大イデアルである。
 \end{proof}
 このことは、幾何学的直観からもわかりますね。
-
-
-
-\begin{comment}
-  必要になったら必要になったところに移動する。
-\section{イデアル演算}
-
-極大イデアル$\mathfrak{m}$が素イデアルであることを証明するために、$a\in A$に対して
-\[
-  \{ax+y\mid x\in A, y\in\mathfrak{m}\}
-\]
-というイデアルを作りました。
-この考えを一般化することができます。
-\begin{theorem}
-  $A$を環、$\mathfrak{a},\mathfrak{b}$を$A$のイデアルとする。
-  このとき、
-  \[
-    \mathfrak{c}:=\{x+y\mid x\in\mathfrak{a},y\in\mathfrak{b}\}
-  \]
-  はイデアルである。
-\end{theorem}
-\begin{proof}
-  $0\in\mathfrak{c}$は自明。
-  $x+y,x'+y'\in\mathfrak{c}$とすると、$x+x'\in\mathfrak{a}$、$y+y'\in\mathfrak{b}$より
-  \[
-    (x+y)+(x'+y')=(x+x')+(y+y')\in\mathfrak{c}
-  \]
-  最後に、$a\in A$、$x+y\in\mathfrak{c}$とすると、$ax\in\mathfrak{a}$、$ay\in\mathfrak{b}$より
-  \[
-    a(x+y)=ax+ay\in\mathfrak{c}
-  \]
-\end{proof}
-\begin{definition}
-  $A$を環、$\mathfrak{a},\mathfrak{b}$を$A$のイデアルとする。
-  このとき、イデアル
-  \[
-    \mathfrak{a}+\mathfrak{b}:=\{x+y\mid x\in\mathfrak{a},y\in\mathfrak{b}\}
-  \]
-  を$\mathfrak{a}$と$\mathfrak{b}$の和という。
-\end{definition}
-有限個のイデアルの和も帰納的に定義できます。
-無限個のイデアルのときは次のように定義します。
-\begin{theorem}
-  $A$を環、$\{\mathfrak{a}_i\}_{i\in I}$を$A$のイデアルの族とする。
-  このとき、
-  \[
-    \mathfrak{b}:=\{\sum_{i\in I}x_i\mid x_i\in\mathfrak{a}_i, \text{有限個の$i\in I$を除いて$x_i=0$}\}
-  \]
-  はイデアルである。
-\end{theorem}
-\end{comment}
 
 
 
@@ -737,7 +686,7 @@ $0\neq1$を定義に含めたので、環と違って$\{0\}$は体ではあり�
 \end{proof}
 
 \begin{comment}
-  TODO ユークリッド整域の後に、タイミングがいいところに入れる
+  TODO Euclid整域の後に、タイミングがいいところに入れる
 次に、素イデアルについても同様の判定法があります。
 \begin{theorem}
   $A$を環、$\mathfrak{a}$をそのイデアルとする。
@@ -779,7 +728,7 @@ $0\neq1$を定義に含めたので、環と違って$\{0\}$は体ではあり�
   $\mathbb{Z}/p\mathbb{Z}$が体であることを示せばよい。
   $a+p\mathbb{Z}\neq0+p\mathbb{Z}$、すなわち$a\notin p\mathbb{Z}$であるとする。
   従って$a$は$p$の倍数ではないが、$p$は素数であるため$a$と$p$は互いに素である。
-  ゆえにユークリッドの互除法により、ある整数$x,y$が存在して、
+  ゆえにEuclidの互除法により、ある整数$x,y$が存在して、
   \[
     ax+py=1 \text{ すなわち } ax=1-py
   \]

@@ -1,9 +1,9 @@
 \chapter{可換環論 初級}
 
-こちらは$\text{ユークリッド環}\subset\text{PID}$の紹介と証明から、Noether環に至るまでを中心に、その他もろもろ解説していきます。
+こちらは$\text{Euclid環}\subset\text{PID}$の紹介と証明から、Noether環に至るまでを中心に、その他もろもろ解説していきます。
 可能な限り、それらが必要となった背景知識も盛り込んでいきます。
 
-\section{ユークリッド環}
+\section{Euclid環}
 
 前章の例題で、\textbf{多項式の割り算}をしれっと行いました。
 高校数学でもやったことあると思います。
@@ -12,7 +12,7 @@
   f=gq+r,\quad {}^\exists q,r \text{ s.t. } \deg(r)<\deg(g)
 \]
 ができるのです。
-こうみると、\textbf{ユークリッド互除法}とまったく同じことを多項式でやっていると言えます。
+こうみると、\textbf{Euclid互除法}とまったく同じことを多項式でやっていると言えます。
 しかし残念ながら、任意の環にそのようなアルゴリズムが存在するとは限りません。
 
 まず良くない可能性は、0じゃない元同士の積が0になることがあるということです。
@@ -36,13 +36,13 @@
 \end{itemize}
 ということです。
 
-さて、整域においてでさえユークリッドの互除法を導くことができません。
+さて、整域においてでさえEuclidの互除法を導くことができません。
 整数においても多項式においても、\textbf{剰余の大きさが割った元より小さくなっていかないといけない}のですが、そもそも\textbf{元の大きさ}を環の定義では行っていません。
 なので、付け加える必要があります。
 新たな環の出現です！
 \begin{definition}
-  整域$A$が\textbf{ユークリッド環}(\textit{Euclidean domain}\footnote{
-    直訳すると「ユークリッド整域」になりそうですが、最近の本はユークリッド環と訳すのが主流のような雰囲気をそこはかとなく感じています。
+  整域$A$が\textbf{Euclid環}(\textit{Euclidean domain}\footnote{
+    直訳すると「Euclid整域」になりそうですが、最近の本はEuclid環と訳すのが主流のような雰囲気をそこはかとなく感じています。
   })であるとは、写像
   \[
     |\cdot|:A\setminus\{0\}\to \mathbb{Z}_{\geq0}
@@ -56,25 +56,25 @@
   \[|r|<|b|\]
   である。
 
-  上記の条件を満たす写像$|\cdot|:A\setminus\{0\}\to \mathbb{Z}_{\geq0}$を\textbf{ユークリッドノルム}と呼ぶ。
+  上記の条件を満たす写像$|\cdot|:A\setminus\{0\}\to \mathbb{Z}_{\geq0}$を\textbf{Euclidノルム}と呼ぶ。
 \end{definition}
 
-\subsection{ユークリッド環の例}
+\subsection{Euclid環の例}
 
-非常に当たり前ですが、体はユークリッド環です。
+非常に当たり前ですが、体はEuclid環です。
 \begin{example}
   体$K$は、
   \[
     |\cdot|:K\setminus\{0\}\to\mathbb{Z}_{\geq0};x\mapsto 0
   \]
-  をユークリッドノルムとするユークリッド環である。
+  をEuclidノルムとするEuclid環である。
 \end{example}
 \begin{proof}
   $a,b\in K$に対して、$b\neq0$ならば、$q=b^{-1}a$、$r=0$とおけば
   \[
     bq=b(b^{-1}a)=a
   \]
-  となるから、$|\cdot|$はユークリッドノルムである。
+  となるから、$|\cdot|$はEuclidノルムである。
 
   整域であることを示す。
   $a,b\in K$に対して$ab=0$とすれば、$a\neq0$ならば、両辺に$a^{-1}$を掛けることで$b=0$を得る。
@@ -86,20 +86,20 @@
   }。
 \end{proof}
 
-もちろん、今まで見てきた整数環$\mathbb{Z}$や、体$K$上の一変数多項式環$K[X]$はユークリッド環です。
+もちろん、今まで見てきた整数環$\mathbb{Z}$や、体$K$上の一変数多項式環$K[X]$はEuclid環です。
 \begin{example}
   整数環$\mathbb{Z}$は、通常の絶対値
   \[
     \mathbb{Z}\setminus\{0\}\to\mathbb{Z}_{\geq0};n\mapsto|n|
   \]
-  をユークリッドノルムとするユークリッド環である。
+  をEuclidノルムとするEuclid環である。
 \end{example}
 \begin{proof}
-  ユークリッドの互除法そのものであるから自明。
+  Euclidの互除法そのものであるから自明。
 \end{proof}
 
 \begin{example}
-  $K$を体とする。このとき一変数多項式環$K[X]$は、多項式$f$の$X$に関する次数$\deg(f)$をユークリッドノルムとするユークリッド環である。
+  $K$を体とする。このとき一変数多項式環$K[X]$は、多項式$f$の$X$に関する次数$\deg(f)$をEuclidノルムとするEuclid環である。
 \end{example}
 ほぼ自明ですが証明します。
 \begin{proof}
@@ -114,7 +114,7 @@
   従って$fg\neq0$となってしまい、矛盾する。
   よって$\deg(f)=\deg(g)=0$でなければならず、従って上述の通り$f=0$または$g=0$ゆえ、$K[X]$は整域である。
 
-  $\deg$がユークリッドノルムであることを示すために、$f,g\in K[X]$、$g\neq0$とする。
+  $\deg$がEuclidノルムであることを示すために、$f,g\in K[X]$、$g\neq0$とする。
   \begin{itemize}
     \item $\deg(f)<\deg(g)$ならば、$q=0,r=f$とおいて、$f=qg+r$かつ、$\deg(r)<\deg(g)$を満たしている。
     \item $\deg(f)\geq\deg(g)$のとき、$f$は
@@ -149,11 +149,11 @@
 
 
 
-\section{単項イデアル整域}
+\section{単項イデアル環}
 
-一変数多項式環はユークリッド環でしたが、2変数にするとユークリッド環ではなくなります。
+一変数多項式環はEuclid環でしたが、2変数にするとEuclid環ではなくなります。
 その理由は以下になります。
-\begin{lemma}
+\begin{lemma}\label{lemma:main_example_of_not_principal_ideal_on_2_var_polynomials}
   $K[X,Y]$のイデアル$(X,Y)$は単項イデアルではない。
 \end{lemma}
 \begin{proof}
@@ -176,24 +176,24 @@
   \[
     1=Xp+Yq
   \]
-  と書けることになるが、両辺に$(0,0)$を代入すると$1=0$となり矛盾する。
+  と書けることになるが、両辺に$(X,Y)=(0,0)$を代入すると$1=0$となり矛盾する。
   以上より、$(X,Y)$を生成する単一の多項式$f$は存在しない。
 \end{proof}
 
-なぜこれで$K[X,Y]$がユークリッド環でないことが分かるかというと、次の定理が知られているからです。
+なぜこれで$K[X,Y]$がEuclid環でないことが分かるかというと、次の定理が知られているからです。
 \begin{theorem}
-  $A$をユークリッド環とする。このとき、$A$の任意のイデアルは単項イデアルである。
+  $A$をEuclid環とする。このとき、$A$の任意のイデアルは単項イデアルである。
 \end{theorem}
 \begin{proof}
   $\mathfrak{a}$を$A$のイデアルとする。
   $\mathfrak{a}=(0)$ならば$(0)$という単項イデアルであるからよい。
   $\mathfrak{a}\neq(0)$とする。
-  このとき、$\mathfrak{a}$の$0$でない元の中で、ノルム$|x|$が最小となる元を一つ選び、$d$とする。
+  このとき、$\mathfrak{a}$の$0$でない元の中で、Euclidノルム$|x|$が最小となる元を一つ選び、$d$とする。
   この$d$がイデアルすべてを生成すること、すなわち$\mathfrak{a}=(d)$を示そう。
   
   $d\in\mathfrak{a}$であるから、$(d)\subset\mathfrak{a}$は明らか。
   逆に任意の$a\in\mathfrak{a}$をとる。
-  ユークリッド環の定義より、
+  Euclid環の定義より、
   \[
     a = dq + r \quad (r=0 \text{ または } |r|<|d|)
   \]
@@ -201,18 +201,18 @@
   変形すると$r = a - dq$である。
   $a\in\mathfrak{a}$かつ$d\in\mathfrak{a}$より、$r\in\mathfrak{a}$である。
   
-  ここで、もし$r\neq 0$だとすると、$|r|<|d|$となり、$d$がノルム最小の元として選ばれたことに矛盾する。
+  ここで、もし$r\neq 0$だとすると、$|r|<|d|$となり、$d$がEuclidノルム最小の元として選ばれたことに矛盾する。
   したがって$r=0$でなければならない。
   ゆえに$a=dq \in (d)$となり、$\mathfrak{a}\subset(d)$。
   以上より$\mathfrak{a}=(d)$である。
 \end{proof}
 
-これにより$K[X,Y]$がユークリッド環でないことが分かったばかりか、整数環$\mathbb{Z}$や多項式環$K[x]$のイデアルが、すべて1つの元で生成されることが保証されました！
+これにより$K[X,Y]$がEuclid環でないことが分かったばかりか、整数環$\mathbb{Z}$や多項式環$K[x]$のイデアルが、すべて1つの元で生成されることが保証されました！
 このような整域には名前を付けてあげましょう。
 \begin{definition}
-  整域$A$が\textbf{単項イデアル整域}(\textit{principal ideal domain}, 略してPID)であるとは、任意のイデアルが単項イデアルであるときをいう。
+  整域$A$が\textbf{単項イデアル環}(\textit{principal ideal domain}, 略してPID)であるとは、任意のイデアルが単項イデアルであるときをいう。
 \end{definition}
-先ほど示したことは、\textbf{ユークリッド環はPIDである}ということです。
+先ほど示したことは、\textbf{Euclid環はPIDである}ということです。
 
 
 
@@ -223,7 +223,7 @@
 この疑問を持った君はするどい！
 これは実は代数幾何学で空気のように扱われる概念です。
 \begin{definition}[Noether環]
-  任意のイデアルが有限生成であるような環$A$を\textbf{Noether環}(\textit{Noetherian ring})と呼ぶ。
+  任意のイデアルが有限生成であるような(整域とは限らない)環$A$を\textbf{Noether環}(\textit{Noetherian ring})と呼ぶ。
 \end{definition}
 
 実はもともとNoether環は、不変式論と呼ばれる分野での\textbf{Hilbertの基底定理}および、代数的整数論におけるデデキントによる\textbf{イデアルの昇鎖列が止まるか問題}に対して提唱されました。
@@ -287,7 +287,7 @@ $\mathbb{Z}[\zeta_{23}]$で考えるのは少し大変なので、よく知ら�
   $1+\sqrt{-5}\in\mathbb{Z}[\sqrt{-5}]$は$(2)$に含まれない。
   実際、もし$1+\sqrt{-5}\in(2)$とすると、ある$a+b\sqrt{-5}\in\mathbb{Z}[\sqrt{-5}]$が存在して、$1+\sqrt{-5}=2(a+b\sqrt{-5})$。
   ところがこれらの複素数が一致するためには、$1=2a$、$1=2b$が成り立たなければならないが、そのような$a,b\in\mathbb{Z}$は存在しない。
-  ゆえに$1+\sqrt{-5}\notin\mathbb{Z}[\sqrt{-5}]$。
+  ゆえに$1+\sqrt{-5}\notin(2)$。
 
   ところが、$(1+\sqrt{-5})^2=1+2\sqrt{-5}-5=-4+2\sqrt{-5}=2(-2+\sqrt{-5})\in(2)$。
 \end{proof}
@@ -556,7 +556,7 @@ Kummerが考えたこの素イデアル分解ですが、実は任意の環で�
 \end{theorem}
 \begin{proof}
   1変数の場合、$R=K[X]$がNoether環であることを示せばよい。
-  これは次数をユークリッドノルムとして$K[x]$がユークリッド環になることからPIDであり、従って全てのイデアルは一つ、すなわち有限の元で生成される。
+  これは次数をEuclidノルムとして$K[x]$がEuclid環になることからPIDであり、従って全てのイデアルは一つ、すなわち有限の元で生成される。
 
   一般の場合、$A:=[X_1,\dots,X_{n-1}]$がNoether環であると仮定したとき、$A[X_n]$もまたNoetherであることを示す。
   これはより一般に、次の定理によってわかる。
@@ -654,6 +654,7 @@ Hilbertはこの定理を使い、「具体的な形はわからないが、有�
 \section{やり残したこと}
 
 話の流れ的にどこにも差し込みにくかった話題をここにおいておきます。
+UFDもがっつり解説していきます。
 
 \subsection{素イデアル判定法}
 
@@ -711,7 +712,7 @@ Hilbertはこの定理を使い、「具体的な形はわからないが、有�
 
 \subsection{一意分解整域}
 
-整域、ユークリッド環、PID、Noether環と色々な環を紹介しましたが、まだ特筆すべき種類の環があります。
+整域、Euclid環、PID、Noether環と色々な環を紹介しましたが、まだ特筆すべき種類の環があります。
 
 またまたFermat予想に対するLam\'eとKummerの試みに戻ります。
 彼らが直面した大きな壁は、結局のところ$\mathbb{Z}[\zeta_{23}]$における素因数分解の一意性が成り立たないことでした。
@@ -747,7 +748,7 @@ Noether環の文脈では、次のようなものを考えるのが自然です�
 \end{proof}
 
 この逆、つまり既約元は素元とは限りません。
-\begin{example}
+\begin{example}\label{example:2_is_irreducible_not_prime_on_Z_sqrt-5}
   $A=\mathbb{Z}[\sqrt{-5}]$において、$2$は既約元であるが、素元ではない。
 
   素元でないことを示すために、$6=(1+\sqrt{-5})(1-\sqrt{-5})$を考える。
@@ -806,51 +807,249 @@ Noether環の文脈では、次のようなものを考えるのが自然です�
 \end{example}
 
 つまり、素元は既約元より強力な制約を課した元であるということがわかります。
-であれば、定義としてはより広く取って、既約元を軸に素因数分解の一意性が成り立つ環を定義するのが良さそうです。
-整数の素因数分解の一意性の自然な拡張としてもこちらが良さそうですね。
+しかし、いくつかの環において既約元と素元の概念は一致します。
+$\mathbb{Z}$は言わずもがな。
+他にも例えば
+\begin{theorem}
+  $A$をPIDとする。$p\in A$が既約元ならば、$p$は素元である。
+\end{theorem}
+\begin{proof}
+  $(p)$が素イデアルであるどころか、極大イデアルになることを証明する。
+  $(p)\subset\mathfrak{a}\subsetneq A$となるイデアル$\mathfrak{a}$をとると、$A$はPIDだから、ある$a\in A$が存在して$\mathfrak{a}=(a)$。
+  $p\in(a)$であるから、$p=ab$となる$b\in A$が存在する。
+  $p$は既約元だったから、$a\in A^\times$または$b\in A^\times$。
+  ところが$(a)\subsetneq A$であったから、$a\notin A^\times$ゆえ、$b\in A^\times$がわかる。
+  ゆえに$p=ab\iff a=b^{-1}p$が成り立つから、$(p)=(a)$は極大イデアルである。
+\end{proof}
+証明の中で次のことも言えてしまいました。
+\begin{corollary}
+  $A$をPIDとする。このとき、$a\in A$に関して以下は同値。
+  \begin{enumerate}
+    \item $a$は既約元
+    \item $a$は素元
+    \item $(a)$は極大イデアル
+  \end{enumerate}
+\end{corollary}
+\begin{proof}
+  1.$\iff$2.は既に示しており、1. or 2.ならば3.も示しているから、3.ならば2.を示せばよいが、極大イデアルは素イデアルであるから自明。
+\end{proof}
+
+PIDがそうであるように、既約元と素元が一致する環もそれなりにあるということが理解できたと思います。
+\textbf{そのような環では、既約元=素元による一意分解性が成り立つことが知られています}。
+\begin{theorem}[素元分解の一意性]
+  $A$を、任意の既約元が素元であるような整域とし、$p_1,\dots,p_n$、$q_1,\dots,q_m$を$A$の素元とする。
+  このとき、$p_1\cdots p_n=q_1\cdots q_m$ならば、$n=m$かつ、必要ならば番号を付け替えて$q_i=u_ip_i$ (${}^\exists u_i\in A^\times$)がなりたつ。
+\end{theorem}
+\begin{proof}
+  $p_1$は素元ゆえ$(p_1)$は素イデアルである。
+  従って仮定の式より、$q_1\cdots q_m\in(p_1)$であるから、ある$j=1,\dots,m$が存在して、$q_j\in(p_1)$。
+  番号を付け替えて、$q_1\in(p_1)$としてよい。
+  従って$q_1=u_1p_1$となる$u_1\in A$が存在する。
+  しかし$q_1$は素元すなわち既約元でもあり、$p_1$は素元ゆえ単元ではないため、$u_1\in A^\times$。
+  $A$は整域であるから、$p_1\cdots p_n=q_1\cdots q_m=u_1p_1q_2\cdots q_m$より、$p_2\cdots p_n=u_1q_2\cdots q_m$。
+  以降帰納的に続けていくことで題意が従う。
+\end{proof}
+
+ゆえに、元の分解が一意な環として最も自然な拡張は以下になるでしょう。
 \begin{definition}
-  整域$A$が\textbf{一意分解整域}(\textit{unique factorization domain}, 略してUFD)であるとは、任意の$a\in A\setminus\{0\}$について、$a\notin A^\times$ならば、以下を満たす時をいう。
+  整域$A$が\textbf{一意分解整域}(\textit{unique factorization domain}, 略してUFD)であるとは、以下を満たす時をいう。
   \begin{itemize}
-    \item ある既約元$p_1,\dots,p_n$が存在して、$a=p_1\cdots p_n$を満たす
-    \item 上記の分解は単元倍を除いて一意である。
-    すなわち、別の既約元分解$a=q_1\cdots q_m$が存在する場合、$n=m$かつ、必要ならば番号を付け替えて$q_i=u_ip_i$ (${}^\exists u_i\in A^\times$)を満たす
+    \item 任意の既約元は素元である\footnote{
+      つまり、素元分解の一意性を保証するということ。
+    }
+    \item 0でも単元でもない元$a\in A$に対して、有限個の素元$p_1,\dots,p_n$が存在して、$a=p_1\cdots p_n$を満たす
   \end{itemize}
 \end{definition}
 
-先ほど既約元と素元は違うものだと言いましたが、なんとUFDでは同じものになります。
-素元が既約元であることは一般の整域で成り立つので、以下を示せば十分です。
+PIDではUFDの一つ目の条件を満たしていました。
+二つ目の条件、つまり既約元分解の存在性は、Noether環で成り立つことが簡単にわかります。
+(Noether性が「分解が有限で終わることを保証する」というイメージと繋がっていれば簡単です。)
 \begin{theorem}
-  $A$をUFD、$p\in A$は既約元であるとする。
-  このとき$p$は素元である。
+  $A$をNoether整域とする。このとき、0でも単元でもない元$a\in A$に対して、有限個の既約元$p_1,\dots,p_n$が存在して、$a=p_1\cdots p_n$を満たす。
 \end{theorem}
 \begin{proof}
-  $ab\in(p)$、すなわち$ab=pk$ (${}^\exists k\in A$)とする。
-  ここで、$a,b,k$を既約元に分解する。
-  \begin{align*}
-    a&=q_1\cdots q_m\\
-    b&=r_1\cdots r_n\\
-    k&=s_1\cdots s_l
-  \end{align*}
-  これを$ab=pk$に代入すると、
+  背理法によって証明する。
+  ある0でも単元でもない$a_0\in A$が存在して、これは有限個の既約元の積で表わせないとする。
+
+  このとき、まず$a_0$自身は既約元であってはならない。
+  従って、単元でない元$a_1,b_1\in A$が存在して、
   \[
-    q_1\cdots q_mr_1\cdots r_n=ps_1\cdots s_l
+    a_0=a_1b_1
   \]
-  となる。
-  しかしUFDの定義から、$p$は$q_1,\dots q_m$、$r_1,\dots,r_n$のどれかと単元倍を除いて一致するはずである。
-  もし$p$が$q_1,\dots,q_m$のどれかと単元倍を除いて一致すれば、すなわち$a\in(p)$となる。
-  $p$が$r_1,\dots,r_n$のどれかと単元倍を除いて一致すれば、$b\in(p)$となる。
-  ゆえに$(p)$は素イデアルであるから、$p$は素元である。
+  特に$b_1$は単元ではないため
+  \[
+    (a_0)\subset(a_1)
+  \]
+  が成り立つ。
+  $(a_1)\not\subset(a_0)$であることは、次のように$A$が整域であることから従う。
+  もし$(a_1)\subset(a_0)$とすると、$a_1\in(a_0)$ゆえ、$a_1=ca_0=ca_1b_1$。
+  よって$b_1(1-ca_1)=0$となり、$A$が整域であること、また$b_1$は単元ではないことから$ca_1=1$が従う。
+  これは$a_1$が単元ではないことに矛盾である。
+  従って
+  \[
+    (a_0)\subsetneq(a_1)
+  \]
+
+  もし$a_1,b_1$どちらも有限個の既約元の積で表わされるのであれば、これは明らかに背理法の仮定に反するから、どちらか一方は有限個の既約元の積では表わせない。
+  必要ならば記号を入れ替えて、$a_1$が有限個の既約元の積で表わせないとしてよい。
+  以下ほぼ上記と同様であるが、もう一度繰り返す。
+  このとき、$a_1$自身が既約元であってはならないから、単元ではない元$a_2,b_2\in A$が存在して、
+  \[
+    a_1=a_2b_2
+  \]
+  特に$b_2$は単元ではないので、
+  \[
+    (a_1)\subset(a_2)
+  \]
+  が成り立つ。
+  $(a_2)\not\subset(a_1)$であることは、$A$が整域であることから従う。
+  ゆえに
+  \[
+    (a_1)\subsetneq(a_2)
+  \]
+
+  以下同様にして、無限のイデアルの昇鎖
+  \[
+    (a_0)\subsetneq(a_1)\subsetneq(a_2)\subsetneq\cdots
+  \]
+  背理法の仮定から得られてしまう。
+  これは$A$がNoetherであったことに矛盾する。
 \end{proof}
 
-UFDでの元の既約元への分解は「素元分解」と呼ぶことが多いようです。
-また、邦書の多くではUFDを「0でも単元でもない元が素元に分解されるような整域」として定義されており、分解の一意性は定義に含まれていません。
-このような立場をとる場合、素元分解の一意性は証明しなければならない定理になります。
+PIDでは既約元が素元となり、かつNoether整域ですから、
+\begin{corollary}
+  PIDはUFDである。
+\end{corollary}
+が成り立ちます。
+より少ない仮定から結論を言いたいならば、
+\begin{corollary}
+  すべての既約元が素元であるようなNoether整域はUFDである。
+\end{corollary}
+となりましょう。
 
-UFDを既約元分解の一意性で定義すると、既約元が素元になることを証明しなければならなくなります。
-UFDを素元分解の可能性で定義すると、素元分解の一意性が従い、さらに従って既約元が素元であることが示さなければならないです。
-いずれにせよ、どちらで定義しても同じです。
-キバらず先に進みましょう。
+\subsection{いろんな環のまとめと反例たち}
 
-\subsubsection{PIDはUFD}
-今まで紹介してきた環の中で、Euclid環は
+今まで見てきた整域をざっとリストアップすると、以下になります。
+\begin{itemize}
+  \item 整域
+  \item Euclid環
+  \item PID
+  \item UFD
+  \item Noether整域
+\end{itemize}
+これらの間には次のような包含関係があることが、ここまでの議論のまとめです。
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+    \text{Euclid整域} \arrow[r, Rightarrow, "\subset"] 
+    & \text{PID} \arrow[r, Rightarrow, "\subset"] \arrow[d, Rightarrow, "\subset"] 
+    & \text{UFD} \arrow[r, Rightarrow, "\subset"] 
+    & \text{整域} \\
+    & \text{Noether整域} & &
+\end{tikzcd}
+\]
+Noether整域とUFDの間には直接の関係はありませんが、ここに「既約元が素元になる」という条件を入れればUFDになるのでした。
 
+さて気になるところは、\textbf{これらの包含関係が本当に真の包含関係になっているかどうか}ですね。
+気になりますよね。
+僕は気になります。
+それぞれの包含関係の逆が成り立たないという反例を少なくとも一つずつは知っておきたいです！
+
+\subsubsection{整域であるが、UFDでない環}
+
+再三とりあげている
+\[
+  \mathbb{Z}[\sqrt{-5}]
+\]
+は整域ですが、UFDではないです。
+整域であることは、例えば準同型
+\[
+  \varphi:\mathbb{Z}[X]\to\mathbb{Z}[\sqrt{-5}];f(X)\mapsto f(\sqrt{-5})
+\]
+は明らかに全射かつ$\operatorname{Ker}(f)=(X^2+5)$です。
+カーネルは$\mathbb{Z}$上既約な多項式$X^2+5$で生成されるので、素イデアルです($\mathbb{Z}[X]$は明らかにUFDです)。
+準同型定理と、素イデアルによる剰余環は整域となることから、$\mathbb{Z}[\sqrt{-5}]$は整域である。
+
+UFDでないことは、$\mathbb{Z}[\sqrt{-5}]$において、
+\[
+  6=2\cdot 3=(1+\sqrt{-5})(1-\sqrt{-5})
+\]
+という異なる二通りの分解が存在することからわかる。
+これが実際に異なる分解であることは、2が既約元であるが素元でないことを示した例\ref{example:2_is_irreducible_not_prime_on_Z_sqrt-5}で導入したノルムを使用すればわかる。
+
+まず$2=u_1(1\pm\sqrt{-5})$ ($u_1\in\mathbb{Z}[\sqrt{-5}]^\times$)であるとすると、単元のノルムは1だったから、
+\[
+  4=N(2)=N(u_1(1\pm\sqrt{-5}))=N(1\pm\sqrt{-5})=1+5=6
+\]
+となり矛盾。
+ゆえに$2=u_1(1\pm\sqrt{-5})$。
+
+次に$3=u_2(1\pm\sqrt{-5})$ ($u_2\in\mathbb{Z}[\sqrt{-5}]^\times$)であるとすると、単元のノルムは1だったから、
+\[
+  9=N(3)=N(u_2(1\pm\sqrt{-5}))=N(1\pm\sqrt{-5})=1+5=6
+\]
+となり矛盾。
+ゆえに$3=u_2(1\pm\sqrt{-5})$。
+
+\subsubsection{UFDであるがPIDでない環}
+
+例えば$\mathbb{Z}$上の多項式環
+\[
+  A=\mathbb{Z}[x]
+\]
+はUFDであるがPIDではないです。
+
+PIDでないことは、例えば
+\[
+  \mathfrak{a}:=(2,x)
+\]
+は単項イデアルではありません。
+これは「定数項が偶数であるような整数係数多項式」の集合を意味しているので、
+\begin{itemize}
+  \item $f=\pm2$ の場合。
+  $\mathfrak{a}$ に含まれる $x$ も $2$ で割り切れるはずです。
+  しかし、$x/2$ は整数係数ではないので $\mathbb{Z}[x]$ に存在しません。
+
+  \item $f=\pm1$ の場合。
+  $(1)$ は環全体 $\mathbb{Z}[x]$ と同じです。
+  つまり、定数項が奇数の多項式($3$とか)も含まれるはずです。
+  しかし、$I$ の元は「定数項が偶数」でした。
+  $3$ は $I$ に入っていません。
+\end{itemize}
+
+UFDであることは、次のようにして理解できます。
+$\mathbb{Z}[x]$ の元をこれ以上分解できなくなるまで分解（因数分解）することを考えます。
+\begin{itemize}
+  \item \textbf{係数の分解}: 係数は整数 $\mathbb{Z}$ なので、素因数分解の一意性（素数のかけ算）が成り立ちます。
+  (例: $6x^2+12x=2\cdot3\cdot(x^2+2x)$)
+  \item \textbf{多項式の分解}: 変数の部分は、有理数上の多項式と同じように因数分解の一意性が成り立ちます。
+  (例: $x^2-1=(x-1)(x+1)$)
+\end{itemize}
+厳密には\textbf{Gaussの補題}と呼ばれる道具を手に入れた後に示すのが良いでしょう。 % TODO
+ともかく$\mathbb{Z}[x]$はUFDという主張は正しいです。
+
+\subsubsection{Noether整域であるがPIDでない環}
+
+これも
+\[
+  \mathbb{Z}[x]
+\]
+がNoether整域であるがPIDでない例になっています。
+
+PIDでないことは上で見た通りです。
+Noether整域であることは、$\mathbb{Z}$がNoetherであり、Hilbertの基底定理から$\mathbb{Z}[x]$もNoetherであることがわかります。
+
+また、体$K$上の2変数以上の多項式環
+\[
+  K[x_1,\dots,x_n]
+\]
+も、Hilbertの基底定理からNoetherですが、例えばイデアル$(x_1,\dots,x_n)$は単項イデアルではありませんでした(補題\ref{lemma:main_example_of_not_principal_ideal_on_2_var_polynomials}参照)。
+
+\subsubsection{PIDであるがEuclidでない環}
+
+この反例はかなりシビアなようです。
+例えば
+\[
+  A=\mathbb{Z}\left[\frac{1+\sqrt{-19}}{2}\right]
+\]
+がPIDであるが、Euclidでない環です。
+これは代数的整数論の深い結果ですので、今回は紹介にとどめます。 % TODO
