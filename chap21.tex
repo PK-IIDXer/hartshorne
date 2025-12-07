@@ -1,13 +1,17 @@
-\chapter{可換環論 初級}
+\chapter{可換環論 初級}\label{chapter-commutative_rings_first_course}
 
 こちらは$\text{Euclid環}\subset\text{PID}$の紹介と証明から、Noether環に至るまでを中心に、その他もろもろ解説していきます。
 可能な限り、それらが必要となった背景知識も盛り込んでいきます。
 
+前提知識は第\ref{chapter-commutative_rings_introduction}章ぐらいを想定しています。
+つまり、可換環の定義を知っていて、環準同型や準同型定理が分かっていると良いです。
+Noether環については\mycite{Hot21}の第4章が参考になりますが、このあたりから\mycite{At-Mc-translate}に手を付け始めてもよいでしょう。
+
 \section{Euclid環}
 
-前章の例題で、\textbf{多項式の割り算}をしれっと行いました。
-高校数学でもやったことあると思います。
-整数の時と同じように、多項式$f$を$g$で割るという操作
+第\ref{chapter-commutative_rings_introduction}章の最後の例題で、\textbf{多項式の割り算}をしれっと行いました。
+これは高校数学でもやったことあると思います。
+つまり整数の時と同じように、多項式$f$を$g$で割るという操作
 \[
   f=gq+r,\quad {}^\exists q,r \text{ s.t. } \deg(r)<\deg(g)
 \]
@@ -42,7 +46,7 @@
 新たな環の出現です！
 \begin{definition}
   整域$A$が\textbf{Euclid環}(\textit{Euclidean domain}\footnote{
-    直訳すると「Euclid整域」になりそうですが、最近の本はEuclid環と訳すのが主流のような雰囲気をそこはかとなく感じています。
+    直訳すると「Euclid整域」になりそうですが、最近の本はEuclid環と訳すのが主流のようで。
   })であるとは、写像
   \[
     |\cdot|:A\setminus\{0\}\to \mathbb{Z}_{\geq0}

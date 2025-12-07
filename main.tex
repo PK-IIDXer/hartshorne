@@ -7,6 +7,14 @@
 \usepackage{comment}
 \usepackage{tikz-cd}
 
+% BibLaTeXの設定
+\usepackage[style=numeric]{biblatex}
+\addbibresource{references.bib} % 参考文献ファイルの指定
+% 出力イメージ: Hartshorne, "Algebraic Geometry" [1]
+\newcommand{\mycite}[1]{%
+  \citeauthor{#1}, ``\citetitle{#1}''~\cite{#1}%
+}
+
 \theoremstyle{definition}
 \newtheorem{theorem}{定理}[section]
 \newtheorem{corollary}[theorem]{系}
@@ -35,4 +43,6 @@
   \part{可換環論}
   \include{chap20}
   \include{chap21}
+  \include{chap22}
+  \printbibliography
 \end{document}

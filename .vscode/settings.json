@@ -43,6 +43,8 @@
                 "-e",
                 "$pdflatex = 'uplatex -interaction=nonstopmode -synctex=1 -output-directory=out %O %S'",
                 "-e",
+                "$bibtex = 'pbibtex %B'",
+                "-e",
                 "$dvipdf = 'dvipdfmx %O -o %D %S'",
                 "%DOC%"
             ]

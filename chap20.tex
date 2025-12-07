@@ -1,9 +1,14 @@
-\chapter{可換環論 入門}
+\chapter{可換環論 入門}\label{chapter-commutative_rings_introduction}
 
 Hartshorneに出てくる環論の中でも、僕の独断と偏見で基礎的と思われるものを頑張って解説する章です。
 とはいえHartshorneは2ページ目で藪から棒に\textit{Furthermore, since $A$ is a \textbf{noetherian ring}, any ideal $\mathfrak{a}$ has a finite set of generators $f_1,\dots,f_r$.}
-などとぬかしおるので、環の定義から始めて「\textbf{ネーター環の任意のイデアルは有限生成}」まで証明しないと、2ページ目で詰むわけです。
-でもセルフコンテインドなテキストを残したい手前、、、とりあえず環準同型定理までを丁寧にやっていきます。
+などとぬかしおるので、環の定義から始めて「\textbf{Noether環の任意のイデアルは有限生成}」まで証明しないと、2ページ目で詰むわけです。
+ですが、Noether環なんていくらでも語ることがあるので、とても一つの章に収まるものではないです。
+
+とりあえずこの章では、環準同型定理までを丁寧にやっていきます。
+この辺は\mycite{Hot21}の第一章をかなり参考にしました。
+僕も代数学は最初にこの本で勉強したもので、初学者にとって非常に分かりやすいと思います。
+Hartshorneに取り組む前段の可換環論といえば\mycite{At-Mc-translate}が有名ですが、この章はもっと前の段階のものです。
 
 \section{環の定義と準同型}
 
@@ -684,38 +689,6 @@ $0\neq1$を定義に含めたので、環と違って$\{0\}$は体ではあり�
   以上より、$\mathfrak{a}$を含む$A$のイデアルは$\mathfrak{a}$と$A$のみである。
   したがって、$\mathfrak{a}$は極大イデアルである。
 \end{proof}
-
-\begin{comment}
-  TODO Euclid整域の後に、タイミングがいいところに入れる
-次に、素イデアルについても同様の判定法があります。
-\begin{theorem}
-  $A$を環、$\mathfrak{a}$をそのイデアルとする。
-  このとき、$\mathfrak{a}$が素イデアルであることと、$A/\mathfrak{a}$が整域であることは同値である。
-\end{theorem}
-\begin{proof}
-  自然な準同型
-  \[
-    \pi:A\to A/\mathfrak{a}
-  \]
-  を用いて証明する。
-
-  まず$\mathfrak{a}$を素イデアルとする。
-  このとき、$A/\mathfrak{a}$が整域であること、すなわち零因子を持たないことを示す。
-  $(x+\mathfrak{a})(y+\mathfrak{a})=0+\mathfrak{a}$を満たす$x+\mathfrak{a},y+\mathfrak{a}\in A/\mathfrak{a}$が存在するとする。
-  このとき、$xy+\mathfrak{a}=0+\mathfrak{a}$、すなわち$xy\in\mathfrak{a}$である。
-  $\mathfrak{a}$は素イデアルであるから、$x\in\mathfrak{a}$または$y\in\mathfrak{a}$である。
-  すなわち、$x+\mathfrak{a}=0+\mathfrak{a}$または$y+\mathfrak{a}=0+\mathfrak{a}$である。
-  以上より、$A/\mathfrak{a}$は零因子を持たない。
-  したがって、$A/\mathfrak{a}$は整域である。
-
-  逆に、$A/\mathfrak{a}$が整域であるとする。
-  このとき、$xy\in\mathfrak{a}$を満たす$x,y\in A$が存在するとする。
-  このとき、$(x+\mathfrak{a})(y+\mathfrak{a})=xy+\mathfrak{a}=0+\mathfrak{a}$である。
-  $A/\mathfrak{a}$は整域であるから、$x+\mathfrak{a}=0+\mathfrak{a}$または$y+\mathfrak{a}=0+\mathfrak{a}$である。
-  すなわち、$x\in\mathfrak{a}$または$y\in\mathfrak{a}$である。
-  以上より、$\mathfrak{a}$は素イデアルである。
-\end{proof}
-\end{comment}
 
 ちゃんと書くと長いだけです。
 頑張ってこんなのを読むより自分で考えた方が早いぐらい、簡単なことしか書いてないです。

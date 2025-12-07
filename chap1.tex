@@ -288,9 +288,22 @@ Zariski位相がHausdorffでないことは、この位相が有益な情報を�
     \item[(e)] 任意の部分集合$Y\subset\mathbb{A}^n$に対して、$Z(I(Y))=\overline{Y}$
   \end{itemize}
 \end{theorem}
-\begin{comment}
 (a),(b),(c)は自明と言っていますが、僕たちは一応ちゃんと証明しましょう。
 (d)は\textbf{Hilbertの零点定理}なるものが必要というか、これはほぼその定理そのものです。
 これはまあまあ重い定理なので、後ろのほうを読んでいただければ幸いです。
 ゆえに著者がまともに証明を書いているのは(e)だけです。
-\end{comment}
+\begin{proof}
+  (a) $T_1\subset T_2$が$A$の部分集合ならば、任意の$f\in T_2$に対して$f\in T_1$であるから、$Z(T_1)\supset Z(T_2)$。
+
+  (b) $Y_1\subset Y_2$が$\mathbb{A}^n$の部分集合ならば、任意の$f\in I(Y_2)$に対して$f(P)=0$ for all $P\in Y_2$であるから、$f(P)=0$ for all $P\in Y_1$である。
+  ゆえに$f\in I(Y_1)$。
+
+  (c) $Y_1,Y_2$を$\mathbb{A}^n$の二つの部分集合とすると、任意の$f\in I(Y_1\cup Y_2)$に対して$f(P)=0$ for all $P\in Y_1\cup Y_2$であるから、$f(P)=0$ for all $P\in Y_1$ and $f(P)=0$ for all $P\in Y_2$である。
+  ゆえに$f\in I(Y_1)\cap I(Y_2)$。
+
+  (d) 任意のイデアル$\mathfrak{a}\subset A$に対して、$Z(\mathfrak{a})$は$\mathfrak{a}$の零点集合である。
+  ゆえに$I(Z(\mathfrak{a}))=\sqrt{\mathfrak{a}}$。
+
+  (e) 任意の部分集合$Y\subset\mathbb{A}^n$に対して、$Z(I(Y))$は$Y$の零点集合である。
+  ゆえに$\overline{Y}=Z(I(Y))$。
+\end{proof}

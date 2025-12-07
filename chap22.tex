@@ -1,0 +1,280 @@
+\chapter{可換環論：中級}\label{chapter-commutative-rings-second-course}
+
+第\ref{chapter-commutative_rings_introduction}章では環とイデアルの基礎を、第\ref{chapter-commutative_rings_first_course}章ではNoether性という有限性の概念を学びました。
+これくらいで一応、可換環論初級は卒業でしょうか。
+初級って言ったって、僕が言ってるだけですけど。
+ともかくこれで、\mycite{Har77}の2ページ目までの可換環論は攻略しました。
+
+意気揚々と読み進めていくと、3ページ目Proposition 1.2の証明がほとんど書かれてないです。
+大半は簡単なのですが、Prop 1.2(d)は\textbf{Hilbertの零点定理}と呼ばれるまあまあの大定理です。
+これも可換環論の結果扱いということで、参考文献にぶん投げられています。
+取り上げられているのはLangのでっかい本、我らがアティマク、古典のZariski-Samuelが挙げられています。
+んで、例えば君が\mycite{At-Mc-translate}しか持ってなかったら残念！
+演習問題です。
+代数幾何あるあるですね。
+
+今回はHilbertの零点定理を攻略していきましょう。
+
+
+
+\section{環の局所化}
+
+有理数体$\mathbb{Q}$は、整数環$\mathbb{Z}$から「$0$以外の元での割り算」を許すことで作られました。
+一般の環でも、特定の元での割り算を許容する操作を考えることができます。
+
+\subsection{積閉集合と分数環の定義}
+
+割り算を許容する環を新たに作るために、分母に``なることができる"集合を一般的に考えます。
+\begin{definition}[積閉集合]
+  環$A$の部分集合$S$が\textbf{積閉集合}であるとは、以下を満たすときを言う。
+  \begin{itemize}
+    \item $1 \in S$
+    \item $x, y \in S \implies xy \in S$
+  \end{itemize}
+\end{definition}
+
+環$A$の積閉集合$S$に対して、$S$を分母にすることができる環を
+\[
+  B=\left\{\frac{a}{s}\mid a\in A, s\in S\right\}
+\]
+で定義できそうです。
+しかしこれでは「約分」が考慮されておらず、同一視されるべき元が別々に見えてしまっています($1/2\neq2/4$みたいに見えている)。
+分数が約分できる状況というのは、
+\[
+  \frac{a}{s}=\frac{b}{t} \iff at=bs \iff at-bs=0
+\]
+です。これを$B$の同値関係として導入すべきでしょうか？
+答えはNO。これでは同値関係のうち、推移律を満たしません。
+実際、$a/s=b/t, b/t=c/u$とすると、$at-bs=0$に$u$を、$bu-ct=0$に$s$を掛けて足し合わせることで、
+\[
+  0=(atu-bsu)+(bsu-cst)=atu-cst=t(au-cs)
+\]
+となって、$au-cs=0$とは限らないことが分かります。
+なぜなら、これがゼロ因子かもしれないからです。
+
+そこで以下の同値関係で割った集合を考えるべきでしょう。
+\begin{theorem}
+  $A$を環、$S$をその積閉集合とする。
+  このとき、$A\times S$上の以下の関係は、同値関係である。
+  \[
+    (a,s) \sim (b,t) \iff {}^\exists u \in S \text{ s.t. } u(at-bs)=0
+  \]
+\end{theorem}
+\begin{proof}
+  \begin{description}
+    \item[\textbf{反射律}] $(a,s)\in A\times S$に対して、$1\cdot(as-as)=0$なので$(a,s)\sim(a,s)$
+    \item[\textbf{対称律}] $(a,s)\sim(b,t)$すなわち${}^\exists u\in S$ s.t. $u(at-bs)=0$とすると、$u(bs-at)=-u(at-bs)=0$ゆえに$(b,t)\sim(a,s)$
+    \item[\textbf{推移律}] $(a_1,s_1)\sim(a_2,s_2)$かつ$(a_2,s_2)\sim(a_3,s_3)$すなわち${}^\exists t,u\in S$ s.t. $t(a_1s_2-a_2s_1)=0$、$u(a_2s_3-a_3s_2)=0$とする。
+    このとき、
+    \[
+      0=s_3u\{t(a_1s_2-a_2s_1)\}+s_1t\{u(a_2s_3-a_3s_2)\}=tus_2a_1s_3-tus_2a_3s_1=tus_2(a_1s_3-a_3s_1)
+    \]
+    であり、$S$は積閉集合だから$tus_2\in S$より$(a_1,s_1)\sim(a_3,s_3)$
+  \end{description}
+\end{proof}
+
+ゆえに集合として、$S$を分母として許容する新たな環が定義できました。
+\begin{definition}[分数環]
+  $A$を環、$S$をその積閉集合とする。
+  このとき、$A\times S$上の同値関係
+  \[
+    (a,s) \sim (b,t) \iff {}^\exists u \in S \text{ s.t. } u(at-bs)=0
+  \]
+  に関する商集合
+  \[
+    S^{-1}A:=A\times S/\sim
+  \]
+  を、積閉集合$S$による$A$の\textbf{分数環}という。
+  $S^{-1}A$の元を
+  \[
+    \frac{a}{s}=a/s
+  \]
+  などと書き表す。
+\end{definition}
+
+分数環は本来、自然に導入される環構造を含めて分数環と呼びます。
+\begin{theorem}
+  $A$を環、$S$をその積閉集合とする。
+  このとき、$S^{-1}A$に以下の演算
+  \begin{align*}
+    \frac{a}{s}+\frac{b}{t}&:=\frac{at+bs}{st}\\
+    \frac{a}{s}\cdot\frac{b}{t}&:=\frac{ab}{st}
+  \end{align*}
+  を入れることによって、$S^{-1}A$は環である。
+  加法単位元は$0/1$、乗法単位元は$1/1$である。
+\end{theorem}
+\begin{proof}
+  \begin{itemize}
+    \item \textbf{演算$+$に関して可換群} 
+    \begin{itemize}
+      \item \textbf{結合法則} $a_1/s_1+(a_2/s_2+a_3/s_3)=a_1/s_1+(a_2s_3+a_3s_2)/s_2s_3=\{a_1s_2s_3+(a_2s_3+a_3s_2)s_1\}/s_1s_2s_3=\{(a_1s_2+a_2s_1)s_3+a_3s_1s_2\}/s_1s_2s_3=(a_1s_2+a_2s_1)/s_1s_2+a_3/s_3=(a_1/s_1+a_2/s_2)+a_3/s_3$
+      \item \textbf{単位元} $a/s+0/1=(a\cdot1+0\cdot s)/s\cdot1=a/s$、$0/1+a/s=(0\cdot s+a\cdot1)/1\cdot s=a/s$
+      \item \textbf{逆元} $a/s+(-a/s)=(a\cdot s-a\cdot s)/s^2=0/s^2=0/1$ ($\because$ $1\cdot(0\cdot1-0\cdot s^2)=0$)
+      $(-a/s)+a/s=0/1$も同様。
+      \item \textbf{可換性} $a/s+b/t=(at+bs)/st=(bs+at)/ts=b/t+a/s$
+    \end{itemize}
+    \item \textbf{演算$\cdot$に関して可換モノイド}
+    \begin{itemize}
+      \item \textbf{結合法則} $a_1/s_1\cdot (a_2/s_2\cdot a_3/s_3)=a_1/s_1\cdot(a_2a_3/s_2s_3)=a_1(a_2a_3)/s_1(s_2s_3)=(a_1a_2)a_3/(s_1s_2)s_3=(a_1a_2/s_1s_2)\cdot a_3/s_3=(a_1/s_1\cdot a_2/s_2)\cdot a_3/s_3$
+      \item \textbf{単位元} $a/s\cdot 1/1=a\cdot1/s\cdot1=a/s$、$1/1\cdot a/s=1\cdot a/1\cdot s=a/s$
+      \item \textbf{可換性} $a/s\cdot b/t=ab/st=ba/ts=b/t\cdot a/s$
+    \end{itemize}
+    \item \textbf{分配法則} $a_1/s_1\cdot(a_2/s_2+a_3/s_3)=a_1/s_1\cdot(a_2s_3+a_3s_2)/s_2s_3=a_1(a_2s_3+a_3s_2)/s_1s_2s_3=(a_1a_2s_3+a_1a_3s_2)/s_1s_2s_3=a_1a_2s_3/s_1s_2s_3+a_1a_3s_2/s_1s_2s_3=a_1a_2/s_1s_2+a_1a_3/s_1s_3=(a_1/s_1\cdot a_2/s_2)+(a_1/s_1\cdot a_3/s_3)$
+  \end{itemize}
+\end{proof}
+
+さて、僕たちは積閉集合$S$にゼロ因子どころか、0が入ることを許容しています。
+もし0が入っていると、分数環$S^{-1}A$は$1=0$の零環に潰れてしまいます。
+実際、任意の$a/s\in S^{-1}A$に対して、$0\in S$が存在「してしまい」、
+\[
+  0\cdot(a\cdot 1-0\cdot s)=0
+\]
+をみたすので、$a/s=0/1$です。
+
+僕たちは零環、すなわち$1=0$となる環を認めているので、このことに特に問題はないです。
+一方$1\neq0$を満たすもののみを環とする主義では、積閉集合の定義に$0\neq S$を追加する必要があります。
+
+
+\subsection{自然な準同型}
+
+剰余環のときと同様に、局所化の元となった環$A$からの、「自然」と呼ぶことができる準同型が存在します。
+\begin{theorem}
+  $A$を環、$S$をその積閉集合とする。
+  このとき、写像
+  \[
+    \varphi_S:A\to S^{-1}A;a\mapsto a/1
+  \]
+  は準同型である。
+\end{theorem}
+これはもはや自明と言ってよいでしょう。
+それよりも、この準同型の性質を見たいです。
+もし単射であれば、$A$は$S^{-1}A$の部分環とみなすことができ、$\mathbb{Z}\subset\mathbb{Q}$の直感とも合います。
+しかしゼロ因子の存在により、状況は少し複雑になっています。
+\begin{theorem}
+  $A$を環、$S$をその積閉集合とする。
+  このとき、自然な準同型
+  \[
+    \varphi_S:A\to S^{-1}A;a\mapsto a/1
+  \]
+  のカーネルは
+  \[
+    \operatorname{Ker}(\varphi_S)=\{a\in A\mid {}^\exists s\in S \text{ s.t. } as=0\}
+  \]
+  である。
+\end{theorem}
+\begin{proof}
+  \begin{align*}
+    a\in\operatorname{Ker}(\varphi_S)&\iff\varphi(a)=\frac{a}{1}=\frac01\\
+    &\iff{}^\exists s \text{ s.t. } s(a\cdot1-0\cdot1)=0\\
+    &\iff{}^\exists s \text{ s.t. } as=0
+  \end{align*}
+\end{proof}
+
+従って、$S$がゼロ因子をもっていると単射ではないのです。
+なのでそもそも$A$がゼロ因子を持たない場合、つまり整域の場合、どんな積閉集合$S$をとっても自然に$A\subset S^{-1}A$とみなすことができます。
+
+\subsection{$\mathbb{Z}$から$\mathbb{Q}$、あるいは整域の商体}
+
+$\mathbb{Z}$の部分集合
+\[
+  S:=\mathbb{Z}\setminus\{0\}
+\]
+は明らかに積閉集合です。
+この分数環$S^{-1}\mathbb{Z}$が有理数体になっているというのが、小学校から学んできた普通の事実です。
+\[
+  S^{-1}\mathbb{Z}=\mathbb{Q}
+\]
+
+一般の整域$A$に対しても、同様のことが言えます。
+\begin{theorem}
+  $A$を整域、$S:=A\setminus\{0\}$とする。
+  このとき、$S$は積閉集合である。
+\end{theorem}
+\begin{proof}
+  もし$s,t\in S$かつ$st=0$を満たすものがあるとすると、$A$は整域であったから、$s=0$または$t=0$を満たす。
+  ところがこれは、$s,t\in S=A\setminus\{0\}$であったことに矛盾する。
+\end{proof}
+
+また、$A$が整域で$S:=A\setminus\{0\}$のとき、
+\[
+  K:=S^{-1}A
+\]
+は明らかに体です(急に明らかと言われてびっくりするかもですが、手を動かし始めると本当に示すべきことがないです)。
+このようにして得られる体には名前がついています。
+\begin{definition}
+  $A$を整域、$S:=A\setminus\{0\}$とする。
+  このとき、体
+  \[
+    S^{-1}A
+  \]
+  を、整域$A$の\textbf{商体}という。
+\end{definition}
+
+\begin{comment}
+
+\subsection{重要な例：$A_f$と$A_\mathfrak{p}$}
+素イデアル$\mathfrak{p}$に対して、$S=A\setminus\mathfrak{p}$が積閉集合になることは極めて重要です。
+（素イデアルの定義 $xy \in \mathfrak{p} \implies x \in \mathfrak{p} \lor y \in \mathfrak{p}$ の対偶ですね）
+
+\section{イデアルの根基}
+
+次章の零点定理で「イデアルと図形の対応」を考える際、邪魔になるのが冪零元です。
+例えば$\mathbb{C}[x]$において、イデアル$(x)$と$(x^2)$は代数的には異なりますが、幾何学的な零点集合（つまり$x=0$となる点と$x^2=0$となる点）はどちらも原点$0$であり、区別がつきません。
+この違いを吸収するのが根基です。
+
+\begin{definition}[根基]
+  環$A$のイデアル$\mathfrak{a}$に対して、
+  \[
+    \sqrt{\mathfrak{a}} := \{x \in A \mid \exists n > 0, x^n \in \mathfrak{a}\}
+  \]
+  を$\mathfrak{a}$の\textbf{根基}(\textit{radical})と呼ぶ。
+  $\mathfrak{a} = \sqrt{\mathfrak{a}}$ を満たすイデアルを\textbf{根基イデアル}と呼ぶ。
+\end{definition}
+
+（$\sqrt{\mathfrak{a}}$がイデアルになる証明、素イデアルの共通部分としての性質 $\sqrt{\mathfrak{a}} = \bigcap_{\mathfrak{a}\subset\mathfrak{p}} \mathfrak{p}$ などを記述）
+
+\section{有限生成$A$-代数}
+
+（環準同型による代数の定義。有限生成代数と有限生成加群の違いを強調）
+
+\section{ヒルベルトの零点定理}
+
+準備は整いました。ここから舞台を代数的閉体$K$上の多項式環$A = K[x_1, \dots, x_n]$に移します。
+
+\subsection{代数的集合とイデアル}
+
+（$V(\mathfrak{a})$ と $I(Z)$ の定義）
+
+ここで素朴な疑問が生じます。
+イデアル$\mathfrak{a}$から出発して、その零点集合$V(\mathfrak{a})$を考え、さらにその消失イデアル$I(V(\mathfrak{a}))$を考えたとき、元の$\mathfrak{a}$に戻るでしょうか？
+答えはNoです。先ほど見たように、$\mathfrak{a}=(x^2)$なら$I(V(\mathfrak{a}))=(x)$になってしまいます。
+では、$\sqrt{\mathfrak{a}}$をとれば一致するのか？
+その答えが、次の定理です。
+
+\subsection{弱零点定理}
+
+まずは「点」に対応する極大イデアルの形を決定します。
+
+\begin{theorem}[Hilbert's Nullstellensatz, weak form]
+  $K$を代数的閉体とする。$K[x_1, \dots, x_n]$の任意の極大イデアル$\mathfrak{m}$は、
+  \[
+    \mathfrak{m} = (x_1 - a_1, \dots, x_n - a_n), \quad (a_1, \dots, a_n \in K)
+  \]
+  の形に書ける。
+\end{theorem}
+
+この証明には、次の代数的な補題が強力な役割を果たします。
+（ザリスキの補題を紹介）
+
+\subsection{強零点定理とRabinowitschのトリック}
+
+変数を一つ増やすことで、魔法のように弱形式から一般系を導くことができます。これをRabinowitschのトリックと呼びます。
+
+\begin{theorem}[Hilbert's Nullstellensatz, strong form]
+  $K$を代数的閉体、$A=K[x_1, \dots, x_n]$とする。
+  任意のイデアル$\mathfrak{a} \subset A$に対して、
+  \[
+    I(V(\mathfrak{a})) = \sqrt{\mathfrak{a}}
+  \]
+\end{theorem}
+\end{commment}
