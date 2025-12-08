@@ -17,6 +17,138 @@
 
 
 
+\section{イデアルの根基}
+
+まず突然現れている「$\sqrt{\mathfrak{a}}$」ってなんやねんという話ですが、これはイデアル$\mathfrak{a}$の\textbf{根基}と呼ばれるもので、イデアルの元の重複具合を可能な限り取り除いたものと言えましょう。
+例えば$\mathbb{C}[x]$において、イデアル$(x)$と$(x^2)$は代数的には異なりますが、幾何学的な零点集合（つまり$x=0$となる点と$x^2=0$となる点）はどちらも原点$0$であり、区別がつきません。
+この違いを吸収するのが根基です。
+\begin{definition}[根基]
+  環$A$のイデアル$\mathfrak{a}$に対して、
+  \[
+    \sqrt{\mathfrak{a}} := \{x \in A \mid \exists n > 0, x^n \in \mathfrak{a}\}
+  \]
+  を$\mathfrak{a}$の\textbf{根基}(\textit{radical})と呼ぶ。
+\end{definition}
+
+根基が実際にイデアルになっていることを証明しましょう。
+\begin{theorem}
+  環$A$のイデアル$\mathfrak{a}$に対して、
+  \[
+    \sqrt{\mathfrak{a}} := \{x \in A \mid \exists n > 0, x^n \in \mathfrak{a}\}
+  \]
+  は$A$のイデアルである。
+\end{theorem}
+\begin{proof}
+  まず、$0^1=0\in\mathfrak{a}$ゆえに$0\in\sqrt{\mathfrak{a}}$。
+
+  次に$x,y\in\sqrt{\mathfrak{a}}$とおくと、ある$n,m>0$が存在して、$x^n,y^m\in\mathfrak{a}$。
+  このとき、
+  \[
+    (x+y)^{n+m}=\sum_{i=0}^{n+m}{}_{n+m}C_ix^{n+m-i}y^i
+  \]
+  を考えると、各$x^{n+m-i}y^i$は$\mathfrak{a}$に含まれる。
+  実際、$i\leq m$ならば$x^{n+m-i}y^i=(x^{m-i}y^i)x^n\in\mathfrak{a}$。
+  また$i>m$ならば$x^{n+m-i}y^i=(x^{n+m-i}y^{i-m})y^m\in\mathfrak{a}$。
+
+  最後に、$a\in A$、$x\in\sqrt{\mathfrak{a}}$とすると、ある$n>0$が存在して、$x^n\in\mathfrak{a}$。
+  このとき、
+  \[
+    (ax)^n=a^nx^n\in\mathfrak{a}
+  \]
+  ゆえに$ax\in\sqrt{\mathfrak{a}}$。
+\end{proof}
+
+\subsection{根基の例}
+
+簡単な例をいくつか見ていきましょう。
+まずは一般的にすぐに分かる例を挙げます。
+\begin{example}
+  $A$を環、$\mathfrak{a}$をそのイデアルとすると、$\sqrt{\mathfrak{a}}=A \iff \mathfrak{a}=A$
+\end{example}
+\begin{proof}
+  明らかに$\sqrt{A}=A$ゆえ、$\sqrt{\mathfrak{a}}=A$ならば$\mathfrak{a}=A$を示す。
+  仮定より$1\in\sqrt{\mathfrak{a}}$ゆえ、$1=1^n\in\mathfrak{a}$ ($\exists n>0$)。
+  よって$1\in\mathfrak{a}$となり$\mathfrak{a}=A$が従う。
+\end{proof}
+
+より具体的な例を見ていきましょう。
+PID$\mathbb{Z}$において、根基は「$\sqrt{\mathfrak{a}}$」という記号のイメージ通りの挙動をします。
+\begin{example}
+  $\mathbb{Z}$において、
+  \begin{itemize}
+    \item $\sqrt{(4)}=(2)$
+    \item $\sqrt{(9)}=(3)$
+    \item $\sqrt{(12)}=(6)$
+    \item $\sqrt{(125)}=(5)$
+  \end{itemize}
+  など。一般に、$a=p_1^{e_1}\cdots p_n^{e_n}$のとき、
+  \[
+    \sqrt{(p_1^{e_1}\cdots p_n^{e_n})}=(p_1\cdots p_n)
+  \]
+\end{example}
+
+証明はいらないでしょう。
+$\sqrt{(125)}=(5)$のように、単に平方根をとっているのではなく、とにかく重複した素因子のべき乗を排除するのです。
+
+\subsection{根基の性質}
+
+根基の性質で最初に伝えておくべき重要な性質は、次の簡単な定理です。
+\begin{theorem}
+  環$A$のイデアル$\mathfrak{a}$に対して、
+  \[
+    \mathfrak{a}\subset\sqrt{\mathfrak{a}}
+  \]
+\end{theorem}
+\begin{proof}
+  根基の定義から、$x\in\mathfrak{a}$ならば$x^1=x\in\mathfrak{a}$ゆえに$x\in\sqrt{\mathfrak{a}}$、つまり$\mathfrak{a}\subset\sqrt{\mathfrak{a}}$。
+\end{proof}
+
+剰余環の自然な準同型
+\[
+  \varphi:A\to A/\mathfrak{a};a\mapsto a+\mathfrak{a}
+\]
+は、「$\mathfrak{a}$を含むイデアルとそれらの包含関係のなす順序集合」と、「$A/\mathfrak{a}$のイデアルとそれらの包含関係のなす順序集合」の間の順序同型でした。
+従って$\mathfrak{a}\subset\sqrt{\mathfrak{a}}$から、$\sqrt{\mathfrak{a}}$に対応する$A/\mathfrak{a}$に対応するイデアル
+\[
+  \mathfrak{N}_{A/\mathfrak{a}}:=\varphi(\sqrt{\mathfrak{a}})
+\]
+が存在します。
+これはほとんど明らかに以下の性質を持ちます。
+\begin{theorem}
+  $A$を環、$\mathfrak{a}$をイデアルとする。
+  $\varphi:A\to A/\mathfrak{a}$を剰余環の自然な準同型とし、$\mathfrak{N}_{A/\mathfrak{a}}:=\varphi(\sqrt{\mathfrak{a}})$とおく。
+  このとき、
+  \[
+    a+\mathfrak{a}\in\mathfrak{N}_{A/\mathfrak{a}} \iff (a+\mathfrak{a})^n=0\; ({}^\exists n>0)
+  \]
+\end{theorem}
+\begin{proof}
+  \begin{align*}
+    a+\mathfrak{a}\in\mathfrak{N}_{A/\mathfrak{a}} &\iff \varphi(a)\in\varphi(\sqrt{\mathfrak{a}})\\
+    &\iff a\in\sqrt{\mathfrak{a}}\\
+    &\iff a^n\in\mathfrak{a} ({}^\exists n>0)\\
+    &\iff a^n+\mathfrak{a}=0\in A/\mathfrak{a} ({}^\exists n>0)\\
+    &\iff (a+\mathfrak{a})^n=0 ({}^\exists n>0)
+  \end{align*}
+\end{proof}
+
+一般に、
+\begin{definition}
+  $A$を環とする。
+  $a\in A$が\textbf{冪零元}であるとは、ある$n>0$が存在して、$a^n=0$を満たす時をいう。
+\end{definition}
+\begin{definition}
+  $A$を環とする。
+  このとき、$A$の冪零元すべての集合がなすイデアル
+  \[
+    \mathfrak{N}_A:=\sqrt{(0)}=\{a\in A\mid a^n=0\; ({}^\exists n>0)\}
+  \]
+  を\textbf{冪零元根基}という。
+\end{definition}
+ので、「自然な準同型$\varphi:A\to A/\mathfrak{a}$による$\sqrt{\mathfrak{a}}$の像は冪零元根基$\mathfrak{N}_{A/\mathfrak{a}}$」ということです。
+
+
+
 \section{環の局所化}
 
 有理数体$\mathbb{Q}$は、整数環$\mathbb{Z}$から「$0$以外の元での割り算」を許すことで作られました。
@@ -211,27 +343,9 @@ $\mathbb{Z}$の部分集合
 \end{definition}
 
 \begin{comment}
-
-\subsection{重要な例：$A_f$と$A_\mathfrak{p}$}
+\subsection{$A_f$と$A_\mathfrak{p}$}
 素イデアル$\mathfrak{p}$に対して、$S=A\setminus\mathfrak{p}$が積閉集合になることは極めて重要です。
 （素イデアルの定義 $xy \in \mathfrak{p} \implies x \in \mathfrak{p} \lor y \in \mathfrak{p}$ の対偶ですね）
-
-\section{イデアルの根基}
-
-次章の零点定理で「イデアルと図形の対応」を考える際、邪魔になるのが冪零元です。
-例えば$\mathbb{C}[x]$において、イデアル$(x)$と$(x^2)$は代数的には異なりますが、幾何学的な零点集合（つまり$x=0$となる点と$x^2=0$となる点）はどちらも原点$0$であり、区別がつきません。
-この違いを吸収するのが根基です。
-
-\begin{definition}[根基]
-  環$A$のイデアル$\mathfrak{a}$に対して、
-  \[
-    \sqrt{\mathfrak{a}} := \{x \in A \mid \exists n > 0, x^n \in \mathfrak{a}\}
-  \]
-  を$\mathfrak{a}$の\textbf{根基}(\textit{radical})と呼ぶ。
-  $\mathfrak{a} = \sqrt{\mathfrak{a}}$ を満たすイデアルを\textbf{根基イデアル}と呼ぶ。
-\end{definition}
-
-（$\sqrt{\mathfrak{a}}$がイデアルになる証明、素イデアルの共通部分としての性質 $\sqrt{\mathfrak{a}} = \bigcap_{\mathfrak{a}\subset\mathfrak{p}} \mathfrak{p}$ などを記述）
 
 \section{有限生成$A$-代数}
 
