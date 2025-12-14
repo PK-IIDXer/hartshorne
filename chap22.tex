@@ -25,7 +25,7 @@
 \begin{definition}[根基]
   環$A$のイデアル$\mathfrak{a}$に対して、
   \[
-    \sqrt{\mathfrak{a}} := \{x \in A \mid \exists n > 0, x^n \in \mathfrak{a}\}
+    \sqrt{\mathfrak{a}} := \{x \in A \mid {}^\exists n > 0, x^n \in \mathfrak{a}\}
   \]
   を$\mathfrak{a}$の\textbf{根基}(\textit{radical})と呼ぶ。
 \end{definition}
@@ -34,7 +34,7 @@
 \begin{theorem}
   環$A$のイデアル$\mathfrak{a}$に対して、
   \[
-    \sqrt{\mathfrak{a}} := \{x \in A \mid \exists n > 0, x^n \in \mathfrak{a}\}
+    \sqrt{\mathfrak{a}} := \{x \in A \mid {}^\exists n > 0, x^n \in \mathfrak{a}\}
   \]
   は$A$のイデアルである。
 \end{theorem}
@@ -67,12 +67,12 @@
 \end{example}
 \begin{proof}
   明らかに$\sqrt{A}=A$ゆえ、$\sqrt{\mathfrak{a}}=A$ならば$\mathfrak{a}=A$を示す。
-  仮定より$1\in\sqrt{\mathfrak{a}}$ゆえ、$1=1^n\in\mathfrak{a}$ ($\exists n>0$)。
+  仮定より$1\in\sqrt{\mathfrak{a}}$ゆえ、$1=1^n\in\mathfrak{a}$ (${}^\exists n>0$)。
   よって$1\in\mathfrak{a}$となり$\mathfrak{a}=A$が従う。
 \end{proof}
 
 より具体的な例を見ていきましょう。
-PID$\mathbb{Z}$において、根基は「$\sqrt{\mathfrak{a}}$」という記号のイメージ通りの挙動をします。
+PID $\mathbb{Z}$において、根基は「$\sqrt{\mathfrak{a}}$」という記号のイメージ通りの挙動をします。
 \begin{example}
   $\mathbb{Z}$において、
   \begin{itemize}
@@ -149,7 +149,7 @@ $\sqrt{(125)}=(5)$のように、単に平方根をとっているのではな�
 
 
 
-\section{環の局所化}
+\section{分数環}
 
 有理数体$\mathbb{Q}$は、整数環$\mathbb{Z}$から「$0$以外の元での割り算」を許すことで作られました。
 一般の環でも、特定の元での割り算を許容する操作を考えることができます。
@@ -236,6 +236,29 @@ $\sqrt{(125)}=(5)$のように、単に平方根をとっているのではな�
   加法単位元は$0/1$、乗法単位元は$1/1$である。
 \end{theorem}
 \begin{proof}
+  まず演算がうまく定義されていることを確認する。
+  $a/s=a'/s'$、$b/t=b'/t'$とするとき、すなわちある$u_1,u_2\in S$が存在して、
+  \[
+    u_1(as'-a's)=0,\quad u_2(bt'-b't)=0
+  \]
+  である。
+  このとき、和は
+  \[
+    u_1u_2\{(at+bs)s't'-(a't'+b's')st\}=u_2tt'u_1(as'-a's)+u_1ss'u_2(bt'-b't)=0
+  \]
+  より
+  \[
+    \frac{at+bs}{st}=\frac{a't'+b's'}{s't'}
+  \]
+  積は
+  \[
+    u_1u_2(abs't'-a'b'st)=u_1u_2(abs't'-a'bst'+a'bst'-a'b'st)=u_2bt'u_1(as'-a's)+u_1a'su_2(bt'-b't)=0
+  \]
+  より
+  \[
+    \frac{ab}{st}=\frac{a'b'}{s't'}
+  \]
+  ゆえに演算はwell-definedである。
   \begin{itemize}
     \item \textbf{演算$+$に関して可換群} 
     \begin{itemize}
@@ -342,11 +365,103 @@ $\mathbb{Z}$の部分集合
   を、整域$A$の\textbf{商体}という。
 \end{definition}
 
-\begin{comment}
-\subsection{$A_f$と$A_\mathfrak{p}$}
-素イデアル$\mathfrak{p}$に対して、$S=A\setminus\mathfrak{p}$が積閉集合になることは極めて重要です。
-（素イデアルの定義 $xy \in \mathfrak{p} \implies x \in \mathfrak{p} \lor y \in \mathfrak{p}$ の対偶ですね）
+\subsection{局所化$A_\mathfrak{p}$}
 
+素イデアルが作る積閉集合、およびその分数環は代数幾何学では重要です。
+
+\begin{theorem}
+  $A$を環、$\mathfrak{p}$をその素イデアルとする。
+  このとき、$S=A\setminus\mathfrak{p}$は$A$の積閉集合である。
+\end{theorem}
+\begin{proof}
+  $1\in\mathfrak{p}$とすると$\mathfrak{p}=A$となっておかしいため、$1\notin\mathfrak{p}$。すなわち$1\in S=A\setminus\mathfrak{p}$。
+
+  $x,y\in S$ならば$xy\in S$であることは、対偶を取れば「$xy\in \mathfrak{p}$ならば$x \in \mathfrak{p} \lor y \in \mathfrak{p}$」であり、これは$\mathfrak{p}$が素イデアルであることの定義に他ならない。
+\end{proof}
+
+\begin{definition}[局所化]
+  $A$を環、$\mathfrak{p}$をその素イデアルとする。
+  積閉集合$S:=A\setminus\mathfrak{p}$による$A$の分数環を$A_\mathfrak{p}$と書き、$A$の素イデアル$\mathfrak{p}$による\textbf{局所化}(\textbf{localization})という。
+\end{definition}
+
+「局所化」というネーミングの意味合いを説明するには、幾何学的な観点を導入せざるを得ないでしょう。
+代数幾何学では、環$A$は多様体全体で「正則」な関数全体のなす環をイメージして構成されます。
+一方で局所環は、多様体(variety)上の1点、ないし、部分多様体の近傍において正則な関数全体のなす環をイメージしています。
+
+例えば$k$を代数閉体、$P:=(a,b)$を$k^2$の点とします。
+$k^2$に対応する環は、$A=k[x,y]$です。
+このとき、$P$の近傍では、$(x,y)=(a,b)$で0にならない正則関数で割っても正則であるはずです。
+つまり、$k^2$の点$P$の近傍で正則な関数は一般的に、
+\[
+  \frac{f}{g},\quad\text{ただし$g$は$(x-a)$でも$(y-b)$でも割り切れない}
+\]
+と書けてしかるべきです。
+一方で点$P$に対応する素イデアルは$\mathfrak{p}=(x-a,y-b)$ですから、$\mathfrak{p}$による$A=k[x,y]$の局所化は上記の環に一致します。
+これが局所化のイメージです。
+$A$が整域だったら、$A$は自然に$A_\mathfrak{p}=S^{-1}A$の部分環とみなせるのでしたから、大方において局所化すると環が大きくなります。
+
+多様体(manifold)論から、ほとんど同じことではあるのですが、違った見方を紹介します。
+ある点$P\in M$の近傍で定義される関数は、ようは点$P$で発散したりしてなければよいのです。
+そこで、点$P$の近傍で定義された関数全体のなす環は
+\[
+  \mathcal{O}_{M,P}:=\{\left<U,f\right>\mid \text{$U\subset M$: 開集合}, P\in U, f:U\to\mathbb{C}\}
+\]
+と書いてもよいことがわかります。
+ここで、各元は
+\begin{align*}
+  \left<U,f\right>=\left<V,g\right> \iff f|_W=g|_W,\quad\exists W\subset U\cap V\text{:$P$の開近傍}
+\end{align*}
+という同値関係で同一視されています。
+環$\mathcal{O}_{M,P}$は複雑かもしれませんが、次のような意味できわめて単純です。
+\begin{theorem}
+  $M$を多様体、$P\in M$とする。
+  環$\mathcal{O}_{M,P}$の極大イデアルは
+  \[
+    \mathfrak{m}_P:=\{\left<U,f\right>\mid f(P)=0\}
+  \]
+  の一つのみである。
+\end{theorem}
+多様体の定義はろくにやってないので、証明は適当に述べます。
+まず$\mathfrak{m}_P$が極大であることは次のようにわかります。
+$\mathfrak{m}_P\subsetneq\mathfrak{a}\subset\mathcal{O}_{M,P}$とすると、$\mathfrak{a}$には$P\in M$で0にならない関数$f$が入ってくるはずです。
+$f$は連続関数なので、$P$の十分小さな近傍$U$で常に0になりません。
+そしたら$\left<U,1/f\right>\in\mathcal{O}_{M,P}$であり、
+\[
+  1=\left<U,1/f\right>\cdot\left<U,f\right>\in\mathfrak{a}
+\]
+ゆえに$\mathfrak{a}=\mathcal{O}_{M,P}$がわかり、$\mathfrak{m}_P$が極大イデアルであることがわかります。
+またこのように、$\mathcal{O}_{M,P}\setminus\mathfrak{m}_P$の元はすべて単元なので、$\mathcal{O}_{M,P}$でない任意のイデアルは$\mathfrak{m}_P$に含まれなければいけません。
+
+この性質を環の言葉に一般化して、次のように定義します。
+\begin{definition}
+  環$A$が\textbf{局所環}(\textit{local ring})であるとは、$A$が唯一の極大イデアルをもつときをいう。
+\end{definition}
+
+環の局所化は、実際に局所環になっています。
+\begin{theorem}
+  環$A$の素イデアル$\mathfrak{p}$による局所化$A_\mathfrak{p}$は局所環である。
+\end{theorem}
+\begin{proof}
+  \[
+    \mathfrak{m}:=\left\{\frac{a}{s}\in A_\mathfrak{p}\mid a\in\mathfrak{p}, s\in A\setminus\mathfrak{p}\right\}
+  \]
+  とおく。このとき、$\mathfrak{m}$が$A_\mathfrak{p}$の唯一の極大イデアルであることを示す。
+
+  \begin{itemize}
+    \item イデアルであること\\
+    $0\in\mathfrak{p}$より$0=0/1\in\mathfrak{m}$は自明。
+    $a/s,b/t\in\mathfrak{m}$とおくと、すなわち$a,b\in\mathfrak{p}$より$at+bs\in\mathfrak{p}$。
+    ゆえに$a/s+b/t=(at+bs)/st\in\mathfrak{m}$。
+    最後に、$a/s\in A_\mathfrak{p}$かつ$x/t\in\mathfrak{m}$とすると、$x\in\mathfrak{p}$ゆえ$a/s\cdot x/t=ax/st\in\mathfrak{m}$。
+    以上より$\mathfrak{m}$はイデアルである。
+    \item $A_\mathfrak{p}\setminus\mathfrak{m}$が単元のみからなること、従って$\mathfrak{m}$が唯一の極大イデアルであること\\
+    $a/s\in A_\mathfrak{p}\setminus\mathfrak{m}$とする。
+    このとき、$\mathfrak{m}$の定義から$a\notin\mathfrak{p}$ゆえ、$a\in S$。
+    従って$s/a\in A_\mathfrak{p}$。
+  \end{itemize}
+\end{proof}
+
+\begin{comment}
 \section{有限生成$A$-代数}
 
 （環準同型による代数の定義。有限生成代数と有限生成加群の違いを強調）
