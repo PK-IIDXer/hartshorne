@@ -147,6 +147,114 @@ $\sqrt{(125)}=(5)$のように、単に平方根をとっているのではな�
 \end{definition}
 ので、「自然な準同型$\varphi:A\to A/\mathfrak{a}$による$\sqrt{\mathfrak{a}}$の像は冪零元根基$\mathfrak{N}_{A/\mathfrak{a}}$」ということです。
 
+\subsection{Hilbertの零点定理}
+
+根基の定義だけ把握していれば、Hilbertの零点定理の主張を理解することはできます。
+\begin{theorem}
+  $k$を代数閉体とし、$A:=k[X_1,\dots,X_n]$を多項式環とする。
+  \begin{description}
+    \item[弱零点定理(Hilbert's Nullstellensatz, weak form)] $A$の極大イデアルは、必ずある$(a_1,\dots,a_n)\in k^n$に対して、$(X_1-a_1,\dots,X_n-a_n)$という形である。
+    \item[強零点定理(Hilbert's Nullstellensatz, strong form)] $\mathfrak{a}$を$A$のイデアル、$Y$を$k^n$の部分集合とするとき、
+    \begin{align*}
+      Z(\mathfrak{a})&:=\{P\in k^n\mid \forall f\in\mathfrak{a}, f(P)=0\}\\
+      I(Y)&:=\{f\in A\mid \forall P\in Y, f(P)=0\}
+    \end{align*}
+    とする。このとき$I(Y)$は$A$のイデアルとなり、任意のイデアル$\mathfrak{a}\subset A$に対して$I(Z(\mathfrak{a}))=\sqrt{\mathfrak{a}}$となる。
+  \end{description}
+\end{theorem}
+
+
+
+\section{Hilbertの零点定理の証明}
+
+\begin{theorem}[Artin-Tateの補題]
+  $A\subset B\subset C$を環の列であり、以下を満たすとする。
+  \begin{enumerate}
+    \item $A$はNoether環
+    \item $C$は有限生成$A$代数
+    \item $C$は有限生成$B$代数
+  \end{enumerate}
+  このとき、$B$は有限生成$A$代数である。
+\end{theorem}
+\begin{proof}
+  TODO: AM prop7.8
+\end{proof}
+
+\begin{theorem}[Zariskiの補題]
+  $k$を体、体$E$は有限生成$k$代数であるとする。
+  このとき、$E$は$k$の有限次代数拡大である。
+\end{theorem}
+\begin{proof}
+  $E$の生成元を$x_1,\dots,x_n\in E$として、背理法で証明する。
+  もし$E$が$k$上代数的でないとすると、ある$r>0$が存在して、
+  \begin{enumerate}
+    \item $x_1,\dots,x_r$は$k$上一次独立
+    \item $x_{r+1},\dots,x_n$は$F:=k(x_1,\dots,x_r)$上代数的
+  \end{enumerate}
+  となるように$x_i$の添え字を入れ替えることができる。
+  体拡大$E/F$で考えると、これは有限次代数拡大になるから、$E$は$F$加群として有限生成である\footnote{
+    TODO わからん。有限次「代数」拡大でなくても、有限次拡大というだけで有限$F$加群な気がする。
+  }。
+  体(環)の拡大列
+  \[
+    k\subset F\subset E
+  \]
+  に対して、$k$は体ゆえにNoether環かつ、$E$は有限生成$k$代数であり、また$E/F$も有限生成$F$加群であるから、$F$も有限生成$k$代数である\footnote{
+    TODO: AM prop7.8の内容。重そう。
+  }。
+  従って$F$は、$F=k[y_1,\dots,y_s]$と表わされる。
+  各$y_j\in F=k(x_1,\dots,x_r)$は
+  \[
+    y_j:=\frac{f_j(x_1,\dots,x_r)}{g_j(x_1,\dots,x_r)}
+  \]
+  と書ける。
+
+  多項式環$k[x_1,\dots,x_r]$には、既約多項式が無限個存在するため\footnote{
+    TODO: 証明する
+  }、$g_1,\dots,g_s$すべてと互いに素な多項式$h\in k[x_1,\dots,x_r]$が存在する。
+  このとき、$1/h\in F$であるが、$h$の取り方からこれは$y_j=f_j/g_j$の多項式で表わすことができない。
+  これは$F=k[y_1,\dots,y_s]$と表わせていたことに矛盾する。
+  よって$E$は$k$上代数的でなければならず、ゆえに$E/k$は有限次代数拡大である。
+\end{proof}
+
+\begin{theorem}[弱零点定理(Hilbert's Nullstellensatz, weak form)]
+  $k$を代数閉体とし、$A:=k[X_1,\dots,X_n]$を多項式環とする。
+  このとき、$A$の極大イデアルは、必ずある$(a_1,\dots,a_n)\in k^n$に対して、$(X_1-a_1,\dots,X_n-a_n)$という形である。
+\end{theorem}
+\begin{proof}
+  $\mathfrak{m}$を$A$の極大イデアルとする。
+  このとき$E:=A/\mathfrak{m}$とおくと、これは体であり、$X_i+\mathfrak{m}$で生成されるから有限生成$k$代数である。
+  従って$E$は$k$の有限次代数拡大である。
+  代数閉体の有限次代数拡大は$k$と同型なものしかないから\footnote{
+    TODO: 証明する。
+  }、
+  \[
+    A/\mathfrak{m}\cong k
+  \]
+  が従う。この同型写像を$\varphi:A/\mathfrak{m}\to k$とおく。
+
+  さらに$a_i:=\varphi(X_i+\mathfrak{m})$とおくとき、
+  \[
+    \mathfrak{m}=(X_1-a_1,\dots,X_n-a_n)
+  \]
+  が従うことを示そう。
+  $\pi:A\to A/\mathfrak{m}$を自然な準同型とし、$F:=\varphi\circ\pi:A\to A/\mathfrak{m}\to k$とおく。
+  このとき$\mathfrak{m}$の任意の元$f$は$F(f)=0$を満たすから$\mathfrak{m}\subset\operatorname{Ker}(F)$である。
+  さらに$\mathfrak{m}$は極大イデアルであるから、結局
+  \[
+    \operatorname{Ker}(F)=\mathfrak{m}
+  \]
+  が成り立つ。
+  また、$a_i$の取り方から$F(X_i)=a_i$すなわち$F(X_i-a_i)=0$であるから
+  \[
+    (X_1-a_1,\dots,X_n-a_n)\subset\operatorname{Ker}(F)=\mathfrak{m}
+  \]
+  である。
+  $(X_1-a_1,\dots,X_n-a_n)$は明らかに極大イデアルであるから、従って$\mathfrak{m}=(X_1-a_1,\dots,X_n-a_n)$
+\end{proof}
+
+\begin{comment}
+
 
 
 \section{分数環}
@@ -461,10 +569,152 @@ $f$は連続関数なので、$P$の十分小さな近傍$U$で常に0になり�
   \end{itemize}
 \end{proof}
 
-\begin{comment}
-\section{有限生成$A$-代数}
 
-（環準同型による代数の定義。有限生成代数と有限生成加群の違いを強調）
+
+\section{$A$代数}
+
+体に対するベクトル空間のように、環に対する以下の概念を考えることができます。
+\begin{definition}[加群]
+  $A$を環、$M$を加法群とする。
+  $M$が\textbf{$A$加群}(\textit{$A$-module})であるとは、スカラー倍と呼ばれる演算$A\times M\to M$が定義されていて、以下を満たす時を言う。
+  任意の$a,b\in A$および$x,y\in M$に対して、
+  \begin{itemize}
+    \item (結合法則) $a(bx)=(ab)x$
+    \item (分配法則)
+    \begin{itemize}
+      \item $(a+b)x=ax+bx$
+      \item $a(x+y)=ax+ay$
+    \end{itemize}
+    \item (1倍) $1\cdot x=x$
+  \end{itemize}
+\end{definition}
+
+\begin{example}
+  $\mathbb{Z}^n$は、演算
+  \begin{itemize}
+    \item $(x_1,\dots,x_n)+(y_1,\dots,y_n)=(x_1+y_1,\dots,x_n+y_n)$
+    \item $a(x_1,\dots,x_n)=(ax_1,\dots,ax_n)$
+  \end{itemize}
+  によって$\mathbb{Z}$加群である。
+  一般に、環$A$に対して$A^n$は$A$加群である。
+\end{example}
+また、加群を軸にみたとき、整数環$\mathbb{Z}$はかなり特別な存在です。
+\begin{example}
+  任意の加法群$M$ (単位元は$1_M$とする)は、以下の演算で自然に$\mathbb{Z}$加群である。
+  \[
+    n\cdot x:=\begin{cases}
+      (\underbrace{1_M+\cdots+1_M}_{n\text{個}})\cdot x & n>0 \\
+      0 & n=0 \\
+      -(\underbrace{1_M+\cdots+1_M}_{|n|\text{個}})\cdot x & n<0
+    \end{cases}
+  \]
+\end{example}
+
+体$K$上のベクトル空間は、$K$を環とみた$K$加群と言い直すこともできます。
+またベクトル空間のように、$A^n$は、次のような基底をもつと言えます。
+\[
+  e_1=(1,0,\dots,0),\dots,e_n=(0,\dots,0,1)
+\]
+
+一方でベクトル空間と違う点は、例えば次のような加群があることです。
+\begin{example}
+  整数$n$に対して、$\mathbb{Z}/n\mathbb{Z}$は$\mathbb{Z}$加群である。
+  一般に$r\geq0$、$m\geq0$、$n_1,\dots,n_m>1$を整数とするとき、
+  \[
+    M=\mathbb{Z}^r\times\mathbb{Z}/n_1\mathbb{Z}\times\cdots\times\mathbb{Z}/n_m\mathbb{Z}
+  \]
+  は$\mathbb{Z}$加群である。
+\end{example}
+この例の何がベクトル空間と違うかというと、体$K$上のベクトル空間$V$の場合、$x\in V\setminus\{0\}$なら
+\[
+  ax=0 \iff a=0
+\]
+は正しいのですが、上記の加群の例ではそうとは限りません。
+いずれにしても、上記の例はどれも以下のような性質をもっています。
+\begin{definition}
+  $M$を環$A$の加群とする。
+  $M$が\textbf{有限生成$A$加群}であるとは、$M$の有限個の元$e_1,\dots,e_n$が存在して、任意の$x\in M$に対して、ある$a_1,\dots,a_n\in A$が存在して、
+  \[
+    x=\sum_{i=1}^na_ie_i
+  \]
+  を満たす時を言う。
+\end{definition}
+
+\subsection{加群の準同型}
+
+ふたつの$A$加群が似ているかどうかを、今まで通り加法群とみた準同型で比べるのは良さそうです。
+しかし、準同型には$A$加群であるという情報をのせたいところ。
+この場合、次のような準同型を考えるのが良いでしょう。
+\begin{definition}
+  $A$を環、$M,N$を$A$加群とする。
+  群準同型$f:M\to N$が\textbf{$A$加群の射}であるとは、以下を満たす時を言う。
+  \[
+    f(ax+by)=af(x)+bf(y), \forall a,b\in A,\;\forall x,y\in M
+  \]
+  \textbf{$A$加群の同型射}(誤解がなければ単に同型という)とは、群準同型として同型な$A$加群の射をいう。
+  $A$加群$M$と$N$の間に$A$加群の同型射があるとき、$M$と$N$は互いに\textbf{$A$加群として同型である}という(誤解がなければ単に同型であるという)。
+\end{definition}
+ベクトル空間の線形写像は、$K$代数の射と言い直すことができます。
+
+\begin{example}
+  有限生成$\mathbb{Z}$加群$M$は
+\end{example}
+
+\subsection{$A$代数}
+
+加群というもの自体、加法群を環というレンズを通して調べる方法であって、加群を導入した時点で環論が一段上のレベルに上がるものと思います。
+例えば、環自体も和によって加法群なので、環を加群とみなすことができます。
+一般に、環準同型$f:A\to B$があるとき、環$B$に以下のような$A$加群の構造を見出すことができます。
+\begin{theorem}
+  $A,B$を環、$f:A\to B$を環準同型とする。
+  このとき、スカラー倍$A\times B\to B$を
+  \[
+    a\cdot x:=f(a)x
+  \]
+  で定義すると、$B$は$A$加群である。
+\end{theorem}
+\begin{proof}
+  $a,b\in A$、$x,y\in B$に対して、
+  \begin{itemize}
+    \item (結合法則) $a(bx)=a(f(b)x)=f(a)f(b)x=f(ab)x=(ab)x$
+    \item (分配法則)
+    \begin{itemize}
+      \item $(a+b)x=f(a+b)x=(f(a)+f(b))x=f(a)x+f(b)x=ax+bx$
+      \item $a(x+y)=f(a)(x+y)=f(a)x+f(a)y=ax+ay$
+    \end{itemize}
+    \item (1倍) $1\cdot x=f(1)x=1\cdot x=x$
+  \end{itemize}
+\end{proof}
+
+このように、環準同型$f:A\to B$があるときはいつでも、$B$を$A$加群と思うことができます。
+さらに$B$にはベクトル空間的な構造のほかに、環由来の掛け算も備えているので、特別に以下のような名前がついています。
+\begin{definition}
+  $A,B$を環、$f:A\to B$を環準同型とするとき、$A$加群$B$を\textbf{$A$代数}(\textit{$A$-Algebra})という。
+\end{definition}
+特に環準同型が単射のとき、自然に$A\subset B$と思うことができます。
+これはちょうど
+\begin{example}
+  $\mathbb{Z}\subset\mathbb{Q}\subset\mathbb{R}\subset\mathbb{C}$
+\end{example}
+などの単純な状況です。
+代数幾何学でより重要なのは以下でしょう。
+\begin{example}
+  $A$を環とするとき、多項式環$A[X_1,\dots,X_n]$は$A$代数である。
+\end{example}
+
+また、$A$代数$B$に対して、$B$加群$M$があるとき、次のように$M$は$A$加群になります。
+\begin{theorem}
+  $A,B$を環、$M$を$B$加群、$f:A\to B$を環準同型とする。
+  このとき、$M$は次の演算により$A$加群である。
+  \[
+    a\cdot x=f(a)x,\quad\forall a\in A,\;\forall x\in B
+  \]
+\end{theorem}
+\begin{proof}
+  さすがに自明。
+\end{proof}
+
+
 
 \section{ヒルベルトの零点定理}
 
