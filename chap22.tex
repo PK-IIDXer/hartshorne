@@ -439,7 +439,77 @@ $A$加群が有限生成という定義は行いましたので、同様に$A$�
 
 
 
+\section{ベーシックな道具の準備}
+
+弱零点定理の証明のために、基礎的な道具を準備していきましょう。
+\begin{theorem}
+  Noether環からの準同型像はまたNoether環である。
+\end{theorem}
+\begin{proof}
+  $A$をNoether環、$B$を環、$f:A\to B$を準同型とする。
+  $f$が全射のときに$B$もNoether環であることを示せばよい。
+  \[
+    \mathfrak{a}_1\subset\mathfrak{a}_2\subset\cdots
+  \]
+  写像の逆像は包含関係を保つので、$f^{-1}(\mathfrak{a}_{n-1})\subset f^{-1}(\mathfrak{a}_n)$が成り立つ。
+  よって$A$のイデアルの昇鎖
+  \[
+    f^{-1}(\mathfrak{a}_1)\subset f^{-1}(\mathfrak{a}_2)\subset\cdots
+  \]
+  が得られる。
+  $A$はNoetherだったから、ある自然数$N$が存在して
+  \[
+    f^{-1}(\mathfrak{a}_N)=f^{-1}(\mathfrak{a}_{N+1})=\cdots
+  \]
+  $f$は全射なので、$f(f^{-1}(\mathfrak{a}_i))=\mathfrak{a}_i$であるから、もとの$B$のイデアル昇鎖も停留することがわかる。
+  ゆえに$B$もNoether環である。
+\end{proof}
+
+
+
 \section{Hilbertの弱零点定理の証明}
+
+\begin{definition}
+  $A$を環、$M$を$A$加群とする。$M$が\textbf{Noether $A$加群}であるとは、次を満たす時を言う。
+  任意の部分加群の昇鎖
+  \[
+    M_1\subset M_2\subset \cdots
+  \]
+  は停留する。
+\end{definition}
+
+\begin{lemma}
+  $A$を環、$M$を$A$加群とする。
+  $M$がNoetherであることと、次の条件は同値。
+  $M$の空でない任意の部分集合族$\Sigma$は、包含関係に関する極大元をもつ。
+\end{lemma}
+\begin{proof}
+  ($\Rightarrow$) : もし極大元の存在しない$\Sigma$が存在すれば、これによって帰納的に狭義の昇鎖がつくれてしまい、$M$がNoetherではなくなってしまう。
+  ゆえに$\Sigma$は極大元を持たねばならない。
+
+  ($\Leftarrow$) : $M_1\subset M_2\subset \cdots$を任意の昇鎖とすると、$\Sigma:=\{M_i\}$は仮定より極大元をもつ。
+  従って最初の部分加群の昇鎖は停留する。
+\end{proof}
+
+\begin{lemma}
+  % AM 6.2
+  $A$を環とする。このとき、$M$をNoether $A$加群 $\iff$ $M$のすべての部分加群は有限生成
+\end{lemma}
+\begin{proof}
+  ($\Rightarrow$) : $N$を$M$の任意の部分加群とし、$\Sigma$を$M$のすべての有限生成部分加群の集合とする。
+  このとき、$0\in\Sigma$より$\Sigma\neq\varnothing$。
+  ゆえに$\Sigma$は包含関係による大小関係によって極大元$N_0$をもつ ($\because\; M$はNoether)。
+  もし$N_0\neq N$の場合、$x\in N\setminus N_0$を取得して、有限生成$A$加群$xA+N_0$を作ることができる。
+  これは$N_0\subsetneq xA+N_0$であるため矛盾である。
+  ゆえに$N=N_0$であり、従って有限生成である。
+
+  ($\Leftarrow$) : $M_1\subset M_2\subset \cdots$を$M$の部分加群の昇鎖とする。
+  このとき、$N=\bigcup_{n=1}^\infty M_n$は$M$の部分加群だから、有限生成である。
+  $x_1,\dots,x_r$をその生成元とする。
+  $x_i\in M_{n_i}$とし、$n:=\max\{n_i\mid i=1,\dots,r\}$とおく。
+  すると$x_1,\dots,x_r\in M_n$であるから、$M_n=N$となる。
+  従ってこの昇鎖は停留的である。
+\end{proof}
 
 \begin{theorem}[Hilbertの基底定理の系]
   Noether環上の有限生成代数はまたNoether環である。
@@ -447,9 +517,21 @@ $A$加群が有限生成という定義は行いましたので、同様に$A$�
 \begin{proof}
   Hilbertの基底定理より、Noether環上の多項式環はまたNoether環であった。
   有限生成代数は多項式環からの準同型像である。
-  またNoether環からの準同型像はまたNoether環である\footnote{
-    TODO: 証明する
-  }から、題意が従う。
+  またNoether環からの準同型像はまたNoether環であるから、題意が従う。
+\end{proof}
+
+\begin{theorem}
+  $A$をNoether環、$M$を有限生成$A$加群とする。
+  このとき、$M$はNoether $A$加群である。
+\end{theorem}
+\begin{proof}
+  $M$は有限生成だから、ある全射$f:A^n\to M$が存在する。
+  $A$はNoetherゆえ、$A^n$はNoether $A$加群である。
+  従って完全列
+  \[
+    0\to \operatorname{Ker}(f)\to A^n\to M\to 0
+  \]
+  が構成され、$A^n$がNoetherであることから、$M$がNoetherであることも従う。
 \end{proof}
 
 \begin{theorem}[Artin-Tateの補題]
@@ -497,9 +579,7 @@ $A$加群が有限生成という定義は行いましたので、同様に$A$�
   $B_0$はNoether環であったから、有限生成$B_0$加群$C$はNoether加群である\footnote{
     TODO: AM Prop6.5
   }。
-  従ってその部分加群$B\subset C$は有限生成$B_0$加群である\footnote{
-    TODO: AM Prop6.2
-  }。
+  従ってその部分加群$B\subset C$は有限生成$B_0$加群である。
   従って環$B$は$B_0$代数としても有限生成である。
   ところが$B_0$は有限生成$A$代数であるから、推移律より$B$は有限生成$A$代数となる。
 \end{proof}
