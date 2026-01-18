@@ -1,24 +1,20 @@
 {
   "main": {
-    "id": "edc048a841d0bea1",
+    "id": "fa1b9af9208f18ad",
     "type": "split",
     "children": [
       {
-        "id": "e96c478ae78c3891",
+        "id": "c31a972e02bf0b50",
         "type": "tabs",
         "children": [
           {
-            "id": "51901b11bcfc4245",
+            "id": "38300e391f9d7ce8",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "無題のファイル.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "無題のファイル"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "グラフビュー"
             }
           }
         ]
@@ -27,15 +23,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "27a809bf44b145d7",
+    "id": "668b422ea3bb9f2f",
     "type": "split",
     "children": [
       {
-        "id": "5a92b00d58933969",
+        "id": "08903eeb156bc48e",
         "type": "tabs",
         "children": [
           {
-            "id": "bd12a6d7d023ccba",
+            "id": "78c917a9e6261391",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -48,12 +44,12 @@
             }
           },
           {
-            "id": "4a4c6b5b023d952f",
+            "id": "ccae9848446cb67d",
             "type": "leaf",
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#TODO",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -65,7 +61,7 @@
             }
           },
           {
-            "id": "452e2df8c24ed67d",
+            "id": "649c027a996fceea",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -81,20 +77,19 @@
     "width": 300
   },
   "right": {
-    "id": "52e64f8c888bbb8c",
+    "id": "8616afddbca504d8",
     "type": "split",
     "children": [
       {
-        "id": "849d755a33e8b5ff",
+        "id": "0bdb5ea5b7cc6f6f",
         "type": "tabs",
         "children": [
           {
-            "id": "d003f3465bb84bc0",
+            "id": "2f1e46f097676ecf",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "無題のファイル.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,25 +99,24 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "無題のファイルへのバックリンク"
+              "title": "バックリンク"
             }
           },
           {
-            "id": "4061999e7c1c9309",
+            "id": "7d88654abcf46dc4",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "無題のファイル.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "無題のファイルからのアウトゴーイングリンク"
+              "title": "アウトゴーイングリンク"
             }
           },
           {
-            "id": "a54583dd37c5ec3d",
+            "id": "1504c73c6ebf6995",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -137,7 +131,7 @@
             }
           },
           {
-            "id": "0ee0f9b5ad1cac99",
+            "id": "39ad5d056ed55b52",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -151,26 +145,35 @@
             }
           },
           {
-            "id": "3e91fe6af23a790f",
+            "id": "e613ef3d82aafb27",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "無題のファイル.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "無題のファイルのアウトライン"
+              "title": "アウトライン"
+            }
+          },
+          {
+            "id": "d7cfdcd2e47c87c3",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
             }
           }
-        ]
+        ],
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -180,12 +183,49 @@
       "daily-notes:今日のデイリーノートを開く": false,
       "templates:テンプレートを挿入": false,
       "command-palette:コマンドパレットを開く": false,
-      "bases:Create new base": false
+      "bases:Create new base": false,
+      "obsidian-git:Open Git source control": false
     }
   },
-  "active": "51901b11bcfc4245",
+  "active": "38300e391f9d7ce8",
   "lastOpenFiles": [
-    "無題のファイル.md",
-    "Welcome.md"
+    "memo.md",
+    "情報幾何学/パラメトリックモデル.md",
+    "帰納極限.md",
+    "情報幾何学/代数的統計モデル.md",
+    "情報幾何学/特異点部分スキーム.md",
+    "情報幾何学/α接続.md",
+    "無題のファイル 1.canvas",
+    "情報幾何学/十分統計量.md",
+    "情報幾何学/統計多様体.md",
+    "無題のファイル.canvas",
+    "情報幾何学/コホモロジー.md",
+    "情報幾何学/パラメトリックモデルの射.md",
+    "情報幾何学/パラメトリックモデルから統計多様体への関手.md",
+    "微分/相対微分の層.md",
+    "層/部分層.md",
+    "層/層化.md",
+    "層/層の全射.md",
+    "層/層の制限.md",
+    "層/層の射の像.md",
+    "層/層の順像.md",
+    "層/層の射.md",
+    "層/層の逆像.md",
+    "層/層.md",
+    "層/前層.md",
+    "層/前層の射.md",
+    "層/商層.md",
+    "層/stalk.md",
+    "層/加群の層/層のテンソル積.md",
+    "層/加群の層",
+    "微分",
+    "スキーム/有限性",
+    "スキーム/分離性",
+    "代数幾何/スキーム/射",
+    "スキーム",
+    "層",
+    "代数幾何",
+    "mirror_symmetry",
+    "情報幾何学"
   ]
 }

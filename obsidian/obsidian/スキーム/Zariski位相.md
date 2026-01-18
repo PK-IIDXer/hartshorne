@@ -1,0 +1,2 @@
+# 定義
+$A$を環、$\operatorname{Spec}A$を$A$の素イデアル全体からなる集合とする。任意のイデアル$\mathfrak{a}\subset A$に対して$$V(\mathfrak{a}):=\{\mathfrak{p}\in\operatorname{Spec}A\mid \mathfrak{a}\subset\mathfrak{p}\}$$とおく。このとき、$$\{V(\mathfrak{a})\subset\operatorname{Spec}A\mid\text{$\mathfrak{a}$は$A$のイデアル}\}$$は、$\operatorname{Spec}A$の閉集合の公理系を満たす。これをZariski位相という。
