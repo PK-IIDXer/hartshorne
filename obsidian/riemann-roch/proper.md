@@ -1,1 +1,0 @@
-[obsidian://open?vault=obsidian&file=%E3%82%B9%E3%82%AD%E3%83%BC%E3%83%A0%2F%E5%9B%BA%E6%9C%89%E6%80%A7%2F%E5%9B%BA%E6%9C%89%E5%B0%84](aa)
